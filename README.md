@@ -27,17 +27,25 @@ MVP сайта-витрины для подбора и расчета биокл
 
 ## Development
 
-`ash
+```bash
 npm install
 npm run dev
-`
+```
 
 ## Production build
 
-`ash
+```bash
 npm run build
 npm run start
-`
+```
+
+## Docker
+
+```bash
+docker compose up --build -d
+```
+
+Приложение будет доступно на `http://localhost:3000`.
 
 ## Test domain
 
@@ -46,25 +54,25 @@ tc.rdk-invest.ru
 
 ## Nginx example
 
-`
-ginx
+```nginx
 server {
     listen 80;
-    server_name rtc.rdk-invest.ru;
+    server_name tc.rdk-invest.ru;
 
     location / {
         proxy_pass http://127.0.0.1:3000;
         proxy_http_version 1.1;
 
-        proxy_set_header Host System.Management.Automation.Internal.Host.InternalHost;
-        proxy_set_header X-Real-IP ;
-        proxy_set_header X-Forwarded-For ;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
 
-        proxy_set_header Upgrade ;
+        proxy_set_header Upgrade $http_upgrade;
         proxy_set_header Connection "upgrade";
     }
 }
-`
+```
 
 ## Data notes
 

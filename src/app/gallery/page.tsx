@@ -1,3 +1,4 @@
+import Image from "next/image";
 import type { Metadata } from "next";
 import { Section } from "@/components/Section";
 
@@ -10,5 +11,5 @@ const items = [
   ["Подсветка", "https://www.uogele.com/uploads/44532/products/p20250918185541e5674.jpg"],
 ];
 export default function GalleryPage() {
-  return <Section eyebrow="Галерея" title="Материалы UOGEL" description="Первичная галерея собрана по изображениям из продуктового каталога."><div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">{items.map(([title, image]) => <figure key={title} className="overflow-hidden rounded-3xl bg-white shadow-sm"><img src={image} alt={title} className="h-80 w-full object-cover" /><figcaption className="p-5 text-lg font-semibold text-stone-950">{title}</figcaption></figure>)}</div></Section>;
+  return <Section eyebrow="Галерея" title="Материалы UOGEL" description="Первичная галерея собрана по изображениям из продуктового каталога."><div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">{items.map(([title, image]) => <figure key={title} className="overflow-hidden rounded-3xl bg-white shadow-sm"><div className="relative h-80 w-full"><Image src={image} alt={title} fill sizes="(min-width: 1024px) 33vw, (min-width: 768px) 50vw, 100vw" className="object-cover" /></div><figcaption className="p-5 text-lg font-semibold text-stone-950">{title}</figcaption></figure>)}</div></Section>;
 }
