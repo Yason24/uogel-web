@@ -154,12 +154,18 @@ http://81.85.49.193/
 - VPS host: `uzbek-vps`
 - Site path on VPS: `/opt/uogel`
 - Container: `uogel-web`
-- Port 80 is published by Docker to container port 3000.
+- Port 80 is published by Docker through `docker-proxy` to container port 3000.
 - Port 443 is reserved by `sing-box` / VLESS. Do not use it for the site preview.
-- WireGuard `wg0` is disabled; `wg-quick@wg0` is disabled and inactive.
+- WireGuard has been removed; `wg0` is absent and port 51820 is no longer used.
+- Package `wireguard-tools` was removed.
+- WireGuard and nftables backup: `/root/backup-wireguard-uogel-20260522_142145`.
 - `nftables` is enabled and has `forward` policy `drop`, so Docker bridge traffic for the preview requires explicit allow rules in `/etc/nftables.conf`.
+- WireGuard rules were removed from `/etc/nftables.conf`: `udp dport 51820 accept`, forward rules with `wg0`, NAT masquerade for `10.66.66.0/24`, and the empty `table ip nat`.
 - Current UOGEL Docker bridge: `br-9c2900334a5f`; current container IP: `172.18.0.2`.
-- If the Docker network is recreated or the container IP changes, update the UOGEL allow rules in `/etc/nftables.conf` and reload `nftables`.
+- UOGEL Docker forward rules that must remain:
+  - `iifname "enp0s5" oifname "br-9c2900334a5f" ip daddr 172.18.0.2 tcp dport 3000 accept`
+  - `iifname "br-9c2900334a5f" oifname "enp0s5" ip saddr 172.18.0.2 tcp sport 3000 ct state established,related accept`
+- If the Docker network is recreated or the container IP changes, update the UOGEL allow rules in `/etc/nftables.conf`, run `nft -c -f /etc/nftables.conf`, and then run `systemctl reload nftables`.
 
 Do not touch VPS runtime, Docker, `nftables`, `sing-box`, VLESS, WireGuard, domain, or HTTPS unless the task explicitly requires it.
 
