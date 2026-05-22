@@ -216,7 +216,7 @@ After the no-cache rebuild, the NAS served the UOGEL page instead of the default
 
 ## 12. Chat roles and project prompts
 
-Project chat roles are documented in `docs/chat-prompts.md`.
+Project chat roles and full startup prompts are documented in `docs/chat-prompts.md`.
 
 Known chats:
 
@@ -235,7 +235,7 @@ Known chats:
 - `40 Документы`
 - `41 База знаний`
 
-The original `_index.md` source was expected to contain the full prompts for these chats. If it is added later, update `docs/chat-prompts.md` from that file without changing role meaning.
+The local `_index.md` source was not present in the project folder during the 2026-05-22 documentation update. The prompts were restored from the Google Drive document `UOGEL RUSSIA — Промпты для чатов (.md)` and formatted in `docs/chat-prompts.md`.
 
 ## 13. What to read before starting
 

@@ -61,7 +61,7 @@ Do not claim official representative status without a confirmed dealer agreement
 
 - `AGENTS.md`: main operating guide for agents.
 - `PROJECT_NOTES.md`: human technical note for Artem and new participants.
-- `docs/chat-prompts.md`: clean chat-role document prepared from the available role list; full prompt import is pending because `_index.md` is not present in the project.
+- `docs/chat-prompts.md`: clean chat-role document with full startup prompts restored from the Google Drive source document.
 
 ## AGENTS.md
 
@@ -114,7 +114,7 @@ Known project chats:
 - `40 Документы`
 - `41 База знаний`
 
-The source `_index.md` with full prompts is currently missing from `/projects/web/uogel`. After it is added, update `docs/chat-prompts.md` from the source and keep the safer official-representative wording:
+The local source `_index.md` was missing from `/projects/web/uogel` during the 2026-05-22 documentation update, so `docs/chat-prompts.md` was restored from the Google Drive document `UOGEL RUSSIA — Промпты для чатов (.md)`. Keep the safer official-representative wording:
 
 > the site should look reliable and professional, but without false claims of official representative status if there is no dealer agreement.
 
