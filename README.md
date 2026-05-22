@@ -47,20 +47,36 @@ docker compose up --build -d
 
 Приложение будет доступно на `http://localhost:3000`.
 
-## Development and NAS production workflow
+## Development and NAS preview workflow
 
-Основная разработка ведется только в `/projects/web/uogel`. Перед началом работы проверьте:
+Основная разработка ведется только в `/projects/web/uogel`. Перед началом работы:
 
 ```bash
+source ~/.config/proxy-env.sh
 cd /projects/web/uogel
 pwd
 git status
 git rev-parse HEAD
 ```
 
-Production/preview запускается на NAS через Docker из `/volume1/Web/uogel`; контейнер `uogel-web`, порт `3000`, проверочный URL `http://192.168.50.181:3000/`.
+Проверки перед commit:
 
-После изменений в Ubuntu Dev выполняются `npm run lint`, `npm run build`, commit и push. После push production обновляется на NAS через `ssh root-asustor`, `git pull --ff-only`, `docker compose down`, `docker compose build --no-cache`, `docker compose up -d`.
+```bash
+npm run lint
+npm run build
+```
+
+NAS preview запускается через Docker из `/volume1/Web/uogel`; контейнер `uogel-web`, проверочный URL `http://192.168.50.181:3000/`.
+
+Пересборка preview на NAS после push, если изменения должны быть видны в браузере:
+
+```bash
+ssh root-asustor
+cd /volume1/Web/uogel
+docker compose down
+docker compose build --no-cache
+docker compose up -d
+```
 
 Полная схема путей, ограничения и команды проверки зафиксированы в `PROJECT_NOTES.md`. Перед работой с проектом Codex должен читать `AGENTS.md`, `PROJECT_NOTES.md` и этот `README.md`.
 
