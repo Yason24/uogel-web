@@ -143,7 +143,27 @@ Success criteria:
 
 Do not touch NAS preview unless the task explicitly requires it.
 
-## 8. Proxy / network setup
+## 8. VPS HTTP preview notes
+
+The VPS preview is available at:
+
+```bash
+http://81.85.49.193/
+```
+
+- VPS host: `uzbek-vps`
+- Site path on VPS: `/opt/uogel`
+- Container: `uogel-web`
+- Port 80 is published by Docker to container port 3000.
+- Port 443 is reserved by `sing-box` / VLESS. Do not use it for the site preview.
+- WireGuard `wg0` is disabled; `wg-quick@wg0` is disabled and inactive.
+- `nftables` is enabled and has `forward` policy `drop`, so Docker bridge traffic for the preview requires explicit allow rules in `/etc/nftables.conf`.
+- Current UOGEL Docker bridge: `br-9c2900334a5f`; current container IP: `172.18.0.2`.
+- If the Docker network is recreated or the container IP changes, update the UOGEL allow rules in `/etc/nftables.conf` and reload `nftables`.
+
+Do not touch VPS runtime, Docker, `nftables`, `sing-box`, VLESS, WireGuard, domain, or HTTPS unless the task explicitly requires it.
+
+## 9. Proxy / network setup
 
 Ubuntu Dev uses the local Docker proxy:
 
@@ -168,7 +188,7 @@ curl -I https://download.jetbrains.com
 
 Do not use the Raspberry proxy. Do not use the Windows proxy. Do not change `sing-box-dev-proxy` without separate permission.
 
-## 9. Safety rules
+## 10. Safety rules
 
 - Do not touch the VPS.
 - Do not touch NAS Web Server, Apache, or Nginx Proxy Manager.
@@ -187,7 +207,7 @@ Do not use the Raspberry proxy. Do not use the Windows proxy. Do not change `sin
 - Do not change NAS system services.
 - Do not touch VLESS, sing-box, WireGuard, or VPN.
 
-## 10. Validation checklist
+## 11. Validation checklist
 
 Before final handoff:
 
@@ -198,7 +218,7 @@ Before final handoff:
 - Documentation-only tasks do not change site code, Docker, NAS preview, or proxy config.
 - If NAS preview was rebuilt, the success criteria in section 7 are satisfied.
 
-## 11. Known resolved issues
+## 12. Known resolved issues
 
 The NAS previously served the default Next.js page although the project code was correct. The container had been built from an old image.
 
@@ -214,7 +234,7 @@ docker compose up -d
 
 After the no-cache rebuild, the NAS served the UOGEL page instead of the default Next.js starter page.
 
-## 12. Chat roles and project prompts
+## 13. Chat roles and project prompts
 
 Project chat roles and full startup prompts are documented in `docs/chat-prompts.md`.
 
@@ -237,7 +257,7 @@ Known chats:
 
 The local `_index.md` source was not present in the project folder during the 2026-05-22 documentation update. The prompts were restored from the Google Drive document `UOGEL RUSSIA — Промпты для чатов (.md)` and formatted in `docs/chat-prompts.md`.
 
-## 13. What to read before starting
+## 14. What to read before starting
 
 Read in this order:
 

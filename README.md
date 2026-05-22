@@ -68,6 +68,8 @@ npm run build
 
 NAS preview запускается через Docker из `/volume1/Web/uogel`; контейнер `uogel-web`, проверочный URL `http://192.168.50.181:3000/`.
 
+VPS preview: `http://81.85.49.193/`.
+
 Пересборка preview на NAS после push, если изменения должны быть видны в браузере:
 
 ```bash

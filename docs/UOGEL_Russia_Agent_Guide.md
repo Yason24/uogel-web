@@ -39,6 +39,8 @@ docker compose up -d
 
 Preview URL: `http://192.168.50.181:3000/`.
 
+VPS preview URL: `http://81.85.49.193/`.
+
 ## Business rule
 
 The website sells only pergolas in available sizes.
@@ -92,6 +94,21 @@ See the project file `PROJECT_NOTES.md` for the human technical note. It covers:
 - resolved default Next.js page issue;
 - short workflow after changes;
 - safety notes.
+
+## VPS preview notes
+
+- VPS host: `uzbek-vps`
+- VPS preview URL: `http://81.85.49.193/`
+- Site path on VPS: `/opt/uogel`
+- Container: `uogel-web`
+- Port 80 is published by Docker to container port 3000.
+- Port 443 is reserved by `sing-box` / VLESS. Do not use it for the site preview.
+- WireGuard `wg0` is disabled; `wg-quick@wg0` is disabled and inactive.
+- `nftables` is enabled and has `forward` policy `drop`, so Docker bridge traffic for the preview requires explicit allow rules in `/etc/nftables.conf`.
+- Current UOGEL Docker bridge: `br-9c2900334a5f`; current container IP: `172.18.0.2`.
+- If the Docker network is recreated or the container IP changes, update the UOGEL allow rules in `/etc/nftables.conf` and reload `nftables`.
+
+Do not touch VPS runtime, Docker, `nftables`, `sing-box`, VLESS, WireGuard, domain, or HTTPS unless the task explicitly requires it.
 
 ## docs/chat-prompts.md
 
