@@ -5,14 +5,26 @@ import { availablePergolas } from "@/data/pergolas";
 
 export const metadata: Metadata = {
   title: "Каталог пергол UOGEL в России",
-  description: "Доступные модели биоклиматических пергол UOGEL: 3 x 3 м, 3 x 4 м, 4 x 4 м, 4 x 6 м. Расчет по выбранной модели и комплектации.",
+  description:
+    "Доступные модели биоклиматических пергол UOGEL: 3×3, 3×4, 4×4, 4×6 м. Ламельная крыша, LED, ZIP-шторы и автоматика. Расчет по выбранной модели и комплектации.",
+  openGraph: {
+    title: "Каталог пергол UOGEL",
+    description:
+      "Доступные размеры биоклиматических пергол UOGEL для расчета поставки в Россию.",
+  },
 };
 
 export default function PergolasPage() {
   return (
-    <Section eyebrow="Каталог" title="Доступные модели пергол" description="Показываем только модели, доступные для расчета. Цена формируется по выбранной модели, комплектации и условиям поставки.">
+    <Section
+      eyebrow="Каталог"
+      title="Доступные модели пергол"
+      description="Показываем только модели, которые доступны для расчета. Поможем выбрать подходящий размер из каталога — цена формируется по модели, комплектации и условиям поставки."
+    >
       <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-4">
-        {availablePergolas.map((pergola) => <PergolaCard key={pergola.id} pergola={pergola} />)}
+        {availablePergolas.map((pergola) => (
+          <PergolaCard key={pergola.id} pergola={pergola} />
+        ))}
       </div>
     </Section>
   );

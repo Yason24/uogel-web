@@ -3,13 +3,39 @@ import { Footer } from "@/components/Footer";
 import { Header } from "@/components/Header";
 import "./globals.css";
 
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://uogel-russia.ru";
+
 export const metadata: Metadata = {
   title: {
     default: "UOGEL Russia — биоклиматические перголы",
     template: "%s | UOGEL Russia",
   },
   description:
-    "Подбор и расчет биоклиматических пергол UOGEL доступных размеров с поставкой в Россию.",
+    "Подбор и расчет биоклиматических пергол UOGEL доступных размеров с поставкой в Россию. Модели 3×3, 3×4, 4×4, 4×6 м с ламельной крышей, LED и ZIP-шторами.",
+  metadataBase: new URL(siteUrl),
+  openGraph: {
+    type: "website",
+    locale: "ru_RU",
+    siteName: "UOGEL Russia",
+    title: "UOGEL Russia — биоклиматические перголы",
+    description:
+      "Подбор и расчет биоклиматических пергол UOGEL. Доступные размеры, ламельные крыши, поставка в Россию.",
+    images: [
+      {
+        url: "/images/hero/hero-main.webp",
+        width: 1200,
+        height: 630,
+        alt: "Биоклиматическая пергола UOGEL",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "UOGEL Russia — биоклиматические перголы",
+    description:
+      "Подбор и расчет биоклиматических пергол UOGEL с поставкой в Россию.",
+    images: ["/images/hero/hero-main.webp"],
+  },
 };
 
 export default function RootLayout({

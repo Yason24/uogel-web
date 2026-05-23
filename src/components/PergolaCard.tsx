@@ -18,9 +18,9 @@ export function PergolaCard({ pergola }: { pergola: Pergola }) {
         />
       </Link>
       <div className="p-6">
-        <div className="flex items-center justify-between gap-3 text-sm text-stone-500">
-          <span>{pergola.type === "wall-mounted" ? "Пристенная" : "Отдельно стоящая"}</span>
-          <span>{pergola.size}</span>
+        <div className="flex items-center justify-between gap-3 text-sm">
+          <span className="text-stone-500">{pergola.type === "wall-mounted" ? "Пристенная" : "Отдельно стоящая"}</span>
+          <span className="rounded-full bg-stone-100 px-3 py-1 text-xs font-semibold text-stone-700">{pergola.size}</span>
         </div>
         <h3 className="mt-3 text-xl font-semibold text-stone-950">
           <Link href={detailHref}>{pergola.title}</Link>
@@ -35,8 +35,8 @@ export function PergolaCard({ pergola }: { pergola: Pergola }) {
         </div>
         <div className="mt-6 flex items-center justify-between gap-4">
           <span className="text-sm font-semibold text-stone-950">Цена по запросу</span>
-          <Link href={calculateHref} className="rounded-full bg-stone-950 px-4 py-2 text-sm font-semibold text-white">
-            Рассчитать
+          <Link href={calculateHref} className="rounded-full bg-stone-950 px-4 py-2 text-sm font-semibold text-white transition hover:bg-stone-800">
+            Рассчитать стоимость
           </Link>
         </div>
       </div>

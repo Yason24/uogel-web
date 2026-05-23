@@ -2,7 +2,42 @@ import type { Metadata } from "next";
 import { LeadForm } from "@/components/LeadForm";
 import { Section } from "@/components/Section";
 
-export const metadata: Metadata = { title: "Контакты UOGEL Russia", description: "Контакты для расчета поставки пергол UOGEL в Россию." };
+export const metadata: Metadata = {
+  title: "Контакты UOGEL Russia",
+  description: "Свяжитесь с нами для расчета поставки перголы UOGEL в Россию. Ответим в течение рабочего дня.",
+  openGraph: {
+    title: "Контакты UOGEL Russia",
+    description: "Форма для расчета и вопросов по поставке пергол UOGEL в Россию.",
+  },
+};
+
 export default function ContactsPage() {
-  return <Section eyebrow="Контакты" title="Связаться по расчету" description="Реквизиты будут добавлены позже. Сейчас форма работает как интерфейсная заготовка без backend."><div className="grid gap-8 lg:grid-cols-2"><div className="rounded-3xl bg-white p-6 shadow-sm"><p className="text-lg font-semibold text-stone-950">Контакты</p><div className="mt-5 grid gap-3 text-stone-600"><span>Телефон: +7 (___) ___-__-__</span><span>Telegram: @uogel_russia</span><span>WhatsApp: +7 (___) ___-__-__</span><span>Email: sales@example.ru</span><span>Реквизиты: позже</span></div></div><LeadForm sourcePage="contacts" /></div></Section>;
+  return (
+    <Section
+      eyebrow="Контакты"
+      title="Связаться по расчету"
+      description="Напишите в удобный мессенджер или оставьте заявку — свяжемся в течение рабочего дня."
+    >
+      <div className="grid gap-8 lg:grid-cols-2">
+        <div className="rounded-3xl bg-white p-8 shadow-sm ring-1 ring-stone-200">
+          <p className="text-lg font-semibold text-stone-950">Контакты</p>
+          <div className="mt-5 grid gap-4 text-stone-600">
+            <div>
+              <p className="text-xs font-semibold uppercase tracking-wider text-stone-400">Telegram</p>
+              <p className="mt-1">@uogel_russia</p>
+            </div>
+            <div>
+              <p className="text-xs font-semibold uppercase tracking-wider text-stone-400">WhatsApp / телефон</p>
+              <p className="mt-1 text-stone-400 italic">будет указан после запуска</p>
+            </div>
+            <div>
+              <p className="text-xs font-semibold uppercase tracking-wider text-stone-400">Email</p>
+              <p className="mt-1 text-stone-400 italic">будет указан после запуска</p>
+            </div>
+          </div>
+        </div>
+        <LeadForm sourcePage="contacts" />
+      </div>
+    </Section>
+  );
 }
