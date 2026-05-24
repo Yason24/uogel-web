@@ -82,7 +82,7 @@ export const pergolas: Pergola[] = [
     baseEquipment: ["Усиленная алюминиевая конструкция", "Ламельная крыша", "Система отвода воды", "Монтажный комплект", "Подготовка под боковые опции"],
     availableOptions: ["LED-подсветка", "ZIP-шторы", "Стеклянные панели", "Пульт и автоматика", "Датчики дождя/ветра", "Цвет профиля", "Алюминиевые shutters"],
     images: [
-      "/images/pergolas/pergola-4x6-louvered-1.webp",
+      "/images/pergolas/pergola-4x6-louvered-1.jpg",
       "/images/pergolas/pergola-4x6-louvered-2.jpg",
     ],
     useCases: ["Ресторан / кафе", "Просторная терраса", "Коммерческий объект", "Отель"],

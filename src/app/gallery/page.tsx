@@ -14,7 +14,7 @@ export const metadata: Metadata = {
 const items: [string, string][] = [
   ["Частные дома", "/images/gallery/gallery-3x3-terrace.jpg"],
   ["Террасы и патио", "/images/gallery/gallery-3x4-patio.jpg"],
-  ["Рестораны и кафе", "/images/gallery/gallery-4x6-restaurant.webp"],
+  ["Рестораны и кафе", "/images/gallery/gallery-4x6-restaurant.jpg"],
   ["Кафе и отели", "/images/gallery/gallery-4x4-cafe.jpg"],
   ["LED-подсветка", "/images/options/option-led.jpg"],
   ["Боковые системы", "/images/options/option-zip-screen.webp"],
