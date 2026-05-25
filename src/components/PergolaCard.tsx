@@ -51,11 +51,10 @@ export function PergolaCard({ product }: { product: Product }) {
             ))}
           </div>
         )}
-        <div className="mt-5 flex items-center justify-between gap-4">
-          <span className="text-sm font-semibold text-stone-950">Цена по запросу</span>
+        <div className="mt-5">
           <Link
             href={calculateHref}
-            className="rounded-full bg-stone-950 px-4 py-2 text-sm font-semibold text-white transition hover:bg-stone-800"
+            className="inline-flex rounded-full bg-stone-950 px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-stone-800"
           >
             Рассчитать
           </Link>

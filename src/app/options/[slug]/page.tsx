@@ -91,7 +91,7 @@ export default async function OptionPage({
               href="/options"
               className="rounded-full border border-stone-600 px-6 py-3 text-sm font-semibold text-white transition hover:border-stone-400"
             >
-              Все опции
+              Смотреть опции
             </Link>
           </div>
         </div>
@@ -105,7 +105,7 @@ export default async function OptionPage({
               Описание
             </p>
             <h2 className="text-2xl font-semibold text-stone-950 sm:text-3xl">
-              Что делает эта опция
+              О системе
             </h2>
             <p className="mt-5 text-lg leading-8 text-stone-600">{option.description}</p>
           </div>

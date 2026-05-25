@@ -66,7 +66,7 @@ export function LeadForm({ sourcePage, selectedPergolaId }: LeadFormProps) {
           onClick={() => setStatus("idle")}
           className="mt-6 rounded-full border border-stone-300 px-5 py-2.5 text-sm font-semibold text-stone-700 transition hover:border-stone-950 hover:text-stone-950"
         >
-          Отправить ещё одну заявку
+          Новая заявка
         </button>
       </div>
     );

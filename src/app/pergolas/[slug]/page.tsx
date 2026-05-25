@@ -87,12 +87,12 @@ export default async function PergolaPage({
               </span>
             </div>
             <p className="mt-6 text-lg leading-8 text-stone-600">{product.description}</p>
-            <a
-              href="#lead"
+            <Link
+              href="/calculate"
               className="mt-8 inline-flex w-fit rounded-full bg-stone-950 px-6 py-3 text-sm font-semibold text-white transition hover:bg-stone-800"
             >
-              Рассчитать эту серию
-            </a>
+              Подобрать систему
+            </Link>
           </div>
         </div>
       </section>

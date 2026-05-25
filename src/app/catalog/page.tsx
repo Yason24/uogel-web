@@ -7,19 +7,19 @@ import { options } from "@/data/options";
 import { formatSystemType, formatDrive, formatOptionCategory } from "@/lib/catalog";
 
 export const metadata: Metadata = {
-  title: "UOGEL Architectural Systems — Catalog · UOGEL Russia",
+  title: "Каталог систем UOGEL · UOGEL Russia",
   description:
-    "Full catalog of UOGEL outdoor architectural systems: 6 pergola series, compatible options and accessories. Project consultation and supply to Russia.",
+    "Каталог алюминиевых outdoor-систем UOGEL: 6 серий пергол, совместимые опции и аксессуары. Конфигурация подбирается под объект — расчёт поставки в Россию.",
   openGraph: {
-    title: "UOGEL Architectural Systems Catalog",
+    title: "Каталог систем UOGEL",
     description:
-      "6 pergola series and 7 option systems from UOGEL 2026 catalog. Configurations for residential, hospitality and commercial projects.",
+      "6 серий пергол и 7 опциональных систем из каталога UOGEL 2026. Конфигурации для жилых, гостиничных и коммерческих объектов.",
     images: [
       {
         url: "/images/og/uogel-og.webp",
         width: 1200,
         height: 630,
-        alt: "UOGEL Architectural Systems Catalog",
+        alt: "Каталог систем UOGEL",
       },
     ],
   },
@@ -185,7 +185,7 @@ export default function CatalogPage() {
 }
 
 function ProductMiniCard({ product }: { product: Product }) {
-  const sizingLabel = product.sizeRange.customizable ? "Индивидуальные размеры" : "Стандартные конфигурации";
+  const sizingLabel = product.sizeRange.customizable ? "Конфигурация под проект" : "Стандартные конфигурации";
 
   return (
     <Link

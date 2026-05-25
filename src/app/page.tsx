@@ -58,7 +58,7 @@ export default function Home() {
                 href="/calculate"
                 className="rounded-full bg-stone-950 px-7 py-3.5 text-sm font-semibold text-white shadow-lg shadow-stone-900/20 transition hover:bg-stone-800"
               >
-                Получить расчет
+                Получить консультацию
               </Link>
               <Link
                 href="/pergolas"
