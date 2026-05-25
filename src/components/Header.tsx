@@ -51,18 +51,24 @@ function DesktopDropdown({ item }: { item: NavItem }) {
           className={`transition-transform duration-150 ${open ? "rotate-180" : ""}`}
         />
       </button>
+
+      {/* Прозрачная обёртка начинается с top-full (нет зазора с кнопкой).
+          pt-2 создаёт визуальный отступ внутри DOM-потомка, поэтому
+          mouseleave на враппере не срабатывает при движении в этой зоне. */}
       {open && (
-        <div className="absolute left-0 top-full mt-2 min-w-52 rounded-xl border border-stone-100 bg-white py-1.5 shadow-lg">
-          {item.children.map((child) => (
-            <Link
-              key={child.href}
-              href={child.href!}
-              onClick={() => setOpen(false)}
-              className="block px-4 py-2.5 text-sm text-stone-700 transition hover:bg-stone-50 hover:text-stone-950"
-            >
-              {child.label}
-            </Link>
-          ))}
+        <div className="absolute left-0 top-full z-50 min-w-52 pt-2">
+          <div className="rounded-xl border border-stone-100 bg-white py-1.5 shadow-lg">
+            {item.children.map((child) => (
+              <Link
+                key={child.href}
+                href={child.href!}
+                onClick={() => setOpen(false)}
+                className="block px-4 py-2.5 text-sm text-stone-700 transition hover:bg-stone-50 hover:text-stone-950"
+              >
+                {child.label}
+              </Link>
+            ))}
+          </div>
         </div>
       )}
     </div>
