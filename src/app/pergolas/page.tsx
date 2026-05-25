@@ -11,6 +11,14 @@ export const metadata: Metadata = {
     title: "Каталог пергол UOGEL",
     description:
       "Доступные размеры биоклиматических пергол UOGEL для расчета поставки в Россию.",
+    images: [
+      {
+        url: "/images/og/uogel-og.webp",
+        width: 1200,
+        height: 630,
+        alt: "Биоклиматическая пергола UOGEL",
+      },
+    ],
   },
 };
 

@@ -10,7 +10,7 @@ export function Footer() {
             Подбор и расчет биоклиматических пергол UOGEL с поставкой в Россию. Помогаем выбрать подходящую модель из доступных размеров.
           </p>
         </div>
-        <div>
+        <div className="border-t border-stone-200 pt-6 md:border-t-0 md:pt-0">
           <p className="font-semibold text-stone-950">Разделы</p>
           <div className="mt-3 grid gap-2">
             <Link href="/pergolas" className="hover:text-stone-950">Каталог</Link>
@@ -19,7 +19,7 @@ export function Footer() {
             <Link href="/calculate" className="hover:text-stone-950">Расчет</Link>
           </div>
         </div>
-        <div>
+        <div className="border-t border-stone-200 pt-6 md:border-t-0 md:pt-0">
           <p className="font-semibold text-stone-950">Контакты</p>
           <div className="mt-3 grid gap-2">
             <span>Telegram: @uogel_russia</span>

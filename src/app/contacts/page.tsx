@@ -8,6 +8,14 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Контакты UOGEL Russia",
     description: "Форма для расчета и вопросов по поставке пергол UOGEL в Россию.",
+    images: [
+      {
+        url: "/images/og/uogel-og.webp",
+        width: 1200,
+        height: 630,
+        alt: "Биоклиматическая пергола UOGEL",
+      },
+    ],
   },
 };
 
