@@ -6,13 +6,12 @@ import { CTA } from "@/components/CTA";
 import { LeadForm } from "@/components/LeadForm";
 import { getPergolaBySlug, pergolas } from "@/data/pergolas";
 import { options } from "@/data/options";
-import {
-  formatSizeRange,
-  formatSystemType,
-  formatDrive,
-  formatOptionCategory,
-  getCompatibleOptions,
-} from "@/lib/catalog";
+import { formatSystemType, formatDrive } from "@/lib/catalog";
+import { TechnicalSection } from "@/components/product/specs/TechnicalSection";
+import { TechnicalTable } from "@/components/product/specs/TechnicalTable";
+import { ColorSwatches } from "@/components/product/specs/ColorSwatches";
+import { SizeConfigurations } from "@/components/product/specs/SizeConfigurations";
+import { CompatibilityList } from "@/components/product/specs/CompatibilityList";
 
 export function generateStaticParams() {
   return pergolas.map((p) => ({ slug: p.slug }));
@@ -49,15 +48,28 @@ export default async function PergolaPage({
   const product = getPergolaBySlug(slug);
   if (!product) notFound();
 
-  const compatibleOptions = getCompatibleOptions(product, options);
   const sourcePage = "pergola:" + product.slug;
+
+  const specRows = [
+    { label: "Профиль стойки", value: product.specs.post },
+    { label: "Балка / водосток", value: product.specs.beam },
+    { label: "Профиль ламели", value: product.specs.blade },
+    { label: "Угол поворота ламелей", value: product.specs.rotationAngle },
+    { label: "Материал", value: product.specs.material },
+    { label: "Водоотвод", value: product.specs.waterDrainage ? "Интегрированный" : "—" },
+    { label: "LED подсветка", value: product.specs.led },
+    { label: "Привод", value: formatDrive(product.drive) },
+    { label: "Степень защиты (IP)", value: product.specs.ipRating },
+  ];
+
+  const extraImages = product.images.slice(1);
 
   return (
     <>
-      {/* Hero */}
+      {/* ── Hero ── */}
       <section className="bg-white py-12 sm:py-16">
         <div className="mx-auto grid max-w-7xl gap-10 px-4 sm:px-6 lg:grid-cols-2 lg:px-8">
-          <div className="relative min-h-[260px] overflow-hidden rounded-3xl bg-stone-100 sm:min-h-[420px]">
+          <div className="relative min-h-[260px] overflow-hidden rounded-3xl bg-stone-100 sm:min-h-[480px]">
             <Image
               src={product.images[0]}
               alt={product.title}
@@ -68,22 +80,26 @@ export default async function PergolaPage({
             />
           </div>
           <div className="flex flex-col justify-center">
-            <p className="text-sm font-semibold uppercase tracking-[0.18em] text-stone-500">
-              {product.seriesName}
-            </p>
+            <div className="flex flex-wrap items-center gap-2">
+              <span className="rounded-full bg-stone-100 px-3 py-1 text-xs font-semibold uppercase tracking-[0.14em] text-stone-600">
+                {product.seriesName}
+              </span>
+              {product.drive === "both" && (
+                <span className="rounded-full border border-stone-200 px-3 py-1 text-xs font-semibold text-stone-500">
+                  Мотор / ручное управление
+                </span>
+              )}
+            </div>
             <h1 className="mt-4 text-4xl font-semibold text-stone-950 sm:text-5xl">
               {product.title}
             </h1>
             <p className="mt-2 text-xl text-stone-500">{product.subtitle}</p>
-            <div className="mt-4 flex flex-wrap items-center gap-3">
+            <div className="mt-4 flex flex-wrap items-center gap-2">
               <span className="rounded-full bg-stone-100 px-3 py-1.5 text-xs font-semibold text-stone-700">
                 {formatSystemType(product.systemType)}
               </span>
               <span className="rounded-full bg-stone-100 px-3 py-1.5 text-xs font-semibold text-stone-700">
-                {formatDrive(product.drive)}
-              </span>
-              <span className="rounded-full bg-stone-100 px-3 py-1.5 text-xs font-semibold text-stone-700">
-                {formatSizeRange(product.sizeRange)}
+                {product.category === "bioclimatic" ? "Биоклиматическая" : "Ламельная"}
               </span>
             </div>
             <p className="mt-6 text-lg leading-8 text-stone-600">{product.description}</p>
@@ -97,165 +113,129 @@ export default async function PergolaPage({
         </div>
       </section>
 
-      {/* Specs + Colors + Equipment */}
-      <section className="bg-stone-50 py-14">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <h2 className="text-2xl font-semibold text-stone-950">Характеристики</h2>
-          <div className="mt-6 grid gap-6 lg:grid-cols-3">
-            {/* Key specs */}
-            <div className="rounded-3xl border border-stone-200 bg-white p-6">
-              <p className="text-sm font-semibold uppercase tracking-widest text-stone-400">
-                Профиль
-              </p>
-              <dl className="mt-4 grid gap-3">
-                <SpecRow label="Стойка" value={product.specs.post} />
-                <SpecRow label="Ламель" value={product.specs.blade} />
-                <SpecRow label="Привод" value={formatDrive(product.drive)} />
-                <SpecRow label="Материал" value={product.specs.material} />
-                <SpecRow
-                  label="Водоотвод"
-                  value={product.specs.waterDrainage ? "Интегрированный" : "—"}
-                />
-              </dl>
-            </div>
-
-            {/* Profile colors */}
-            <div className="rounded-3xl border border-stone-200 bg-white p-6">
-              <p className="text-sm font-semibold uppercase tracking-widest text-stone-400">
-                Цвета профиля
-              </p>
-              <ul className="mt-4 grid gap-3">
-                {product.profileColors.map((color) => (
-                  <li key={color.id} className="flex items-center gap-3 text-sm">
-                    {color.swatch ? (
-                      <Image
-                        src={color.swatch}
-                        alt={color.ral}
-                        width={40}
-                        height={26}
-                        className="h-6 w-10 shrink-0 rounded object-cover"
-                      />
-                    ) : (
-                      <span className="h-6 w-10 shrink-0 rounded border border-stone-200 bg-white" />
-                    )}
-                    <span className="font-medium text-stone-700">{color.ral}</span>
-                    <span className="text-stone-500">{color.name}</span>
-                  </li>
-                ))}
-              </ul>
-            </div>
-
-            {/* Base equipment */}
-            <div className="rounded-3xl border border-stone-200 bg-white p-6">
-              <p className="text-sm font-semibold uppercase tracking-widest text-stone-400">
-                Базовая комплектация
-              </p>
-              <ul className="mt-4 grid gap-3">
-                {product.baseEquipment.map((item) => (
-                  <li key={item} className="flex items-start gap-2 text-sm text-stone-600">
-                    <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-stone-400" aria-hidden />
-                    {item}
-                  </li>
-                ))}
-              </ul>
-            </div>
+      {/* ── Технические характеристики ── */}
+      <TechnicalSection
+        eyebrow="Характеристики"
+        title="Технические характеристики"
+        background="stone"
+      >
+        <div className="grid gap-8 lg:grid-cols-2">
+          <TechnicalTable rows={specRows} />
+          <div className="grid gap-4 content-start sm:grid-cols-3 lg:grid-cols-1 lg:grid-rows-3">
+            <ProfileDimCard label="Стойка" value={product.specs.post} />
+            {product.specs.beam ? (
+              <ProfileDimCard label="Балка" value={product.specs.beam} />
+            ) : (
+              <ProfileDimCard label="Балка" value={null} />
+            )}
+            <ProfileDimCard label="Ламель" value={product.specs.blade} />
           </div>
         </div>
-      </section>
+      </TechnicalSection>
 
-      {/* Size range */}
-      <section className="py-14">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <h2 className="text-2xl font-semibold text-stone-950">Размеры</h2>
-          {product.sizeRange.customizable ? (
-            <div className="mt-6 max-w-2xl rounded-3xl border border-stone-200 bg-white p-8">
-              <p className="text-sm font-semibold uppercase tracking-widest text-stone-400">
-                Индивидуальная конфигурация
-              </p>
-              <p className="mt-3 text-2xl font-semibold text-stone-950">
-                {formatSizeRange(product.sizeRange)}
-              </p>
-              <p className="mt-3 text-stone-600">
-                Размер подбирается под проект из реальной сетки конфигураций UOGEL. Ширина и
-                глубина уточняются при расчёте.
-              </p>
-            </div>
-          ) : (
-            <div className="mt-6 max-w-2xl rounded-3xl border border-stone-200 bg-white p-8">
-              <p className="text-sm font-semibold uppercase tracking-widest text-stone-400">
-                Стандартные конфигурации
-              </p>
-              <div className="mt-4 flex flex-wrap gap-3">
-                {product.sizeRange.standardSizes?.map((size) => (
-                  <span
-                    key={`${size.width}x${size.depth}`}
-                    className="rounded-2xl border border-stone-200 px-5 py-3 text-lg font-semibold text-stone-950"
-                  >
-                    {size.width / 1000} × {size.depth / 1000} м
-                  </span>
-                ))}
-              </div>
-              <p className="mt-4 text-stone-600">
-                Серия выпускается в фиксированных стандартных размерах.
-              </p>
-            </div>
-          )}
-        </div>
-      </section>
+      {/* ── Базовая комплектация ── */}
+      <TechnicalSection eyebrow="Комплектация" title="Базовая комплектация">
+        <ul className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+          {product.baseEquipment.map((item) => (
+            <li
+              key={item}
+              className="flex items-start gap-3 rounded-2xl border border-stone-200 bg-white p-4 text-sm text-stone-700"
+            >
+              <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-stone-400" aria-hidden />
+              {item}
+            </li>
+          ))}
+        </ul>
+      </TechnicalSection>
 
-      {/* Compatible options */}
-      {compatibleOptions.length > 0 && (
-        <section className="bg-stone-50 py-14">
-          <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-            <h2 className="text-2xl font-semibold text-stone-950">Доступные опции</h2>
-            <p className="mt-2 text-stone-600">
-              Опции рассчитываются по выбранной конфигурации. Совместимость уточняется при расчёте.
-            </p>
-            <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-              {compatibleOptions.map((option) => (
-                <Link
-                  key={option.id}
-                  href={`/options/${option.slug}`}
-                  className="group rounded-2xl border border-stone-200 bg-white p-5 transition hover:border-stone-400 hover:shadow-sm"
-                >
-                  <p className="text-xs font-semibold uppercase tracking-widest text-stone-400">
-                    {formatOptionCategory(option.category)}
-                  </p>
-                  <h3 className="mt-2 text-base font-semibold text-stone-950 group-hover:text-stone-700">
-                    {option.title}
-                  </h3>
-                  <p className="mt-1 text-sm text-stone-500">{option.subtitle}</p>
-                </Link>
-              ))}
-            </div>
-          </div>
-        </section>
+      {/* ── Размеры и конфигурации ── */}
+      <TechnicalSection
+        eyebrow="Размеры"
+        title="Размеры и конфигурации"
+        background="stone"
+      >
+        <SizeConfigurations sizeRange={product.sizeRange} />
+      </TechnicalSection>
+
+      {/* ── Цвета профиля ── */}
+      <TechnicalSection eyebrow="Цвета" title="Цвета профиля">
+        <ColorSwatches colors={product.profileColors} />
+      </TechnicalSection>
+
+      {/* ── Управление и автоматика ── */}
+      <TechnicalSection
+        eyebrow="Управление"
+        title="Управление и автоматика"
+        background="stone"
+      >
+        {product.drive === "both" ? (
+          <DriveVariants hasAutomation={product.compatibleOptions.includes("rain-wind-sensors")} />
+        ) : (
+          <SingleDrive
+            drive={product.drive}
+            hasAutomation={product.compatibleOptions.includes("rain-wind-sensors")}
+          />
+        )}
+      </TechnicalSection>
+
+      {/* ── Совместимые опции ── */}
+      {product.compatibleOptions.length > 0 && (
+        <TechnicalSection
+          eyebrow="Опции"
+          title="Совместимые опции"
+          description="Совместимость уточняется при расчёте конкретной конфигурации."
+        >
+          <CompatibilityList product={product} allOptions={options} />
+        </TechnicalSection>
       )}
 
-      {/* Use cases */}
-      <section className="py-14">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <h2 className="text-2xl font-semibold text-stone-950">Где подходит</h2>
-          <div className="mt-6 flex flex-wrap gap-3">
-            {product.useCases.map((uc) => (
-              <span
-                key={uc}
-                className="rounded-full border border-stone-200 bg-white px-4 py-2 text-sm text-stone-700"
+      {/* ── Галерея ── */}
+      <TechnicalSection eyebrow="Галерея" title="Фотографии" background="stone">
+        {extraImages.length > 0 ? (
+          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            {extraImages.map((src, i) => (
+              <div
+                key={src}
+                className="relative aspect-[4/3] overflow-hidden rounded-2xl bg-stone-100"
               >
-                {uc}
-              </span>
+                <Image
+                  src={src}
+                  alt={`${product.title} — фото ${i + 2}`}
+                  fill
+                  sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
+                  className="object-cover"
+                />
+              </div>
             ))}
           </div>
-        </div>
-      </section>
+        ) : (
+          <div className="flex h-48 items-center justify-center rounded-3xl border border-dashed border-stone-200 bg-white">
+            <p className="text-sm text-stone-400">Фото будет добавлено</p>
+          </div>
+        )}
+      </TechnicalSection>
 
-      {/* Delivery */}
-      <section className="bg-white py-14">
+      {/* ── Где подходит ── */}
+      <TechnicalSection eyebrow="Применение" title="Где подходит">
+        <div className="flex flex-wrap gap-3">
+          {product.useCases.map((uc) => (
+            <span
+              key={uc}
+              className="rounded-full border border-stone-200 bg-white px-4 py-2 text-sm text-stone-700"
+            >
+              {uc}
+            </span>
+          ))}
+        </div>
+      </TechnicalSection>
+
+      {/* ── Доставка и CTA ── */}
+      <section className="bg-stone-50 py-14">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <h2 className="text-2xl font-semibold text-stone-950">Доставка и сроки</h2>
           <p className="mt-4 max-w-3xl text-lg leading-8 text-stone-600">
-            Поставка организуется из Китая в Россию. Сроки производства, отгрузки и доставки
-            уточняются после выбора серии, размера и комплектации.
+            Поставка организуется из Китая в Россию. Сроки производства, отгрузки и
+            доставки уточняются после выбора серии, размера и комплектации.
           </p>
           <div className="mt-8">
             <CTA />
@@ -263,7 +243,7 @@ export default async function PergolaPage({
         </div>
       </section>
 
-      {/* Lead form */}
+      {/* ── Форма заявки ── */}
       <section id="lead" className="py-16">
         <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
           <LeadForm sourcePage={sourcePage} selectedPergolaId={product.id} />
@@ -273,11 +253,66 @@ export default async function PergolaPage({
   );
 }
 
-function SpecRow({ label, value }: { label: string; value: string }) {
+// ── Inline helpers ──────────────────────────────────────────────────────────
+
+function ProfileDimCard({ label, value }: { label: string; value: string | null }) {
   return (
-    <div className="flex items-start justify-between gap-4 text-sm">
-      <dt className="text-stone-500">{label}</dt>
-      <dd className="text-right font-medium text-stone-950">{value}</dd>
+    <div className="rounded-2xl border border-stone-200 bg-white p-5">
+      <p className="text-xs font-semibold uppercase tracking-widest text-stone-400">{label}</p>
+      {value ? (
+        <p className="mt-2 text-xl font-semibold text-stone-950">{value}</p>
+      ) : (
+        <p className="mt-2 text-sm text-stone-400">Данные уточняются</p>
+      )}
+    </div>
+  );
+}
+
+function DriveVariants({ hasAutomation }: { hasAutomation: boolean }) {
+  return (
+    <div className="grid gap-4 sm:grid-cols-2">
+      <div className="rounded-2xl border border-stone-200 bg-white p-6">
+        <p className="text-xs font-semibold uppercase tracking-widest text-stone-400">
+          Серия C4 / C4-S
+        </p>
+        <p className="mt-3 text-lg font-semibold text-stone-950">Моторизованная</p>
+        <p className="mt-2 text-sm text-stone-600">
+          Электропривод с пультом управления.
+          {hasAutomation && " Совместима с датчиками дождя и ветра."}
+        </p>
+      </div>
+      <div className="rounded-2xl border border-stone-200 bg-white p-6">
+        <p className="text-xs font-semibold uppercase tracking-widest text-stone-400">
+          Серия M4 / M4-S
+        </p>
+        <p className="mt-3 text-lg font-semibold text-stone-950">Ручное управление</p>
+        <p className="mt-2 text-sm text-stone-600">
+          Управление ламелями вручную. Надёжное решение без автоматики.
+        </p>
+      </div>
+    </div>
+  );
+}
+
+function SingleDrive({
+  drive,
+  hasAutomation,
+}: {
+  drive: "motorized" | "manual" | "both";
+  hasAutomation: boolean;
+}) {
+  const isMotorized = drive === "motorized";
+  return (
+    <div className="max-w-xl rounded-2xl border border-stone-200 bg-white p-6">
+      <p className="text-xs font-semibold uppercase tracking-widest text-stone-400">Привод</p>
+      <p className="mt-3 text-lg font-semibold text-stone-950">
+        {isMotorized ? "Моторизованная" : "Ручное управление"}
+      </p>
+      <p className="mt-2 text-sm text-stone-600">
+        {isMotorized
+          ? `Электропривод с пультом управления.${hasAutomation ? " Совместима с датчиками дождя и ветра." : ""}`
+          : "Управление ламелями вручную. Надёжное решение без автоматики."}
+      </p>
     </div>
   );
 }

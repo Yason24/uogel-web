@@ -29,8 +29,12 @@ export type SizeRange = {
 export type ProductSpecs = {
   post: string;
   blade: string;
+  beam?: string;
   material: string;
   waterDrainage: boolean;
+  rotationAngle?: string;
+  led?: string;
+  ipRating?: string;
 };
 
 export type Product = {

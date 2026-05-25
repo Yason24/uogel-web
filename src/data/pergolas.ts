@@ -39,8 +39,10 @@ export const products: Product[] = [
     specs: {
       post: "150×150 мм",
       blade: "202×45 мм, поворотные",
+      beam: "210×150 мм",
       material: "Алюминий",
       waterDrainage: true,
+      led: "RGB 7 цветов",
     },
     baseEquipment: [
       "Алюминиевый профиль стойки 150×150 мм",
@@ -98,8 +100,10 @@ export const products: Product[] = [
     specs: {
       post: "150×150 мм",
       blade: "193×40 мм, поворотные",
+      beam: "220×123 мм",
       material: "Алюминий",
       waterDrainage: true,
+      led: "RGB / Dual LED",
     },
     baseEquipment: [
       "Алюминиевый профиль стойки 150×150 мм",
@@ -157,8 +161,10 @@ export const products: Product[] = [
     specs: {
       post: "150×150 мм",
       blade: "193×40 мм, поворотные",
+      beam: "220×123 мм",
       material: "Алюминий",
       waterDrainage: true,
+      led: "LED",
     },
     baseEquipment: [
       "Алюминиевый профиль стойки 150×150 мм",
@@ -225,6 +231,7 @@ export const products: Product[] = [
       blade: "160×33 мм, поворотные",
       material: "Алюминий",
       waterDrainage: true,
+      led: "LED",
     },
     baseEquipment: [
       "Алюминиевый профиль 120×120 мм",
@@ -281,6 +288,7 @@ export const products: Product[] = [
       blade: "160×33 мм, поворотные",
       material: "Алюминий",
       waterDrainage: true,
+      led: "LED",
     },
     baseEquipment: [
       "Алюминиевый профиль 120×120 мм",
@@ -331,6 +339,7 @@ export const products: Product[] = [
       blade: "164×30 мм, поворотные",
       material: "Алюминий",
       waterDrainage: true,
+      led: "LED",
     },
     baseEquipment: [
       "Алюминиевый профиль 100×100 мм",
