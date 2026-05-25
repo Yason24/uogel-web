@@ -91,6 +91,51 @@ function str(v: unknown): string {
   return typeof v === "string" ? v.trim() : "";
 }
 
+const RATE_LIMIT_WINDOW_MS = 10 * 60 * 1000;
+const RATE_LIMIT_MAX_REQUESTS = 3;
+
+type RateLimitEntry = {
+  count: number;
+  resetAt: number;
+};
+
+const rateLimitStore = new Map<string, RateLimitEntry>();
+
+function getClientIp(request: NextRequest): string {
+  const forwardedFor = request.headers.get("x-forwarded-for");
+  if (forwardedFor) {
+    return forwardedFor.split(",")[0]?.trim() || "unknown";
+  }
+  return request.headers.get("x-real-ip") || "unknown";
+}
+
+function cleanupRateLimitStore() {
+  const now = Date.now();
+  for (const [ip, entry] of rateLimitStore.entries()) {
+    if (entry.resetAt <= now) {
+      rateLimitStore.delete(ip);
+    }
+  }
+}
+
+function isRateLimited(ip: string): boolean {
+  const now = Date.now();
+  const current = rateLimitStore.get(ip);
+
+  if (!current || current.resetAt <= now) {
+    rateLimitStore.set(ip, { count: 1, resetAt: now + RATE_LIMIT_WINDOW_MS });
+    return false;
+  }
+
+  if (current.count >= RATE_LIMIT_MAX_REQUESTS) {
+    return true;
+  }
+
+  current.count += 1;
+  rateLimitStore.set(ip, current);
+  return false;
+}
+
 function sendTelegramMessage(token: string, chatId: string, text: string, proxyUrl?: string): Promise<boolean> {
   const body = JSON.stringify({ chat_id: chatId, text, parse_mode: "HTML" });
   const path = `/bot${token}/sendMessage`;
@@ -171,6 +216,16 @@ function sendTelegramMessage(token: string, chatId: string, text: string, proxyU
 }
 
 export async function POST(req: NextRequest) {
+  const clientIp = getClientIp(req);
+  cleanupRateLimitStore();
+
+  if (isRateLimited(clientIp)) {
+    return NextResponse.json(
+      { success: false, message: "Слишком много заявок. Попробуйте позже." },
+      { status: 429 }
+    );
+  }
+
   const token = process.env.TELEGRAM_BOT_TOKEN;
   const chatId = process.env.TELEGRAM_CHAT_ID;
 
