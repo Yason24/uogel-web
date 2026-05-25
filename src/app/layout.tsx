@@ -13,16 +13,21 @@ export const metadata: Metadata = {
   description:
     "Подбор и расчет биоклиматических пергол UOGEL доступных размеров с поставкой в Россию. Модели 3×3, 3×4, 4×4, 4×6 м с ламельной крышей, LED и ZIP-шторами.",
   metadataBase: new URL(siteUrl),
+  robots: {
+    index: true,
+    follow: true,
+  },
   openGraph: {
     type: "website",
     locale: "ru_RU",
     siteName: "UOGEL Russia",
+    url: siteUrl,
     title: "UOGEL Russia — биоклиматические перголы",
     description:
       "Подбор и расчет биоклиматических пергол UOGEL. Доступные размеры, ламельные крыши, поставка в Россию.",
     images: [
       {
-        url: "/images/hero/hero-main.webp",
+        url: "/images/og/uogel-og.webp",
         width: 1200,
         height: 630,
         alt: "Биоклиматическая пергола UOGEL",
@@ -34,7 +39,7 @@ export const metadata: Metadata = {
     title: "UOGEL Russia — биоклиматические перголы",
     description:
       "Подбор и расчет биоклиматических пергол UOGEL с поставкой в Россию.",
-    images: ["/images/hero/hero-main.webp"],
+    images: ["/images/og/uogel-og.webp"],
   },
 };
 

@@ -14,6 +14,14 @@ export const metadata: Metadata = {
     title: "UOGEL Russia — биоклиматические перголы",
     description:
       "Подбираем модель из доступных размеров, рассчитываем комплектацию, уточняем поставку в ваш город.",
+    images: [
+      {
+        url: "/images/og/uogel-og.webp",
+        width: 1200,
+        height: 630,
+        alt: "Биоклиматическая пергола UOGEL",
+      },
+    ],
   },
 };
 

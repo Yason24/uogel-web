@@ -6,7 +6,33 @@ import { LeadForm } from "@/components/LeadForm";
 import { getPergolaBySlug, pergolas } from "@/data/pergolas";
 
 export function generateStaticParams() { return pergolas.map((pergola) => ({ slug: pergola.slug })); }
-export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> { const { slug } = await params; const pergola = getPergolaBySlug(slug); return { title: pergola?.seoTitle ?? "Пергола UOGEL", description: pergola?.seoDescription ?? "Расчет биоклиматической перголы UOGEL." }; }
+export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
+  const { slug } = await params;
+  const pergola = getPergolaBySlug(slug);
+
+  if (!pergola) {
+    return { title: "Пергола не найдена" };
+  }
+
+  return {
+    title: pergola.seoTitle,
+    description: pergola.seoDescription,
+    alternates: {
+      canonical: `/pergolas/${pergola.slug}`,
+    },
+    openGraph: {
+      title: `${pergola.seoTitle} | UOGEL Russia`,
+      description: pergola.seoDescription,
+      url: `/pergolas/${pergola.slug}`,
+      images: [
+        {
+          url: pergola.images[0],
+          alt: pergola.title,
+        },
+      ],
+    },
+  };
+}
 
 export default async function PergolaPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
