@@ -4,22 +4,22 @@ import type { Product, Option } from "@/types";
 import { Section } from "@/components/Section";
 import { products } from "@/data/pergolas";
 import { options } from "@/data/options";
-import { formatSystemType, formatDrive, formatSizeRange, formatOptionCategory } from "@/lib/catalog";
+import { formatSystemType, formatDrive, formatOptionCategory } from "@/lib/catalog";
 
 export const metadata: Metadata = {
-  title: "Каталог систем UOGEL Russia",
+  title: "UOGEL Architectural Systems — Catalog · UOGEL Russia",
   description:
-    "Полный каталог биоклиматических систем UOGEL: 6 серий пергол, опции и аксессуары. Подбираем систему под объект, рассчитываем поставку в Россию.",
+    "Full catalog of UOGEL outdoor architectural systems: 6 pergola series, compatible options and accessories. Project consultation and supply to Russia.",
   openGraph: {
-    title: "Каталог систем UOGEL Russia",
+    title: "UOGEL Architectural Systems Catalog",
     description:
-      "6 серий пергол и 7 опций из каталога UOGEL 2026. Расчёт поставки в Россию.",
+      "6 pergola series and 7 option systems from UOGEL 2026 catalog. Configurations for residential, hospitality and commercial projects.",
     images: [
       {
         url: "/images/og/uogel-og.webp",
         width: 1200,
         height: 630,
-        alt: "Каталог систем UOGEL",
+        alt: "UOGEL Architectural Systems Catalog",
       },
     ],
   },
@@ -28,27 +28,27 @@ export const metadata: Metadata = {
 const comingSoon = [
   {
     key: "pavilion",
-    name: "Беседки",
     nameEn: "Pavilion",
-    description: "Закрытые и полузакрытые отдельностоящие конструкции для длительного пребывания",
+    nameRu: "Беседки",
+    description: "Закрытые и полузакрытые отдельностоящие конструкции для длительного пребывания на открытом воздухе.",
   },
   {
     key: "carport",
-    name: "Навесы",
     nameEn: "Carport",
-    description: "Алюминиевые навесы для автомобилей, техники и входных зон",
+    nameRu: "Навесы",
+    description: "Алюминиевые навесы для автомобилей, техники и входных зон.",
   },
   {
     key: "sunroom",
-    name: "Зимние сады",
     nameEn: "Sunroom",
-    description: "Остеклённые пространства для круглогодичного использования",
+    nameRu: "Зимние сады",
+    description: "Остеклённые конструкции для круглогодичного использования.",
   },
   {
     key: "commercial",
-    name: "Коммерческие системы",
     nameEn: "Commercial Systems",
-    description: "Масштабируемые решения для HoReCa, торговых и общественных объектов",
+    nameRu: "Коммерческие системы",
+    description: "Масштабируемые инженерные решения для HoReCa, торговых и общественных объектов.",
   },
 ];
 
@@ -56,23 +56,39 @@ export default function CatalogPage() {
   return (
     <>
       {/* Hero */}
-      <section className="bg-stone-50 py-16 sm:py-20">
+      <section className="bg-stone-50 py-16 sm:py-24">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <p className="text-sm font-semibold uppercase tracking-[0.18em] text-stone-500">UOGEL Russia</p>
+          <p className="text-sm font-semibold uppercase tracking-[0.18em] text-stone-500">
+            UOGEL Russia · 2026
+          </p>
           <h1 className="mt-4 max-w-2xl text-4xl font-semibold text-stone-950 sm:text-5xl">
-            Каталог систем
+            UOGEL Architectural Systems
           </h1>
           <p className="mt-5 max-w-xl text-lg leading-8 text-stone-600">
-            Биоклиматические системы UOGEL из каталога 2026: серии пергол, опции и аксессуары. Поставка в Россию, расчёт по запросу.
+            Каталог инженерных outdoor-систем: биоклиматические серии пергол, совместимые опции и аксессуары. Конфигурация подбирается под объект — выполняем расчёт поставки в Россию.
           </p>
+          <div className="mt-8 flex flex-wrap gap-3">
+            <Link
+              href="/calculate"
+              className="rounded-full bg-stone-950 px-7 py-3.5 text-sm font-semibold text-white shadow-sm transition hover:bg-stone-800"
+            >
+              Request Project Consultation
+            </Link>
+            <Link
+              href="/pergolas"
+              className="rounded-full border border-stone-300 px-7 py-3.5 text-sm font-semibold text-stone-950 transition hover:border-stone-950"
+            >
+              Explore Pergola Systems
+            </Link>
+          </div>
         </div>
       </section>
 
-      {/* Pergola series */}
+      {/* Pergola Systems */}
       <Section
-        eyebrow="Перголы"
-        title="Биоклиматические серии"
-        description="6 серий из каталога UOGEL 2026 — от компактной ручной M3 до флагманской биоклиматической A13."
+        eyebrow="Pergola Systems"
+        title="6 Series · Catalog 2026"
+        description="Биоклиматические и жалюзийные серии UOGEL — от компактной ручной системы до флагманского биоклиматического профиля. Конфигурации подбираются под объект, совместимые опции рассчитываются по серии."
       >
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {products.map((product) => (
@@ -84,16 +100,16 @@ export default function CatalogPage() {
             href="/pergolas"
             className="inline-flex items-center gap-2 rounded-full border border-stone-300 px-6 py-3 text-sm font-semibold text-stone-950 transition hover:border-stone-950"
           >
-            Все серии →
+            Explore all series →
           </Link>
         </div>
       </Section>
 
-      {/* Options */}
+      {/* Options & Accessories */}
       <Section
-        eyebrow="Опции и оснащение"
-        title="Системы и аксессуары"
-        description="ZIP-экраны, остекление, ставни, климатические системы и автоматика. Совместимость рассчитывается по выбранной серии."
+        eyebrow="Options & Accessories"
+        title="Compatible Systems"
+        description="ZIP-экраны, остекление, ставни, климатические системы и автоматика. Совместимость рассчитывается по выбранной серии и конфигурации."
       >
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {options.map((option) => (
@@ -105,40 +121,72 @@ export default function CatalogPage() {
             href="/options"
             className="inline-flex items-center gap-2 rounded-full border border-stone-300 px-6 py-3 text-sm font-semibold text-stone-950 transition hover:border-stone-950"
           >
-            Все опции →
+            View all options →
           </Link>
         </div>
       </Section>
 
-      {/* Coming soon */}
+      {/* Coming Soon */}
       <Section
-        eyebrow="Скоро в каталоге"
-        title="Расширение ассортимента"
-        description="Прорабатываем поставку дополнительных категорий систем UOGEL."
+        eyebrow="Coming Soon"
+        title="Expanding the Catalog"
+        description="Прорабатываем поставку дополнительных категорий систем UOGEL для жилых и коммерческих объектов."
       >
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
           {comingSoon.map((item) => (
             <div
               key={item.key}
+              id={item.key}
               className="rounded-2xl border border-dashed border-stone-300 bg-stone-50 p-5"
             >
               <p className="text-xs font-semibold uppercase tracking-widest text-stone-400">
                 {item.nameEn}
               </p>
-              <h3 className="mt-2 text-lg font-semibold text-stone-600">{item.name}</h3>
+              <h3 className="mt-2 text-lg font-semibold text-stone-600">{item.nameRu}</h3>
               <p className="mt-2 text-sm leading-6 text-stone-500">{item.description}</p>
               <span className="mt-4 inline-block rounded-full bg-stone-200 px-3 py-1 text-xs font-semibold text-stone-500">
-                Скоро
+                Coming soon
               </span>
             </div>
           ))}
         </div>
       </Section>
+
+      {/* Bottom CTA */}
+      <section className="border-t border-stone-100 bg-stone-950 py-16 sm:py-20">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <p className="text-sm font-semibold uppercase tracking-[0.18em] text-stone-400">
+            Project consultation
+          </p>
+          <h2 className="mt-4 max-w-xl text-3xl font-semibold text-white sm:text-4xl">
+            Подберём систему под ваш объект
+          </h2>
+          <p className="mt-4 max-w-lg text-lg leading-8 text-stone-400">
+            Изучим проект, выберем серию и конфигурацию из каталога, рассчитаем совместимые опции и стоимость поставки.
+          </p>
+          <div className="mt-8 flex flex-wrap gap-3">
+            <Link
+              href="/calculate"
+              className="rounded-full bg-white px-7 py-3.5 text-sm font-semibold text-stone-950 transition hover:bg-stone-100"
+            >
+              Request Project Consultation
+            </Link>
+            <Link
+              href="/contacts"
+              className="rounded-full border border-stone-700 px-7 py-3.5 text-sm font-semibold text-white transition hover:border-stone-500"
+            >
+              Contact us
+            </Link>
+          </div>
+        </div>
+      </section>
     </>
   );
 }
 
 function ProductMiniCard({ product }: { product: Product }) {
+  const sizingLabel = product.sizeRange.customizable ? "Custom sizing" : "Standard configurations";
+
   return (
     <Link
       href={`/pergolas/${product.slug}`}
@@ -156,10 +204,10 @@ function ProductMiniCard({ product }: { product: Product }) {
         <span aria-hidden>·</span>
         <span>{formatDrive(product.drive)}</span>
         <span aria-hidden>·</span>
-        <span>{formatSizeRange(product.sizeRange)}</span>
+        <span>{sizingLabel}</span>
       </div>
       <p className="mt-3 text-xs font-medium text-stone-400">
-        Стойка {product.specs.post} · ламель {product.specs.blade.split(",")[0]}
+        Post {product.specs.post} · blade {product.specs.blade.split(",")[0]}
       </p>
     </Link>
   );
@@ -179,7 +227,11 @@ function OptionMiniCard({ option }: { option: Option }) {
       </h3>
       <p className="mt-1 text-sm text-stone-500">{option.subtitle}</p>
       <p className="mt-3 text-xs font-medium text-stone-400">
-        {option.priceType === "included" ? "В базовой системе" : option.priceType === "extra" ? "Дополнительно" : "По запросу"}
+        {option.priceType === "included"
+          ? "Included in base system"
+          : option.priceType === "extra"
+            ? "Additional option"
+            : "On request"}
       </p>
     </Link>
   );
