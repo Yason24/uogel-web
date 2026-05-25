@@ -1,33 +1,86 @@
-export type Pergola = {
+export type ProductCategory = "bioclimatic" | "louvered";
+export type DriveType = "motorized" | "manual";
+export type SystemType = "freestanding" | "wall-mounted" | "both";
+export type ProductStatus = "available" | "coming-soon" | "archived";
+export type OptionCategory = "screens" | "glass" | "shutters" | "lighting" | "climate" | "automation";
+export type PriceType = "included" | "extra" | "on-request";
+
+export type ProfileColor = {
   id: string;
-  slug: string;
-  title: string;
-  size: string;
-  width: number;
-  depth: number;
-  height?: number;
-  type: "wall-mounted" | "freestanding";
-  availability: "available" | "coming-soon" | "sold-out";
-  priceFrom?: number;
-  shortDescription: string;
-  description: string;
-  baseEquipment: string[];
-  availableOptions: string[];
-  images: string[];
-  useCases: string[];
-  seoTitle: string;
-  seoDescription: string;
+  ral: string;
+  name: string;
 };
 
-export type PergolaOption = {
+export type StandardSize = {
+  width: number;
+  depth: number;
+};
+
+export type SizeRange = {
+  minWidth: number;
+  maxWidth: number;
+  minDepth: number;
+  maxDepth: number;
+  customizable: boolean;
+  standardSizes?: StandardSize[];
+};
+
+export type ProductSpecs = {
+  post: string;
+  blade: string;
+  material: string;
+  waterDrainage: boolean;
+};
+
+export type Product = {
+  id: string;
+  slug: string;
+  seriesName: string;
+  title: string;
+  subtitle: string;
+  description: string;
+  category: ProductCategory;
+  drive: DriveType;
+  systemType: SystemType;
+  status: ProductStatus;
+  sizeRange: SizeRange;
+  specs: ProductSpecs;
+  baseEquipment: string[];
+  compatibleOptions: string[];
+  profileColors: ProfileColor[];
+  useCases: string[];
+  images: string[];
+  seo: {
+    title: string;
+    description: string;
+    ogImage?: string;
+  };
+};
+
+export type Option = {
   id: string;
   slug: string;
   title: string;
-  category: "lighting" | "screens" | "glass" | "automation" | "color" | "drainage";
+  subtitle: string;
+  category: OptionCategory;
   description: string;
+  features: string[];
+  variants?: string[];
   images: string[];
-  compatiblePergolas: string[];
-  priceType: "included" | "extra" | "on-request";
+  compatibility: {
+    all: boolean;
+    productIds: string[];
+  };
+  priceType: PriceType;
+  seo: {
+    title: string;
+    description: string;
+  };
+};
+
+export type NavItem = {
+  label: string;
+  href: string;
 };
 
 export type Lead = {

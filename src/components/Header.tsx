@@ -1,15 +1,7 @@
 "use client";
 import { useState } from "react";
 import Link from "next/link";
-
-const nav: [string, string][] = [
-  ["Каталог", "/pergolas"],
-  ["Опции", "/options"],
-  ["Галерея", "/gallery"],
-  ["Как заказать", "/how-to-order"],
-  ["Доставка", "/delivery"],
-  ["Контакты", "/contacts"],
-];
+import { navItems } from "@/data/navigation";
 
 export function Header() {
   const [open, setOpen] = useState(false);
@@ -22,7 +14,7 @@ export function Header() {
         </Link>
 
         <nav className="hidden items-center gap-7 text-sm text-stone-700 lg:flex">
-          {nav.map(([label, href]) => (
+          {navItems.map(({ label, href }) => (
             <Link key={href} href={href} className="transition hover:text-stone-950">
               {label}
             </Link>
@@ -58,7 +50,7 @@ export function Header() {
       {open && (
         <nav className="border-t border-stone-100 bg-white lg:hidden">
           <div className="mx-auto flex flex-col gap-1 px-4 py-3 sm:px-6">
-            {nav.map(([label, href]) => (
+            {navItems.map(({ label, href }) => (
               <Link
                 key={href}
                 href={href}
