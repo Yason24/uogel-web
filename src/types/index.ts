@@ -1,5 +1,5 @@
 export type ProductCategory = "bioclimatic" | "louvered";
-export type DriveType = "motorized" | "manual";
+export type DriveType = "motorized" | "manual" | "both";
 export type SystemType = "freestanding" | "wall-mounted" | "both";
 export type ProductStatus = "available" | "coming-soon" | "archived";
 export type OptionCategory = "screens" | "glass" | "shutters" | "lighting" | "climate" | "automation";

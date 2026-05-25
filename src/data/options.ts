@@ -40,7 +40,7 @@ export const options: Option[] = [
       "Закалённое стекло",
     ],
     images: ["/images/options/frameless-glass.jpg"],
-    compatibility: { all: false, productIds: ["a13", "c10", "c7", "c4", "m4"] },
+    compatibility: { all: false, productIds: ["a13", "c10", "c7", "c4"] },
     priceType: "on-request",
     seo: {
       title: "Безрамные стеклянные двери для пергол UOGEL",
@@ -63,7 +63,7 @@ export const options: Option[] = [
       "Повышенная жёсткость",
     ],
     images: ["/images/options/narrow-frame-glass.jpg"],
-    compatibility: { all: false, productIds: ["a13", "c10", "c7", "c4", "m4"] },
+    compatibility: { all: false, productIds: ["a13", "c10", "c7", "c4"] },
     priceType: "on-request",
     seo: {
       title: "Узкорамные стеклянные двери для пергол UOGEL",
@@ -87,7 +87,7 @@ export const options: Option[] = [
     ],
     variants: ["Fixed", "Sliding", "Bi-Folding", "Swing"],
     images: ["/images/options/aluminium-shutters.webp"],
-    compatibility: { all: false, productIds: ["a13", "c10", "c7", "c4", "m4"] },
+    compatibility: { all: false, productIds: ["a13", "c10", "c7", "c4"] },
     priceType: "on-request",
     seo: {
       title: "Алюминиевые ставни для пергол UOGEL",

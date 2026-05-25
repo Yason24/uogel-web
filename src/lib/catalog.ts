@@ -24,7 +24,12 @@ export function formatSystemType(systemType: SystemType): string {
 }
 
 export function formatDrive(drive: DriveType): string {
-  return drive === "motorized" ? "Моторизованная" : "Ручное управление";
+  const labels: Record<DriveType, string> = {
+    motorized: "Моторизованная",
+    manual: "Ручное управление",
+    both: "Мотор / ручное управление",
+  };
+  return labels[drive];
 }
 
 export function formatOptionCategory(category: OptionCategory): string {
