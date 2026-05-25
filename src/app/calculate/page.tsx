@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { Quiz } from "@/components/Quiz";
 import { Section } from "@/components/Section";
 
-export const metadata: Metadata = { title: "Рассчитать перголу UOGEL", description: "Квиз для расчета биоклиматической перголы UOGEL по доступному размеру, типу установки, опциям и городу поставки." };
+export const metadata: Metadata = { title: "Подобрать систему UOGEL", description: "Расскажите о вашем проекте — подберём подходящую систему UOGEL и подготовим расчёт по выбранной модели и комплектации." };
 export default function CalculatePage() {
-  return <Section eyebrow="Расчет" title="Подобрать модель и комплектацию" description="Ответьте на несколько вопросов. Мы рассчитаем стоимость по выбранной модели и доступному размеру."><Quiz /></Section>;
+  return <Section eyebrow="Проектная заявка" title="Подобрать систему UOGEL" description="Расскажите о вашем проекте. Мы уточним параметры и подберём подходящую систему из доступных конфигураций."><Quiz /></Section>;
 }
