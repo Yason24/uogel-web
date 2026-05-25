@@ -7,10 +7,10 @@ This is the main operating guide for Codex, Claude, Copilot, and other agents wo
 - Project: UOGEL Russia Website
 - Repository: `git@github.com:Yason24/uogel-web.git`
 - Active branch: `main`
-- Ubuntu Dev / VS Code / Codex / Claude path: `/projects/web/uogel`
-- NAS project path: `/volume1/Web/uogel`
-- Preview URL: `http://192.168.50.181:3000/`
-- Docker container: `uogel-web`
+- New server project path: `/projects/web/uogel` (primary — use this)
+- Preview URL: `https://rtc.rdk-invest.ru/`
+- Docker container: `uogel-web` (host: sanda-root-local, 192.168.50.86)
+- Docker port: host `3001` → container `3000`
 
 The project is a Next.js, TypeScript, and Tailwind CSS website for selecting and calculating UOGEL bioclimatic pergolas for Russia.
 
@@ -34,20 +34,24 @@ Do not claim official representative, official dealer, or exclusive distributor 
 
 ## 3. Current infrastructure
 
-Development runs in Ubuntu Dev through VS Code, Codex, Claude, and Copilot. The production/preview container runs on the NAS through Docker.
-
-Volume mapping:
-
-```bash
-/volume1/Web:/projects/web
-/volume1/Web/uogel:/volume1/Web/uogel
+```
+Internet → router 80/443 → new server 192.168.50.86
+→ NPM (Nginx Proxy Manager, port 81 admin)
+→ rtc.rdk-invest.ru → uogel-web container (127.0.0.1:3001)
 ```
 
-Docker compose file:
+New server (sanda-root-local, 192.168.50.86):
+- Ubuntu 22.04 / 24.04
+- Docker 29.4.0
+- Node.js 20.20.2, npm 10.8.2
+- code-server 4.121.0 (port 8888, LAN only)
+- Claude Code 2.1.150
+- Codex CLI 0.133.0
+- NPM (Nginx Proxy Manager) — handles rtc.rdk-invest.ru with Let's Encrypt SSL
 
-```bash
-/volume1/Web/uogel/docker-compose.yml
-```
+Project path: `/projects/web/uogel`
+
+Docker compose file: `/projects/web/uogel/docker-compose.yml`
 
 ## 4. Correct working directories
 
@@ -69,6 +73,7 @@ Work only in:
 Do not work on UOGEL in:
 
 - `/workspace`
+- `/volume1/Web/uogel` (old NAS path — do not use)
 - `/volume1/Web/uogel-next-tmp`
 - any temporary Next.js folder
 - any other copy of the project
@@ -78,7 +83,6 @@ Do not work on UOGEL in:
 Before changes:
 
 ```bash
-source ~/.config/proxy-env.sh
 cd /projects/web/uogel
 git status
 git rev-parse HEAD
@@ -113,13 +117,18 @@ npm run lint
 npm run build
 ```
 
-## 7. NAS Docker preview workflow
+## 7. New server Docker deploy workflow
 
-If changes must be visible on NAS preview after push, rebuild on the NAS:
+This project uses `output: "standalone"` in `next.config.ts`. Build MUST run outside Docker first, then Docker copies from `.next/standalone`.
+
+Full rebuild sequence:
 
 ```bash
-ssh root-asustor
-cd /volume1/Web/uogel
+ssh sanda-root-local
+cd /projects/web/uogel
+git pull
+npm install
+npm run build
 docker compose down
 docker compose build --no-cache
 docker compose up -d
@@ -130,18 +139,15 @@ Check after rebuild:
 ```bash
 docker ps --filter name=uogel-web
 docker logs --tail=100 uogel-web
-curl -I http://127.0.0.1:3000
-curl -s http://127.0.0.1:3000 | grep -Ei "UOGEL|пергол|Рассчитать|стоимость|биоклимат" | head -30
-curl -s http://127.0.0.1:3000 | grep -Ei "To get started|Deploy Now|Next.js logo" | head -30 || true
+curl -I http://127.0.0.1:3001
+curl -s http://127.0.0.1:3001 | grep -Ei "UOGEL|пергол|Рассчитать|стоимость|биоклимат" | head -10
 ```
 
 Success criteria:
 
 - HTML contains `UOGEL`, `пергол`, `Рассчитать`, `стоимость`, or `биоклимат`.
 - HTML does not contain `To get started`, `Deploy Now`, or `Next.js logo`.
-- Browser opens `http://192.168.50.181:3000/`.
-
-Do not touch NAS preview unless the task explicitly requires it.
+- Browser opens `https://rtc.rdk-invest.ru/`.
 
 ## 8. VPS HTTP preview notes
 
@@ -171,47 +177,30 @@ Do not touch VPS runtime, Docker, `nftables`, `sing-box`, VLESS, WireGuard, doma
 
 ## 9. Proxy / network setup
 
-Ubuntu Dev uses the local Docker proxy:
+New server has direct internet access — no outbound proxy required.
 
-```bash
-http://sing-box-dev-proxy:7890
-```
-
-Before commands that need the internet:
-
-```bash
-source ~/.config/proxy-env.sh
-```
-
-Proxy checks:
+Connectivity checks:
 
 ```bash
 curl https://ifconfig.me/ip
 curl -I https://github.com
 curl -I https://api.github.com
-curl -I https://download.jetbrains.com
 ```
-
-Do not use the Raspberry proxy. Do not use the Windows proxy. Do not change `sing-box-dev-proxy` without separate permission.
 
 ## 10. Safety rules
 
-- Do not touch the VPS.
-- Do not touch NAS Web Server, Apache, or Nginx Proxy Manager.
-- Do not touch other sites or folders:
-  - `/volume1/Web/sanda_fleet`
-  - `/volume1/Web/uogel-next-tmp`
-  - `/volume1/docker/ubuntu-dev`
-  - `/volume1/Web/wordpress`
-  - `/volume1/Web/phpmyadmin`
-  - other projects in `/volume1/Web`
-- Do not run `docker compose down` for other projects.
+- Do not touch the VPS unless explicitly required.
+- Do not touch NAS (192.168.50.181) Web Server, Apache, or NAS Nginx Proxy Manager.
+- Do not change router 80/443 port forwarding.
+- Do not touch `/volume1/Web/sanda_fleet`, `/volume1/Web/mtrade`, `/volume1/Web/landing` (NAS sites).
+- Do not touch Matrix/MSChat, Nextcloud, Plex, OnlyOffice, or Nextcloud Talk HPB.
+- Do not run `docker compose down` for other projects on the new server.
 - Do not run `git reset --hard` without approval.
 - Do not force push.
 - Do not delete folders without backup and explicit approval.
-- Do not update the native Node.js installation on the NAS.
 - Do not change NAS system services.
 - Do not touch VLESS, sing-box, WireGuard, or VPN.
+- code-server (port 8888) must remain LAN-only. Do not expose it publicly without authentication.
 
 ## 11. Validation checklist
 
@@ -221,24 +210,15 @@ Before final handoff:
 - `git status` has no unexpected project changes.
 - `npm run lint` passes.
 - `npm run build` passes.
-- Documentation-only tasks do not change site code, Docker, NAS preview, or proxy config.
-- If NAS preview was rebuilt, the success criteria in section 7 are satisfied.
+- Documentation-only tasks do not change site code, Docker, or proxy config.
+- If container was rebuilt, success criteria in section 7 are satisfied.
+- `curl -I https://rtc.rdk-invest.ru` returns 200 OK (after NPM proxy + SSL cert are active).
 
 ## 12. Known resolved issues
 
-The NAS previously served the default Next.js page although the project code was correct. The container had been built from an old image.
+**Port 3000 conflict (2026-05-25):** NPM backend process occupied port 3000 on all interfaces (0.0.0.0:3000). Fixed by mapping host port 3001 → container port 3000 in `docker-compose.yml`. NPM proxy host for rtc.rdk-invest.ru must use port 3001 as backend.
 
-Resolution:
-
-```bash
-ssh root-asustor
-cd /volume1/Web/uogel
-docker compose down
-docker compose build --no-cache
-docker compose up -d
-```
-
-After the no-cache rebuild, the NAS served the UOGEL page instead of the default Next.js starter page.
+**NAS preview (legacy):** The NAS previously served the default Next.js page although the project code was correct. The container had been built from an old image. Resolution was `docker compose build --no-cache`. This is NAS-specific history; new server uses standard build flow.
 
 ## 13. Chat roles and project prompts
 

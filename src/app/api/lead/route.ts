@@ -1,7 +1,24 @@
+import { promises as fs } from "fs";
+import * as https from "https";
+import * as tls from "tls";
+import * as net from "net";
+import path from "path";
 import { NextRequest, NextResponse } from "next/server";
 import { pergolas } from "@/data/pergolas";
 
-const TELEGRAM_API = "https://api.telegram.org";
+const TELEGRAM_API_HOST = "api.telegram.org";
+
+type LeadRecord = LeadPayload & {
+  createdAt: string;
+  telegramStatus: "sent" | "failed";
+};
+
+async function saveLeadToFile(lead: LeadRecord): Promise<void> {
+  const dataDir = path.join(process.cwd(), "data");
+  const filePath = path.join(dataDir, "leads.jsonl");
+  await fs.mkdir(dataDir, { recursive: true });
+  await fs.appendFile(filePath, JSON.stringify(lead) + "\n", "utf8");
+}
 
 type LeadPayload = {
   name: string;
@@ -74,6 +91,85 @@ function str(v: unknown): string {
   return typeof v === "string" ? v.trim() : "";
 }
 
+function sendTelegramMessage(token: string, chatId: string, text: string, proxyUrl?: string): Promise<boolean> {
+  const body = JSON.stringify({ chat_id: chatId, text, parse_mode: "HTML" });
+  const path = `/bot${token}/sendMessage`;
+
+  return new Promise((resolve) => {
+    function doRequest(socket?: net.Socket | tls.TLSSocket) {
+      const options: https.RequestOptions = {
+        hostname: TELEGRAM_API_HOST,
+        port: 443,
+        path,
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "Content-Length": Buffer.byteLength(body),
+        },
+        ...(socket ? { createConnection: () => socket } : {}),
+      };
+
+      const req = https.request(options, (res) => {
+        res.resume();
+        resolve(res.statusCode !== undefined && res.statusCode >= 200 && res.statusCode < 300);
+      });
+
+      req.on("error", () => resolve(false));
+      req.write(body);
+      req.end();
+    }
+
+    if (!proxyUrl) {
+      doRequest();
+      return;
+    }
+
+    let proxyHost: string;
+    let proxyPort: number;
+    try {
+      const u = new URL(proxyUrl);
+      proxyHost = u.hostname;
+      proxyPort = parseInt(u.port || "3128", 10);
+    } catch {
+      doRequest();
+      return;
+    }
+
+    // HTTP CONNECT tunnel through proxy, then TLS inside
+    const tunnel = net.connect(proxyPort, proxyHost, () => {
+      tunnel.write(`CONNECT ${TELEGRAM_API_HOST}:443 HTTP/1.1\r\nHost: ${TELEGRAM_API_HOST}:443\r\n\r\n`);
+    });
+
+    let headerBuf = "";
+    const onData = (chunk: Buffer) => {
+      headerBuf += chunk.toString();
+      const sep = headerBuf.indexOf("\r\n\r\n");
+      if (sep === -1) return;
+      tunnel.off("data", onData);
+
+      if (!headerBuf.startsWith("HTTP/1.1 200") && !headerBuf.startsWith("HTTP/1.0 200")) {
+        tunnel.destroy();
+        resolve(false);
+        return;
+      }
+
+      // Remaining bytes after headers belong to TLS handshake
+      const remainder = Buffer.from(headerBuf.slice(sep + 4), "binary");
+
+      const tlsSocket = tls.connect(
+        { socket: tunnel, servername: TELEGRAM_API_HOST },
+        () => doRequest(tlsSocket)
+      );
+
+      if (remainder.length > 0) tlsSocket.unshift(remainder);
+      tlsSocket.on("error", () => resolve(false));
+    };
+
+    tunnel.on("data", onData);
+    tunnel.on("error", () => resolve(false));
+  });
+}
+
 export async function POST(req: NextRequest) {
   const token = process.env.TELEGRAM_BOT_TOKEN;
   const chatId = process.env.TELEGRAM_CHAT_ID;
@@ -122,29 +218,32 @@ export async function POST(req: NextRequest) {
     timeline: str(body.timeline) || undefined,
   };
 
+  const createdAt = new Date().toISOString();
   const text = buildMessage(lead);
+  const proxyUrl = process.env.HTTPS_PROXY ?? process.env.HTTP_PROXY;
 
-  let tgRes: Response;
+  // 1. Try Telegram — failure is non-critical, lead still gets saved
+  let telegramStatus: "sent" | "failed" = "failed";
   try {
-    tgRes = await fetch(`${TELEGRAM_API}/bot${token}/sendMessage`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ chat_id: chatId, text, parse_mode: "HTML" }),
-    });
+    const ok = await sendTelegramMessage(token, chatId, text, proxyUrl);
+    if (ok) {
+      telegramStatus = "sent";
+    } else {
+      console.error("Telegram API returned non-2xx");
+    }
   } catch (err) {
     console.error("Telegram network error:", (err as Error).message);
-    return NextResponse.json(
-      { ok: false, error: "Не удалось отправить заявку. Проверьте соединение и попробуйте ещё раз." },
-      { status: 502 }
-    );
   }
 
-  if (!tgRes.ok) {
-    const tgBody = await tgRes.json().catch(() => ({}));
-    console.error("Telegram API error:", tgRes.status, (tgBody as { description?: string }).description ?? "");
+  // 2. Save to file — critical: if this fails, the lead is lost
+  const leadRecord: LeadRecord = { ...lead, createdAt, telegramStatus };
+  try {
+    await saveLeadToFile(leadRecord);
+  } catch (err) {
+    console.error("Lead backup save failed:", (err as Error).message);
     return NextResponse.json(
-      { ok: false, error: "Не удалось отправить заявку. Попробуйте позже или напишите нам в Telegram: @uogel_russia" },
-      { status: 502 }
+      { ok: false, error: "Не удалось сохранить заявку. Попробуйте ещё раз." },
+      { status: 500 }
     );
   }
 
