@@ -243,7 +243,31 @@ Known chats:
 
 The local `_index.md` source was not present in the project folder during the 2026-05-22 documentation update. The prompts were restored from the Google Drive document `UOGEL RUSSIA — Промпты для чатов (.md)` and formatted in `docs/chat-prompts.md`.
 
-## 14. What to read before starting
+## 14. Leads / Telegram
+
+Lead forms send POST requests to:
+
+`/api/lead`
+
+Current flow:
+
+1. Validate request on the server.
+2. Apply in-memory rate limit: 3 requests per IP per 10 minutes.
+3. Try to send Telegram message through NAS proxy.
+4. Always save accepted lead to `data/leads.jsonl`.
+5. Store Telegram delivery result as `telegramStatus: "sent" | "failed"`.
+
+Important:
+
+- Telegram does not work directly from the container in Russia.
+- Telegram API is reached through NAS proxy:
+  `192.168.50.190:7890`
+- Do not remove local backup.
+- Do not commit `.env`, `.env.local`, or `data/leads.jsonl`.
+- `data/leads.jsonl` is mounted via Docker volume:
+  `./data:/app/data`
+
+## 15. What to read before starting
 
 Read in this order:
 
