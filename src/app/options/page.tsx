@@ -14,7 +14,7 @@ export const metadata: Metadata = {
       "ZIP-экраны, стеклянные системы, климат и автоматизация для пергол UOGEL.",
     images: [
       {
-        url: "/images/og/uogel-og.webp",
+        url: "/images/og/uogel-og.jpg",
         width: 1200,
         height: 630,
         alt: "Опции для пергол UOGEL",
@@ -109,13 +109,19 @@ export default function OptionsPage() {
                       className="group overflow-hidden rounded-3xl border border-stone-200 bg-white transition hover:-translate-y-0.5 hover:shadow-lg hover:shadow-stone-200"
                     >
                       <div className="relative h-48 w-full overflow-hidden bg-stone-100">
-                        <Image
-                          src={option.images[0]}
-                          alt={option.title}
-                          fill
-                          sizes="(min-width: 1024px) 33vw, (min-width: 768px) 50vw, 100vw"
-                          className="object-cover transition duration-500 group-hover:scale-105"
-                        />
+                        {option.images[0] ? (
+                          <Image
+                            src={option.images[0]}
+                            alt={option.title}
+                            fill
+                            sizes="(min-width: 1024px) 33vw, (min-width: 768px) 50vw, 100vw"
+                            className="object-cover transition duration-500 group-hover:scale-105"
+                          />
+                        ) : (
+                          <div className="flex h-full items-center justify-center">
+                            <span className="text-sm text-stone-400">Фото будет добавлено</span>
+                          </div>
+                        )}
                       </div>
                       <div className="p-6">
                         <p className="text-xs font-semibold uppercase tracking-[0.16em] text-stone-400">

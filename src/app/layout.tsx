@@ -27,7 +27,7 @@ export const metadata: Metadata = {
       "Подбор и расчет биоклиматических пергол UOGEL. Доступные размеры, ламельные крыши, поставка в Россию.",
     images: [
       {
-        url: "/images/og/uogel-og.webp",
+        url: "/images/og/uogel-og.jpg",
         width: 1200,
         height: 630,
         alt: "Биоклиматическая пергола UOGEL",
@@ -39,7 +39,7 @@ export const metadata: Metadata = {
     title: "UOGEL Russia — биоклиматические перголы",
     description:
       "Подбор и расчет биоклиматических пергол UOGEL с поставкой в Россию.",
-    images: ["/images/og/uogel-og.webp"],
+    images: ["/images/og/uogel-og.jpg"],
   },
 };
 

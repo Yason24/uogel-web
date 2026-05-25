@@ -14,7 +14,7 @@ export const metadata: Metadata = {
       "Каталог алюминиевых пергол UOGEL для частных и коммерческих проектов.",
     images: [
       {
-        url: "/images/og/uogel-og.webp",
+        url: "/images/og/uogel-og.jpg",
         width: 1200,
         height: 630,
         alt: "Биоклиматическая пергола UOGEL",

@@ -9,6 +9,7 @@ export type ProfileColor = {
   id: string;
   ral: string;
   name: string;
+  swatch?: string;
 };
 
 export type StandardSize = {

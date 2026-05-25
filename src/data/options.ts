@@ -16,7 +16,7 @@ export const options: Option[] = [
       "Совместимы со всеми сериями UOGEL",
     ],
     variants: ["ZIP Screen 100", "ZIP Screen 120"],
-    images: ["/images/options/option-zip-screen.webp"],
+    images: ["/images/options/zip-screen.jpg"],
     compatibility: { all: true, productIds: [] },
     priceType: "on-request",
     seo: {
@@ -39,7 +39,7 @@ export const options: Option[] = [
       "Раздвижная или складная система",
       "Закалённое стекло",
     ],
-    images: ["/images/options/option-glass-panels.webp"],
+    images: ["/images/options/frameless-glass.jpg"],
     compatibility: { all: false, productIds: ["a13", "c10", "c7", "c4", "m4"] },
     priceType: "on-request",
     seo: {
@@ -62,7 +62,7 @@ export const options: Option[] = [
       "Раздвижная система",
       "Повышенная жёсткость",
     ],
-    images: ["/images/options/option-glass-panels.webp"],
+    images: ["/images/options/narrow-frame-glass.jpg"],
     compatibility: { all: false, productIds: ["a13", "c10", "c7", "c4", "m4"] },
     priceType: "on-request",
     seo: {
@@ -86,7 +86,7 @@ export const options: Option[] = [
       "Цвет в тон профиля перголы",
     ],
     variants: ["Fixed", "Sliding", "Bi-Folding", "Swing"],
-    images: ["/images/options/option-shutter.webp"],
+    images: ["/images/options/aluminium-shutters.webp"],
     compatibility: { all: false, productIds: ["a13", "c10", "c7", "c4", "m4"] },
     priceType: "on-request",
     seo: {
@@ -109,7 +109,7 @@ export const options: Option[] = [
       "Летний и зимний режим вращения",
       "Совместим с моторизованными сериями",
     ],
-    images: ["/images/options/option-motor.jpg"],
+    images: [],
     compatibility: { all: false, productIds: ["a13", "c10", "c7"] },
     priceType: "on-request",
     seo: {
@@ -132,7 +132,7 @@ export const options: Option[] = [
       "Регулировка мощности",
       "Продление сезона до ранней весны / поздней осени",
     ],
-    images: ["/images/options/option-motor.jpg"],
+    images: [],
     compatibility: { all: false, productIds: ["a13", "c10", "c7"] },
     priceType: "on-request",
     seo: {
@@ -155,7 +155,7 @@ export const options: Option[] = [
       "Интеграция с моторизованным приводом",
       "Совместимы с сериями A13, C10, C7, C4",
     ],
-    images: ["/images/options/option-rain-sensor.jpg"],
+    images: [],
     compatibility: { all: false, productIds: ["a13", "c10", "c7", "c4"] },
     priceType: "on-request",
     seo: {

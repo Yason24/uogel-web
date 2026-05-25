@@ -16,7 +16,7 @@ export const metadata: Metadata = {
       "6 серий пергол и 7 опциональных систем из каталога UOGEL 2026. Конфигурации для жилых, гостиничных и коммерческих объектов.",
     images: [
       {
-        url: "/images/og/uogel-og.webp",
+        url: "/images/og/uogel-og.jpg",
         width: 1200,
         height: 630,
         alt: "Каталог систем UOGEL",

@@ -2,9 +2,9 @@ import type { Product, ProfileColor } from "@/types";
 
 const sharedColors: ProfileColor[] = [
   { id: "white", ral: "RAL 9016", name: "Матовый белый" },
-  { id: "grey", ral: "RAL 7016", name: "Антрацит матовый" },
-  { id: "black", ral: "RAL 9005", name: "Матовый чёрный" },
-  { id: "brown", ral: "RAL 8040", name: "Тёмно-коричневый" },
+  { id: "grey",  ral: "RAL 7016", name: "Антрацит матовый", swatch: "/images/colors/ral-7016.png" },
+  { id: "black", ral: "RAL 9005", name: "Матовый чёрный",   swatch: "/images/colors/ral-9005.png" },
+  { id: "brown", ral: "RAL 8040", name: "Тёмно-коричневый", swatch: "/images/colors/ral-8040.png" },
 ];
 
 export const products: Product[] = [
@@ -57,14 +57,13 @@ export const products: Product[] = [
       "Представительский коммерческий объект",
     ],
     images: [
-      "/images/pergolas/pergola-4x6-louvered-1.webp",
-      "/images/pergolas/pergola-4x6-louvered-2.jpg",
+      "/images/products/a13.jpg",
     ],
     seo: {
       title: "Пергола UOGEL A13 — биоклиматическая система в Россию",
       description:
         "Флагманская биоклиматическая система UOGEL A13: профиль 150×150 мм, ламели 250×45 мм, RGB LED, моторизованный привод. Расчёт поставки в Россию.",
-      ogImage: "/images/pergolas/pergola-4x6-louvered-1.webp",
+      ogImage: "/images/products/a13.jpg",
     },
   },
   {
@@ -116,14 +115,13 @@ export const products: Product[] = [
       "Коммерческая зона отдыха",
     ],
     images: [
-      "/images/pergolas/pergola-4x6-louvered-2.jpg",
-      "/images/pergolas/pergola-4x6-louvered-1.webp",
+      "/images/products/c10.jpg",
     ],
     seo: {
       title: "Пергола UOGEL C10 — ламельная моторизованная система",
       description:
         "UOGEL C10: ламельная система на профиле 150×150 мм с моторизованным приводом, RGB/Dual LED. Расчёт поставки в Россию.",
-      ogImage: "/images/pergolas/pergola-4x6-louvered-2.jpg",
+      ogImage: "/images/products/c10.jpg",
     },
   },
   {
@@ -175,14 +173,13 @@ export const products: Product[] = [
       "Коммерческий объект",
     ],
     images: [
-      "/images/pergolas/pergola-4x4-wall-mounted-1.jpg",
-      "/images/pergolas/pergola-4x4-wall-mounted-2.jpg",
+      "/images/products/c7.jpg",
     ],
     seo: {
       title: "Пергола UOGEL C7 — пристенная и отдельностоящая система",
       description:
         "UOGEL C7: ламельная система на профиле 120×120 мм, пристенная и отдельностоящая установка, ламели 195×40 мм, моторизованный привод. Поставка в Россию.",
-      ogImage: "/images/pergolas/pergola-4x4-wall-mounted-1.jpg",
+      ogImage: "/images/products/c7.jpg",
     },
   },
   {
@@ -227,14 +224,13 @@ export const products: Product[] = [
     profileColors: sharedColors,
     useCases: ["Частный дом", "Терраса у коттеджа", "Патио", "Небольшое кафе"],
     images: [
-      "/images/pergolas/pergola-3x4-aluminium-1.jpg",
-      "/images/pergolas/pergola-3x4-aluminium-2.jpg",
+      "/images/products/c4.jpg",
     ],
     seo: {
       title: "Пергола UOGEL C4 — моторизованная ламельная система",
       description:
         "UOGEL C4: профиль 120×120 мм, ламели 140×35 мм, моторизованный привод. Доступное решение для частных и небольших коммерческих объектов. Поставка в Россию.",
-      ogImage: "/images/pergolas/pergola-3x4-aluminium-1.jpg",
+      ogImage: "/images/products/c4.jpg",
     },
   },
   {
@@ -273,14 +269,13 @@ export const products: Product[] = [
     profileColors: sharedColors,
     useCases: ["Частный дом", "Дача", "Небольшая терраса", "Зона отдыха"],
     images: [
-      "/images/pergolas/pergola-3x4-aluminium-2.jpg",
-      "/images/pergolas/pergola-3x4-aluminium-1.jpg",
+      "/images/products/m4.jpg",
     ],
     seo: {
       title: "Пергола UOGEL M4 — ручная ламельная система",
       description:
         "UOGEL M4: ламельная система на профиле 120×120 мм с ручным управлением. Надёжное и экономичное решение для частных объектов. Поставка в Россию.",
-      ogImage: "/images/pergolas/pergola-3x4-aluminium-2.jpg",
+      ogImage: "/images/products/m4.jpg",
     },
   },
   {
@@ -323,14 +318,13 @@ export const products: Product[] = [
     profileColors: sharedColors,
     useCases: ["Небольшая терраса", "Дача", "Зона у бассейна", "Балкон"],
     images: [
-      "/images/pergolas/pergola-3x3-metal-1.jpg",
-      "/images/pergolas/pergola-3x3-metal-2.jpg",
+      "/images/products/m3.jpg",
     ],
     seo: {
       title: "Пергола UOGEL M3 — компактная система 3×2, 3×3 м",
       description:
         "UOGEL M3: компактная ламельная система в стандартных размерах 3×2 и 3×3 м. Ручное управление, доступная цена, поставка в Россию.",
-      ogImage: "/images/pergolas/pergola-3x3-metal-1.jpg",
+      ogImage: "/images/products/m3.jpg",
     },
   },
 ];

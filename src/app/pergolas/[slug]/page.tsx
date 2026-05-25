@@ -127,6 +127,17 @@ export default async function PergolaPage({
               <ul className="mt-4 grid gap-3">
                 {product.profileColors.map((color) => (
                   <li key={color.id} className="flex items-center gap-3 text-sm">
+                    {color.swatch ? (
+                      <Image
+                        src={color.swatch}
+                        alt={color.ral}
+                        width={40}
+                        height={26}
+                        className="h-6 w-10 shrink-0 rounded object-cover"
+                      />
+                    ) : (
+                      <span className="h-6 w-10 shrink-0 rounded border border-stone-200 bg-white" />
+                    )}
                     <span className="font-medium text-stone-700">{color.ral}</span>
                     <span className="text-stone-500">{color.name}</span>
                   </li>
