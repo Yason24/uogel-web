@@ -80,7 +80,8 @@ export type Option = {
 
 export type NavItem = {
   label: string;
-  href: string;
+  href?: string;
+  children?: NavItem[];
 };
 
 export type Lead = {
