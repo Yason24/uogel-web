@@ -1,10 +1,19 @@
 import type { Product, ProfileColor } from "@/types";
 
-const sharedColors: ProfileColor[] = [
+// Premium series: A13, C10, C7 — RAL9016 / RAL7016 / RAL9005 / RAL8040
+const premiumColors: ProfileColor[] = [
   { id: "white", ral: "RAL 9016", name: "Матовый белый" },
   { id: "grey",  ral: "RAL 7016", name: "Антрацит матовый", swatch: "/images/colors/ral-7016.png" },
   { id: "black", ral: "RAL 9005", name: "Матовый чёрный",   swatch: "/images/colors/ral-9005.png" },
   { id: "brown", ral: "RAL 8040", name: "Тёмно-коричневый", swatch: "/images/colors/ral-8040.png" },
+];
+
+// Standard series: C4, M4, M3, M2-S — RAL9016 / RAL7016 / RAL9005 / Custom Colors
+const standardColors: ProfileColor[] = [
+  { id: "white", ral: "RAL 9016", name: "Матовый белый" },
+  { id: "grey",  ral: "RAL 7016", name: "Антрацит матовый", swatch: "/images/colors/ral-7016.png" },
+  { id: "black", ral: "RAL 9005", name: "Матовый чёрный",   swatch: "/images/colors/ral-9005.png" },
+  { id: "custom", ral: "Custom Colors", name: "Индивидуальный цвет" },
 ];
 
 export const products: Product[] = [
@@ -15,28 +24,29 @@ export const products: Product[] = [
     title: "UOGEL A13",
     subtitle: "Флагманская биоклиматическая система",
     description:
-      "A13 — старший биоклиматический профиль UOGEL. Крупный профиль 150×150 мм, широкие ламели 250×45 мм, встроенная RGB LED-подсветка и полностью моторизованный привод. Размеры подбираются под проект из реальной сетки конфигураций UOGEL.",
+      "A13 — старший биоклиматический профиль UOGEL. Профиль стойки 150×150 мм, балка 210×150 мм, ламели 202×45 мм с RGB LED-подсветкой и полностью моторизованным приводом. Размеры подбираются под проект из реальной сетки конфигураций UOGEL.",
     category: "bioclimatic",
     drive: "motorized",
     systemType: "freestanding",
     status: "available",
     sizeRange: {
       minWidth: 3000,
-      maxWidth: 8000,
+      maxWidth: 6000,
       minDepth: 2000,
       maxDepth: 6000,
       customizable: true,
     },
     specs: {
       post: "150×150 мм",
-      blade: "250×45 мм, поворотные",
+      blade: "202×45 мм, поворотные",
       material: "Алюминий",
       waterDrainage: true,
     },
     baseEquipment: [
-      "Алюминиевый профиль 150×150 мм",
-      "Поворотные ламели 250×45 мм",
-      "LED RGB 7-цветная подсветка",
+      "Алюминиевый профиль стойки 150×150 мм",
+      "Балка 210×150 мм",
+      "Поворотные ламели 202×45 мм",
+      "RGB LED-подсветка (7 цветов)",
       "Моторизованный привод",
       "Интегрированный водоотвод через стойки",
     ],
@@ -49,7 +59,7 @@ export const products: Product[] = [
       "electrical-heater",
       "rain-wind-sensors",
     ],
-    profileColors: sharedColors,
+    profileColors: premiumColors,
     useCases: [
       "Частный дом и резиденция",
       "Загородный отель",
@@ -62,7 +72,7 @@ export const products: Product[] = [
     seo: {
       title: "Пергола UOGEL A13 — биоклиматическая система в Россию",
       description:
-        "Флагманская биоклиматическая система UOGEL A13: профиль 150×150 мм, ламели 250×45 мм, RGB LED, моторизованный привод. Расчёт поставки в Россию.",
+        "Флагманская биоклиматическая система UOGEL A13: профиль 150×150 мм, ламели 202×45 мм, RGB LED, моторизованный привод. Расчёт поставки в Россию.",
       ogImage: "/images/products/a13.jpg",
     },
   },
@@ -73,7 +83,7 @@ export const products: Product[] = [
     title: "UOGEL C10",
     subtitle: "Ламельная моторизованная система",
     description:
-      "C10 — ламельная система на крупном профиле 150×150 мм с ламелями 195×40 мм. Моторизованный привод, RGB/Dual LED и широкая совместимость с боковыми опциями делают её универсальным решением для просторных террас и коммерческих объектов.",
+      "C10 — ламельная система на профиле 150×150 мм с ламелями 193×40 мм. Балка 220×123 мм, моторизованный привод, RGB/Dual LED. Широкая совместимость с боковыми опциями делает её универсальным решением для просторных террас и коммерческих объектов.",
     category: "louvered",
     drive: "motorized",
     systemType: "freestanding",
@@ -87,13 +97,14 @@ export const products: Product[] = [
     },
     specs: {
       post: "150×150 мм",
-      blade: "195×40 мм, поворотные",
+      blade: "193×40 мм, поворотные",
       material: "Алюминий",
       waterDrainage: true,
     },
     baseEquipment: [
-      "Алюминиевый профиль 150×150 мм",
-      "Поворотные ламели 195×40 мм",
+      "Алюминиевый профиль стойки 150×150 мм",
+      "Балка 220×123 мм",
+      "Поворотные ламели 193×40 мм",
       "RGB / Dual LED подсветка",
       "Моторизованный привод",
       "Интегрированный водоотвод",
@@ -107,7 +118,7 @@ export const products: Product[] = [
       "electrical-heater",
       "rain-wind-sensors",
     ],
-    profileColors: sharedColors,
+    profileColors: premiumColors,
     useCases: [
       "Ресторан и кафе",
       "Загородный отель",
@@ -120,7 +131,7 @@ export const products: Product[] = [
     seo: {
       title: "Пергола UOGEL C10 — ламельная моторизованная система",
       description:
-        "UOGEL C10: ламельная система на профиле 150×150 мм с моторизованным приводом, RGB/Dual LED. Расчёт поставки в Россию.",
+        "UOGEL C10: ламельная система на профиле 150×150 мм с моторизованным приводом, RGB/Dual LED, балка 220×123 мм. Расчёт поставки в Россию.",
       ogImage: "/images/products/c10.jpg",
     },
   },
@@ -131,7 +142,7 @@ export const products: Product[] = [
     title: "UOGEL C7",
     subtitle: "Универсальная пристенная и отдельностоящая система",
     description:
-      "C7 — гибкая ламельная система на профиле 120×120 мм. Подходит как для пристенного монтажа, так и для отдельностоящей установки. Моторизованный привод, ламели 195×40 мм, широкий диапазон конфигураций.",
+      "C7 — гибкая ламельная система на профиле 150×150 мм. Подходит как для пристенного монтажа, так и для отдельностоящей установки. Ламели 193×40 мм, балка 220×123 мм, моторизованный привод, широкий диапазон конфигураций.",
     category: "louvered",
     drive: "motorized",
     systemType: "both",
@@ -144,14 +155,15 @@ export const products: Product[] = [
       customizable: true,
     },
     specs: {
-      post: "120×120 мм",
-      blade: "195×40 мм, поворотные",
+      post: "150×150 мм",
+      blade: "193×40 мм, поворотные",
       material: "Алюминий",
       waterDrainage: true,
     },
     baseEquipment: [
-      "Алюминиевый профиль 120×120 мм",
-      "Поворотные ламели 195×40 мм",
+      "Алюминиевый профиль стойки 150×150 мм",
+      "Балка 220×123 мм",
+      "Поворотные ламели 193×40 мм",
       "LED подсветка",
       "Моторизованный привод",
       "Интегрированный водоотвод",
@@ -165,7 +177,7 @@ export const products: Product[] = [
       "electrical-heater",
       "rain-wind-sensors",
     ],
-    profileColors: sharedColors,
+    profileColors: premiumColors,
     useCases: [
       "Терраса у дома",
       "Пристенное решение к фасаду",
@@ -178,7 +190,7 @@ export const products: Product[] = [
     seo: {
       title: "Пергола UOGEL C7 — пристенная и отдельностоящая система",
       description:
-        "UOGEL C7: ламельная система на профиле 120×120 мм, пристенная и отдельностоящая установка, ламели 195×40 мм, моторизованный привод. Поставка в Россию.",
+        "UOGEL C7: ламельная система на профиле 150×150 мм, пристенная и отдельностоящая установка, ламели 193×40 мм, моторизованный привод. Поставка в Россию.",
       ogImage: "/images/products/c7.jpg",
     },
   },
@@ -189,7 +201,7 @@ export const products: Product[] = [
     title: "UOGEL C4",
     subtitle: "Моторизованная система среднего класса",
     description:
-      "C4 — моторизованная ламельная система на профиле 120×120 мм с ламелями 140×35 мм. Оптимальное соотношение возможностей и стоимости для частных террас и небольших коммерческих объектов.",
+      "C4 — моторизованная ламельная система на профиле 120×120 мм с ламелями 160×33 мм. Выпускается в стандартных конфигурациях. Оптимальное соотношение возможностей и стоимости для частных террас и небольших коммерческих объектов.",
     category: "louvered",
     drive: "motorized",
     systemType: "freestanding",
@@ -197,19 +209,26 @@ export const products: Product[] = [
     sizeRange: {
       minWidth: 3000,
       maxWidth: 6000,
-      minDepth: 2000,
-      maxDepth: 5000,
-      customizable: true,
+      minDepth: 3000,
+      maxDepth: 4000,
+      customizable: false,
+      standardSizes: [
+        { width: 3000, depth: 3000 },
+        { width: 3000, depth: 4000 },
+        { width: 4000, depth: 4000 },
+        { width: 6000, depth: 3000 },
+        { width: 6000, depth: 4000 },
+      ],
     },
     specs: {
       post: "120×120 мм",
-      blade: "140×35 мм, поворотные",
+      blade: "160×33 мм, поворотные",
       material: "Алюминий",
       waterDrainage: true,
     },
     baseEquipment: [
       "Алюминиевый профиль 120×120 мм",
-      "Поворотные ламели 140×35 мм",
+      "Поворотные ламели 160×33 мм",
       "LED подсветка",
       "Моторизованный привод",
       "Интегрированный водоотвод",
@@ -221,7 +240,7 @@ export const products: Product[] = [
       "aluminium-shutters",
       "rain-wind-sensors",
     ],
-    profileColors: sharedColors,
+    profileColors: standardColors,
     useCases: ["Частный дом", "Терраса у коттеджа", "Патио", "Небольшое кафе"],
     images: [
       "/images/products/c4.jpg",
@@ -229,7 +248,7 @@ export const products: Product[] = [
     seo: {
       title: "Пергола UOGEL C4 — моторизованная ламельная система",
       description:
-        "UOGEL C4: профиль 120×120 мм, ламели 140×35 мм, моторизованный привод. Доступное решение для частных и небольших коммерческих объектов. Поставка в Россию.",
+        "UOGEL C4: профиль 120×120 мм, ламели 160×33 мм, моторизованный привод. Стандартные конфигурации для частных и небольших коммерческих объектов. Поставка в Россию.",
       ogImage: "/images/products/c4.jpg",
     },
   },
@@ -240,42 +259,49 @@ export const products: Product[] = [
     title: "UOGEL M4",
     subtitle: "Ручная ламельная система",
     description:
-      "M4 — ручная версия ламельной системы на профиле 120×120 мм. Управление ламелями 140×35 мм производится вручную. Надёжное и экономичное решение без автоматики.",
+      "M4 — ручная версия ламельной системы на профиле 120×120 мм с ламелями 160×33 мм. Выпускается в тех же стандартных конфигурациях, что и C4. Надёжное и экономичное решение без автоматики.",
     category: "louvered",
     drive: "manual",
     systemType: "freestanding",
     status: "available",
     sizeRange: {
       minWidth: 3000,
-      maxWidth: 5000,
-      minDepth: 2000,
+      maxWidth: 6000,
+      minDepth: 3000,
       maxDepth: 4000,
-      customizable: true,
+      customizable: false,
+      standardSizes: [
+        { width: 3000, depth: 3000 },
+        { width: 3000, depth: 4000 },
+        { width: 4000, depth: 4000 },
+        { width: 6000, depth: 3000 },
+        { width: 6000, depth: 4000 },
+      ],
     },
     specs: {
       post: "120×120 мм",
-      blade: "140×35 мм, поворотные",
+      blade: "160×33 мм, поворотные",
       material: "Алюминий",
       waterDrainage: true,
     },
     baseEquipment: [
       "Алюминиевый профиль 120×120 мм",
-      "Поворотные ламели 140×35 мм",
+      "Поворотные ламели 160×33 мм",
       "LED подсветка",
       "Ручное управление",
       "Интегрированный водоотвод",
     ],
     compatibleOptions: ["zip-screen", "frameless-glass", "narrow-frame-glass", "aluminium-shutters"],
-    profileColors: sharedColors,
+    profileColors: standardColors,
     useCases: ["Частный дом", "Дача", "Небольшая терраса", "Зона отдыха"],
     images: [
-      "/images/products/m4.jpg",
+      "/images/products/c4.jpg",
     ],
     seo: {
       title: "Пергола UOGEL M4 — ручная ламельная система",
       description:
-        "UOGEL M4: ламельная система на профиле 120×120 мм с ручным управлением. Надёжное и экономичное решение для частных объектов. Поставка в Россию.",
-      ogImage: "/images/products/m4.jpg",
+        "UOGEL M4: ламельная система на профиле 120×120 мм с ручным управлением. Стандартные конфигурации для частных объектов. Поставка в Россию.",
+      ogImage: "/images/products/c4.jpg",
     },
   },
   {
@@ -285,7 +311,7 @@ export const products: Product[] = [
     title: "UOGEL M3",
     subtitle: "Компактная ручная система в стандартных размерах",
     description:
-      "M3 — компактная ламельная система для небольших террас. Выпускается в двух стандартных конфигурациях: 3×2 м и 3×3 м. Ручное управление, простой монтаж, минимальный порог входа.",
+      "M3 — компактная ламельная система на профиле 120×120 мм для небольших террас. Выпускается в трёх стандартных конфигурациях: 3×3, 3×4 и 3×6 м. Ручное управление, простой монтаж.",
     category: "louvered",
     drive: "manual",
     systemType: "freestanding",
@@ -293,38 +319,89 @@ export const products: Product[] = [
     sizeRange: {
       minWidth: 3000,
       maxWidth: 3000,
-      minDepth: 2000,
-      maxDepth: 3000,
+      minDepth: 3000,
+      maxDepth: 6000,
       customizable: false,
       standardSizes: [
-        { width: 3000, depth: 2000 },
         { width: 3000, depth: 3000 },
+        { width: 3000, depth: 4000 },
+        { width: 3000, depth: 6000 },
       ],
     },
     specs: {
-      post: "100×100 мм",
-      blade: "140×35 мм, поворотные",
+      post: "120×120 мм",
+      blade: "160×33 мм, поворотные",
       material: "Алюминий",
       waterDrainage: true,
     },
     baseEquipment: [
-      "Алюминиевый профиль 100×100 мм",
-      "Поворотные ламели 140×35 мм",
+      "Алюминиевый профиль 120×120 мм",
+      "Поворотные ламели 160×33 мм",
       "LED подсветка",
       "Ручное управление",
       "Интегрированный водоотвод",
     ],
     compatibleOptions: ["zip-screen"],
-    profileColors: sharedColors,
+    profileColors: standardColors,
     useCases: ["Небольшая терраса", "Дача", "Зона у бассейна", "Балкон"],
     images: [
       "/images/products/m3.jpg",
     ],
     seo: {
-      title: "Пергола UOGEL M3 — компактная система 3×2, 3×3 м",
+      title: "Пергола UOGEL M3 — компактная система 3×3, 3×4, 3×6 м",
       description:
-        "UOGEL M3: компактная ламельная система в стандартных размерах 3×2 и 3×3 м. Ручное управление, доступная цена, поставка в Россию.",
+        "UOGEL M3: компактная ламельная система в стандартных размерах 3×3, 3×4 и 3×6 м. Ручное управление, доступная цена, поставка в Россию.",
       ogImage: "/images/products/m3.jpg",
+    },
+  },
+  {
+    id: "m2-s",
+    slug: "m2-s",
+    seriesName: "M2-S",
+    title: "UOGEL M2-S",
+    subtitle: "Начальная компактная серия в стандартных размерах",
+    description:
+      "M2-S — начальная компактная ламельная система на профиле 100×100 мм с ламелями 164×30 мм. Выпускается в трёх стандартных конфигурациях: 3×3, 3×4 и 3×6 м. Ручное управление, минимальный порог входа.",
+    category: "louvered",
+    drive: "manual",
+    systemType: "freestanding",
+    status: "available",
+    sizeRange: {
+      minWidth: 3000,
+      maxWidth: 3000,
+      minDepth: 3000,
+      maxDepth: 6000,
+      customizable: false,
+      standardSizes: [
+        { width: 3000, depth: 3000 },
+        { width: 3000, depth: 4000 },
+        { width: 3000, depth: 6000 },
+      ],
+    },
+    specs: {
+      post: "100×100 мм",
+      blade: "164×30 мм, поворотные",
+      material: "Алюминий",
+      waterDrainage: true,
+    },
+    baseEquipment: [
+      "Алюминиевый профиль 100×100 мм",
+      "Поворотные ламели 164×30 мм",
+      "LED подсветка",
+      "Ручное управление",
+      "Интегрированный водоотвод",
+    ],
+    compatibleOptions: ["zip-screen"],
+    profileColors: standardColors,
+    useCases: ["Небольшая терраса", "Дача", "Балкон", "Зона отдыха"],
+    images: [
+      "/images/products/m2-s.jpg",
+    ],
+    seo: {
+      title: "Пергола UOGEL M2-S — компактная начальная серия",
+      description:
+        "UOGEL M2-S: начальная ламельная серия на профиле 100×100 мм в стандартных размерах 3×3, 3×4 и 3×6 м. Ручное управление, поставка в Россию.",
+      ogImage: "/images/products/m2-s.jpg",
     },
   },
 ];
