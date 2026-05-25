@@ -13,7 +13,8 @@ export function Footer() {
         <div className="border-t border-stone-200 pt-6 md:border-t-0 md:pt-0">
           <p className="font-semibold text-stone-950">Разделы</p>
           <div className="mt-3 grid gap-2">
-            <Link href="/pergolas" className="hover:text-stone-950">Каталог</Link>
+            <Link href="/catalog" className="hover:text-stone-950">Каталог</Link>
+            <Link href="/pergolas" className="hover:text-stone-950">Перголы</Link>
             <Link href="/options" className="hover:text-stone-950">Опции</Link>
             <Link href="/delivery" className="hover:text-stone-950">Доставка</Link>
             <Link href="/calculate" className="hover:text-stone-950">Расчет</Link>

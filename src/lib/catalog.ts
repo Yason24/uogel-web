@@ -1,4 +1,4 @@
-import type { Product, Option, SizeRange, SystemType } from "@/types";
+import type { Product, Option, SizeRange, SystemType, DriveType, OptionCategory } from "@/types";
 
 export function formatSizeRange(sr: SizeRange): string {
   if (!sr.customizable && sr.standardSizes && sr.standardSizes.length > 0) {
@@ -21,6 +21,22 @@ export function formatSystemType(systemType: SystemType): string {
     both: "Пристенная / отдельностоящая",
   };
   return labels[systemType];
+}
+
+export function formatDrive(drive: DriveType): string {
+  return drive === "motorized" ? "Моторизованная" : "Ручное управление";
+}
+
+export function formatOptionCategory(category: OptionCategory): string {
+  const labels: Record<OptionCategory, string> = {
+    screens: "Экраны",
+    glass: "Стекло",
+    shutters: "Ставни",
+    lighting: "Освещение",
+    climate: "Климат",
+    automation: "Автоматика",
+  };
+  return labels[category];
 }
 
 export function getCompatibleOptions(product: Product, optionsList: Option[]): Option[] {
