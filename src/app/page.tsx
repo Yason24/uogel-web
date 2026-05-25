@@ -78,7 +78,7 @@ export default function Home() {
           </div>
           <div className="relative min-h-[360px] overflow-hidden rounded-3xl bg-stone-200 shadow-2xl shadow-stone-300 ring-1 ring-stone-900/5 lg:min-h-[540px]">
             <Image
-              src="/images/hero/hero-main.webp"
+              src="/images/hero/hero-main.jpg"
               alt="Биоклиматическая пергола UOGEL"
               fill
               priority
