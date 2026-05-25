@@ -139,46 +139,61 @@ export function Quiz() {
       <div className="rounded-3xl border border-stone-200 bg-white p-6">
         <h2 className="text-lg font-semibold text-stone-950">Контактные данные</h2>
         <div className="mt-5 grid gap-4 sm:grid-cols-2">
-          <input
-            name="city"
-            disabled={submitting}
-            className="rounded-2xl border border-stone-200 px-4 py-3 outline-none focus:border-stone-500 disabled:opacity-50"
-            placeholder="Город установки"
-          />
-          <input
-            name="name"
-            disabled={submitting}
-            className="rounded-2xl border border-stone-200 px-4 py-3 outline-none focus:border-stone-500 disabled:opacity-50"
-            placeholder="Имя"
-          />
-          <input
-            name="phone"
-            type="tel"
-            disabled={submitting}
-            className="rounded-2xl border border-stone-200 px-4 py-3 outline-none focus:border-stone-500 disabled:opacity-50"
-            placeholder="Телефон"
-          />
-          <input
-            name="messenger"
-            disabled={submitting}
-            className="rounded-2xl border border-stone-200 px-4 py-3 outline-none focus:border-stone-500 disabled:opacity-50"
-            placeholder="Telegram / WhatsApp"
-          />
+          <label className="grid gap-2 text-sm font-medium text-stone-700">
+            Город установки
+            <input
+              name="city"
+              disabled={submitting}
+              className="rounded-2xl border border-stone-200 px-4 py-3 outline-none focus:border-stone-500 disabled:opacity-50"
+              placeholder="Москва"
+            />
+          </label>
+          <label className="grid gap-2 text-sm font-medium text-stone-700">
+            Имя
+            <input
+              name="name"
+              disabled={submitting}
+              className="rounded-2xl border border-stone-200 px-4 py-3 outline-none focus:border-stone-500 disabled:opacity-50"
+              placeholder="Артём"
+            />
+          </label>
+          <label className="grid gap-2 text-sm font-medium text-stone-700">
+            Телефон
+            <input
+              name="phone"
+              type="tel"
+              disabled={submitting}
+              className="rounded-2xl border border-stone-200 px-4 py-3 outline-none focus:border-stone-500 disabled:opacity-50"
+              placeholder="+7"
+            />
+          </label>
+          <label className="grid gap-2 text-sm font-medium text-stone-700">
+            Telegram / WhatsApp
+            <input
+              name="messenger"
+              disabled={submitting}
+              className="rounded-2xl border border-stone-200 px-4 py-3 outline-none focus:border-stone-500 disabled:opacity-50"
+              placeholder="куда удобнее написать"
+            />
+          </label>
         </div>
-        <textarea
-          name="comment"
-          rows={4}
-          disabled={submitting}
-          className="mt-4 w-full rounded-2xl border border-stone-200 px-4 py-3 outline-none focus:border-stone-500 disabled:opacity-50"
-          placeholder="Дополнительный комментарий"
-        />
+        <label className="mt-4 grid gap-2 text-sm font-medium text-stone-700">
+          Комментарий
+          <textarea
+            name="comment"
+            rows={4}
+            disabled={submitting}
+            className="rounded-2xl border border-stone-200 px-4 py-3 outline-none focus:border-stone-500 disabled:opacity-50"
+            placeholder="Дополнительный комментарий"
+          />
+        </label>
         {status === "error" && errorMessage && (
           <p className="mt-3 rounded-2xl bg-red-50 px-4 py-3 text-sm text-red-700">{errorMessage}</p>
         )}
         <button
           type="submit"
           disabled={submitting}
-          className="mt-5 rounded-full bg-stone-950 px-6 py-3 text-sm font-semibold text-white transition hover:bg-stone-800 disabled:cursor-not-allowed disabled:opacity-60"
+          className="mt-5 w-full rounded-full bg-stone-950 px-6 py-3 text-sm font-semibold text-white transition hover:bg-stone-800 disabled:cursor-not-allowed disabled:opacity-60 sm:w-auto"
         >
           {submitting ? "Отправляем..." : "Получить расчет"}
         </button>

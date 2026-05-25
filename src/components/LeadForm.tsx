@@ -133,7 +133,7 @@ export function LeadForm({ sourcePage, selectedPergolaId }: LeadFormProps) {
       <button
         type="submit"
         disabled={submitting}
-        className="rounded-full bg-stone-950 px-6 py-3 text-sm font-semibold text-white transition hover:bg-stone-800 disabled:cursor-not-allowed disabled:opacity-60"
+        className="w-full rounded-full bg-stone-950 px-6 py-3 text-sm font-semibold text-white transition hover:bg-stone-800 disabled:cursor-not-allowed disabled:opacity-60 sm:w-auto"
       >
         {submitting ? "Отправляем..." : "Отправить заявку"}
       </button>

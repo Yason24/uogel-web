@@ -1,7 +1,9 @@
 import type { Metadata } from "next";
+import { CTA } from "@/components/CTA";
 import { Section } from "@/components/Section";
 
 export const metadata: Metadata = { title: "Доставка пергол UOGEL в Россию", description: "Поставка пергол UOGEL из Китая в Россию: сроки, упаковка, оплата и состав расчета." };
+
 const rows = [
   ["Поставка", "Системы поставляются из Китая. Маршрут и сроки зависят от партии, модели и города получения."],
   ["Сроки", "Срок производства и отгрузки уточняется при расчете. В материалах UOGEL встречается ориентир 15–25 рабочих дней для производства."],
@@ -10,6 +12,23 @@ const rows = [
   ["Входит в стоимость", "Базовая конструкция выбранной модели и комплектация, согласованная в расчете."],
   ["Считается отдельно", "Доставка по России, монтаж, дополнительные опции, нестандартная логистика и подготовительные работы на объекте."],
 ];
+
 export default function DeliveryPage() {
-  return <Section eyebrow="Логистика" title="Доставка и условия" description="Описание намеренно честное: финальные сроки и стоимость зависят от выбранной модели и маршрута поставки."><div className="grid gap-4">{rows.map(([title, text]) => <div key={title} className="rounded-3xl bg-white p-6 shadow-sm"><h2 className="text-xl font-semibold text-stone-950">{title}</h2><p className="mt-3 text-stone-600">{text}</p></div>)}</div></Section>;
+  return (
+    <>
+      <Section eyebrow="Логистика" title="Доставка и условия" description="Описание намеренно честное: финальные сроки и стоимость зависят от выбранной модели и маршрута поставки.">
+        <div className="grid gap-4">
+          {rows.map(([title, text]) => (
+            <div key={title} className="rounded-3xl bg-white p-6 shadow-sm">
+              <h2 className="text-xl font-semibold text-stone-950">{title}</h2>
+              <p className="mt-3 text-stone-600">{text}</p>
+            </div>
+          ))}
+        </div>
+      </Section>
+      <Section title="Готовы посчитать проект?" className="pt-0">
+        <CTA />
+      </Section>
+    </>
+  );
 }

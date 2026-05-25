@@ -1,5 +1,6 @@
 import Image from "next/image";
 import type { Metadata } from "next";
+import { CTA } from "@/components/CTA";
 import { Section } from "@/components/Section";
 
 export const metadata: Metadata = {
@@ -22,27 +23,32 @@ const items: [string, string][] = [
 
 export default function GalleryPage() {
   return (
-    <Section
-      eyebrow="Галерея"
-      title="Перголы UOGEL в разных сценариях"
-      description="Примеры установки из продуктового каталога UOGEL: частные дома, коммерческие объекты, дополнительные опции."
-    >
-      <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-        {items.map(([title, image]) => (
-          <figure key={title} className="overflow-hidden rounded-3xl bg-white shadow-sm">
-            <div className="relative h-80 w-full">
-              <Image
-                src={image}
-                alt={title}
-                fill
-                sizes="(min-width: 1024px) 33vw, (min-width: 768px) 50vw, 100vw"
-                className="object-cover"
-              />
-            </div>
-            <figcaption className="p-5 text-lg font-semibold text-stone-950">{title}</figcaption>
-          </figure>
-        ))}
-      </div>
-    </Section>
+    <>
+      <Section
+        eyebrow="Галерея"
+        title="Перголы UOGEL в разных сценариях"
+        description="Примеры установки из продуктового каталога UOGEL: частные дома, коммерческие объекты, дополнительные опции."
+      >
+        <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+          {items.map(([title, image]) => (
+            <figure key={title} className="overflow-hidden rounded-3xl bg-white shadow-sm">
+              <div className="relative h-80 w-full">
+                <Image
+                  src={image}
+                  alt={title}
+                  fill
+                  sizes="(min-width: 1024px) 33vw, (min-width: 768px) 50vw, 100vw"
+                  className="object-cover"
+                />
+              </div>
+              <figcaption className="p-5 text-lg font-semibold text-stone-950">{title}</figcaption>
+            </figure>
+          ))}
+        </div>
+      </Section>
+      <Section title="Готовы посчитать проект?" className="pt-0">
+        <CTA />
+      </Section>
+    </>
   );
 }

@@ -26,14 +26,6 @@ export default function ContactsPage() {
               <p className="text-xs font-semibold uppercase tracking-wider text-stone-400">Telegram</p>
               <p className="mt-1">@uogel_russia</p>
             </div>
-            <div>
-              <p className="text-xs font-semibold uppercase tracking-wider text-stone-400">WhatsApp / телефон</p>
-              <p className="mt-1 text-stone-400 italic">будет указан после запуска</p>
-            </div>
-            <div>
-              <p className="text-xs font-semibold uppercase tracking-wider text-stone-400">Email</p>
-              <p className="mt-1 text-stone-400 italic">будет указан после запуска</p>
-            </div>
           </div>
         </div>
         <LeadForm sourcePage="contacts" />
