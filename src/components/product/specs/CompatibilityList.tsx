@@ -25,7 +25,7 @@ export function CompatibilityList({ product, allOptions }: Props) {
           <p className="text-xs font-semibold uppercase tracking-widest text-stone-400">
             {formatOptionCategory(option.category)}
           </p>
-          <h3 className="mt-2 text-base font-semibold text-stone-950 group-hover:text-stone-700">
+          <h3 className="mt-2 text-base font-semibold text-stone-950 transition-colors duration-200 group-hover:text-arch">
             {option.title}
           </h3>
           <p className="mt-1 text-sm text-stone-500">{option.subtitle}</p>

@@ -4,7 +4,7 @@ import type { Metadata } from "next";
 import { availablePergolas } from "@/data/pergolas";
 
 export const metadata: Metadata = {
-  title: "UOGEL Russia — биоклиматические перголы с поставкой в Россию",
+  title: { absolute: "UOGEL Russia — биоклиматические перголы с поставкой в Россию" },
   description:
     "Алюминиевые биоклиматические системы UOGEL с поворотными ламелями, ZIP-экранами, стеклом, LED и автоматикой. Подбор из каталога 2026, расчёт поставки в Россию.",
   openGraph: {

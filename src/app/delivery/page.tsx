@@ -42,7 +42,7 @@ const excluded = [
 
 export default function DeliveryPage() {
   return (
-    <main>
+    <>
       <section className="py-20 sm:py-28">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <p className="text-xs font-medium uppercase tracking-[0.2em] text-stone-400">Логистика</p>
@@ -131,6 +131,6 @@ export default function DeliveryPage() {
           </div>
         </div>
       </section>
-    </main>
+    </>
   );
 }

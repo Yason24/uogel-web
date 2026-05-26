@@ -54,7 +54,7 @@ const items: { title: string; caption: string; src: string }[] = [
 
 export default function GalleryPage() {
   return (
-    <main>
+    <>
       <section className="py-20 sm:py-28">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <p className="text-xs font-medium uppercase tracking-[0.2em] text-stone-400">Галерея</p>
@@ -121,6 +121,6 @@ export default function GalleryPage() {
           </div>
         </div>
       </section>
-    </main>
+    </>
   );
 }

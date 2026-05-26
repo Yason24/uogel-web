@@ -39,7 +39,7 @@ const steps = [
 
 export default function HowToOrderPage() {
   return (
-    <main>
+    <>
       <section className="py-20 sm:py-28">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <p className="text-xs font-medium uppercase tracking-[0.2em] text-stone-400">Процесс</p>
@@ -96,6 +96,6 @@ export default function HowToOrderPage() {
           </div>
         </div>
       </section>
-    </main>
+    </>
   );
 }

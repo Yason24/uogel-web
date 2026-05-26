@@ -13,7 +13,7 @@ const standardColors: ProfileColor[] = [
   { id: "white", ral: "RAL 9016", name: "Матовый белый" },
   { id: "grey",  ral: "RAL 7016", name: "Антрацит матовый", swatch: "/images/colors/ral-7016.png" },
   { id: "black", ral: "RAL 9005", name: "Матовый чёрный",   swatch: "/images/colors/ral-9005.png" },
-  { id: "custom", ral: "Custom Colors", name: "Индивидуальный цвет" },
+  { id: "custom", ral: "По запросу", name: "Индивидуальный цвет" },
 ];
 
 export const products: Product[] = [

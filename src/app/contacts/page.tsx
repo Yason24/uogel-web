@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { LeadForm } from "@/components/LeadForm";
 
 export const metadata: Metadata = {
-  title: "Контакты UOGEL Russia",
+  title: "Контакты",
   description: "Свяжитесь с нами для расчёта поставки перголы UOGEL в Россию. Ответим в течение рабочего дня.",
   openGraph: {
     title: "Контакты UOGEL Russia",
@@ -20,7 +20,7 @@ export const metadata: Metadata = {
 
 export default function ContactsPage() {
   return (
-    <main>
+    <>
       <section className="py-20 sm:py-28">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <p className="text-xs font-medium uppercase tracking-[0.2em] text-stone-400">Контакты</p>
@@ -74,6 +74,6 @@ export default function ContactsPage() {
           </div>
         </div>
       </section>
-    </main>
+    </>
   );
 }

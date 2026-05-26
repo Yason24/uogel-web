@@ -7,7 +7,7 @@ import { options } from "@/data/options";
 import { formatSystemType, formatDrive, formatOptionCategory } from "@/lib/catalog";
 
 export const metadata: Metadata = {
-  title: "Каталог систем UOGEL · UOGEL Russia",
+  title: "Каталог систем UOGEL",
   description:
     "Каталог алюминиевых outdoor-систем UOGEL: 6 серий пергол, совместимые опции и аксессуары. Конфигурация подбирается под объект — расчёт поставки в Россию.",
   openGraph: {
