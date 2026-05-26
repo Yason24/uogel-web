@@ -23,7 +23,7 @@ export const navItems: NavItem[] = [
     ],
   },
   { label: "Опции", href: "/options" },
-  { label: "Проекты", href: "/gallery" },
+  { label: "Проекты", href: "/projects" },
   { label: "Как заказать", href: "/how-to-order" },
   { label: "О нас", href: "/delivery" },
   { label: "Контакты", href: "/contacts" },

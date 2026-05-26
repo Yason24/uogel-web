@@ -1,6 +1,7 @@
 import type { MetadataRoute } from "next";
 import { pergolas } from "@/data/pergolas";
 import { options } from "@/data/options";
+import { projects } from "@/data/projects";
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://uogel-russia.ru";
 
@@ -14,7 +15,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${siteUrl}/contacts`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.6 },
     { url: `${siteUrl}/how-to-order`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.6 },
     { url: `${siteUrl}/delivery`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.6 },
-    { url: `${siteUrl}/gallery`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.5 },
+    { url: `${siteUrl}/projects`, lastModified: new Date(), changeFrequency: "weekly", priority: 0.75 },
   ];
 
   const pergolaRoutes: MetadataRoute.Sitemap = pergolas.map((p) => ({
@@ -31,5 +32,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.7,
   }));
 
-  return [...staticRoutes, ...pergolaRoutes, ...optionRoutes];
+  const projectRoutes: MetadataRoute.Sitemap = projects.map((p) => ({
+    url: `${siteUrl}/projects/${p.slug}`,
+    lastModified: new Date(),
+    changeFrequency: "monthly" as const,
+    priority: 0.65,
+  }));
+
+  return [...staticRoutes, ...pergolaRoutes, ...optionRoutes, ...projectRoutes];
 }
