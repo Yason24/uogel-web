@@ -1,3 +1,4 @@
+import Image from "next/image";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { PergolaCard } from "@/components/PergolaCard";
@@ -84,8 +85,17 @@ export default function PergolasPage() {
   return (
     <>
       {/* ── Hero ── */}
-      <section className="bg-stone-950 py-24 sm:py-32">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <section className="relative min-h-[56vh] overflow-hidden bg-stone-950 lg:min-h-[64vh]">
+        <Image
+          src="/images/gallery/install-au-louvers.jpg"
+          alt="Биоклиматические перголы UOGEL — установка"
+          fill
+          priority
+          sizes="100vw"
+          className="object-cover opacity-50"
+        />
+        <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-stone-950/90 via-stone-950/40 to-stone-950/10" />
+        <div className="relative mx-auto max-w-7xl px-4 pb-20 pt-28 sm:px-6 sm:pb-24 sm:pt-36 lg:px-8 lg:pb-28 lg:pt-44">
           <p className="mb-4 text-xs font-medium uppercase tracking-[0.2em] text-stone-500">
             Системы UOGEL
           </p>

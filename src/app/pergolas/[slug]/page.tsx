@@ -63,54 +63,77 @@ export default async function PergolaPage({
     { label: "Степень защиты (IP)", value: product.specs.ipRating },
   ];
 
-  const extraImages = product.images.slice(1);
+  const lifestyleSpecs: Array<[string, string]> = [
+    ["Профиль стойки", product.specs.post],
+    ["Ламели", product.specs.blade],
+    ...(product.specs.beam ? [["Балка", product.specs.beam] as [string, string]] : []),
+    ["Водоотвод", product.specs.waterDrainage ? "Интегрированный через стойки" : "—"],
+    ...(product.specs.led ? [["LED подсветка", product.specs.led] as [string, string]] : []),
+  ];
 
   return (
     <>
       {/* ── Hero ── */}
-      <section className="bg-white py-12 sm:py-16">
-        <div className="mx-auto grid max-w-7xl gap-10 px-4 sm:px-6 lg:grid-cols-2 lg:px-8">
-          <div className="relative min-h-[260px] overflow-hidden rounded-3xl bg-stone-100 sm:min-h-[480px]">
-            <Image
-              src={product.images[0]}
-              alt={product.title}
-              fill
-              priority
-              sizes="(min-width: 1024px) 50vw, 100vw"
-              className="object-cover"
-            />
+      <section className="relative min-h-[56vh] overflow-hidden bg-stone-950 lg:min-h-[68vh]">
+        <Image
+          src={product.images[0]}
+          alt={product.title}
+          fill
+          priority
+          sizes="100vw"
+          className="object-cover opacity-55"
+        />
+        <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-stone-950/92 via-stone-950/35 to-stone-950/10" />
+        <div className="relative mx-auto max-w-7xl px-4 pb-20 pt-28 sm:px-6 sm:pb-24 sm:pt-36 lg:px-8 lg:pb-28 lg:pt-44">
+          <nav className="mb-5 flex items-center gap-2 text-xs text-stone-500">
+            <Link href="/pergolas" className="transition-colors hover:text-stone-300">
+              Перголы
+            </Link>
+            <span aria-hidden>·</span>
+            <span className="text-stone-400">{product.seriesName}</span>
+          </nav>
+          <div className="flex flex-wrap items-center gap-2">
+            <span className="rounded-full bg-stone-800/70 px-3 py-1 text-xs font-medium uppercase tracking-[0.15em] text-stone-300 backdrop-blur-sm">
+              {product.seriesName}
+            </span>
+            <span className="rounded-full border border-stone-700/80 px-3 py-1 text-xs font-medium text-stone-400">
+              {formatSystemType(product.systemType)}
+            </span>
+            <span className="rounded-full border border-stone-700/80 px-3 py-1 text-xs font-medium text-stone-400">
+              {product.category === "bioclimatic" ? "Биоклиматическая" : "Ламельная"}
+            </span>
+            {product.drive === "both" && (
+              <span className="rounded-full border border-stone-700/80 px-3 py-1 text-xs font-medium text-stone-400">
+                Мотор / ручное управление
+              </span>
+            )}
           </div>
-          <div className="flex flex-col justify-center">
-            <div className="flex flex-wrap items-center gap-2">
-              <span className="rounded-full bg-stone-100 px-3 py-1 text-xs font-medium uppercase tracking-[0.15em] text-stone-600">
-                {product.seriesName}
-              </span>
-              {product.drive === "both" && (
-                <span className="rounded-full border border-stone-200 px-3 py-1 text-xs font-medium text-stone-500">
-                  Мотор / ручное управление
-                </span>
-              )}
-            </div>
-            <h1 className="mt-4 text-4xl font-light text-stone-950 sm:text-5xl">
-              {product.title}
-            </h1>
-            <p className="mt-2 text-lg text-stone-500">{product.subtitle}</p>
-            <div className="mt-4 flex flex-wrap items-center gap-2">
-              <span className="rounded-full bg-stone-100 px-3 py-1.5 text-xs font-medium text-stone-600">
-                {formatSystemType(product.systemType)}
-              </span>
-              <span className="rounded-full bg-stone-100 px-3 py-1.5 text-xs font-medium text-stone-600">
-                {product.category === "bioclimatic" ? "Биоклиматическая" : "Ламельная"}
-              </span>
-            </div>
-            <p className="mt-6 text-base leading-8 text-stone-500 sm:text-lg">{product.description}</p>
+          <h1 className="mt-4 text-4xl font-light text-white sm:text-5xl">
+            {product.title}
+          </h1>
+          <p className="mt-3 text-lg text-stone-300">{product.subtitle}</p>
+          <p className="mt-2 text-sm text-stone-500">
+            Профиль {product.specs.post}
+            {product.specs.waterDrainage ? " · Интегрированный водоотвод" : ""}
+            {product.specs.led ? ` · LED ${product.specs.led}` : ""}
+          </p>
+          <div className="mt-8 flex flex-wrap gap-4">
             <Link
               href="/calculate"
-              className="mt-8 inline-flex w-fit rounded-full bg-stone-950 px-6 py-3 text-sm font-medium text-white transition-colors duration-200 hover:bg-arch"
+              className="rounded-full bg-white px-6 py-3 text-sm font-medium text-stone-950 transition-colors duration-200 hover:bg-stone-100"
             >
               Подобрать систему
             </Link>
-            <p className="mt-4 text-sm leading-6 text-stone-400">
+          </div>
+        </div>
+      </section>
+
+      {/* ── Overview ── */}
+      <section className="bg-white py-12 sm:py-16">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div className="max-w-3xl">
+            <p className="text-base leading-8 text-stone-600 sm:text-lg">{product.description}</p>
+            <p className="mt-5 text-sm leading-6 text-stone-400">
               Перед заказом уточняем размеры, опции, цвет профиля и условия поставки.
             </p>
           </div>
@@ -193,31 +216,53 @@ export default async function PergolaPage({
         </TechnicalSection>
       )}
 
-      {/* ── Галерея ── */}
-      <TechnicalSection eyebrow="Галерея" title="Фотографии" background="stone">
-        {extraImages.length > 0 ? (
-          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-            {extraImages.map((src, i) => (
-              <div
-                key={src}
-                className="relative aspect-[4/3] overflow-hidden rounded-2xl bg-stone-100"
-              >
-                <Image
-                  src={src}
-                  alt={`${product.title} — фото ${i + 2}`}
-                  fill
-                  sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
-                  className="object-cover"
-                />
-              </div>
-            ))}
+      {/* ── Lifestyle + Engineering ── */}
+      {product.images.length > 1 && (
+        <section className="overflow-hidden">
+          <div className="grid lg:grid-cols-2">
+            <div className="relative min-h-[340px] sm:min-h-[460px] lg:min-h-[540px]">
+              <Image
+                src={product.images[1]}
+                alt={`${product.title} — пример установки`}
+                fill
+                sizes="(min-width: 1024px) 50vw, 100vw"
+                className="object-cover"
+              />
+            </div>
+            <div className="flex flex-col justify-center bg-stone-950 px-8 py-14 sm:px-12 sm:py-16 lg:py-20">
+              <p className="text-xs font-medium uppercase tracking-[0.2em] text-stone-500">
+                Инженерные решения
+              </p>
+              <h2 className="mt-4 text-2xl font-light text-white sm:text-3xl">
+                Архитектура системы
+              </h2>
+              <dl className="mt-8 divide-y divide-stone-800">
+                {lifestyleSpecs.map(([dt, dd]) => (
+                  <div key={dt} className="flex items-center justify-between gap-4 py-3.5">
+                    <dt className="text-xs font-medium uppercase tracking-[0.15em] text-stone-500">{dt}</dt>
+                    <dd className="text-sm text-stone-200">{dd}</dd>
+                  </div>
+                ))}
+              </dl>
+            </div>
           </div>
-        ) : (
-          <div className="flex h-48 items-center justify-center rounded-3xl border border-dashed border-stone-200 bg-white">
-            <p className="text-sm text-stone-400">Фото будет добавлено</p>
-          </div>
-        )}
-      </TechnicalSection>
+          {product.images.length > 2 && (
+            <div className="grid gap-px bg-stone-200 sm:grid-cols-2">
+              {product.images.slice(2).map((src, i) => (
+                <div key={src} className="relative aspect-[4/3] overflow-hidden">
+                  <Image
+                    src={src}
+                    alt={`${product.title} — фото ${i + 3}`}
+                    fill
+                    sizes="(min-width: 640px) 50vw, 100vw"
+                    className="object-cover"
+                  />
+                </div>
+              ))}
+            </div>
+          )}
+        </section>
+      )}
 
       {/* ── Чертежи и схемы ── */}
       {product.diagrams && product.diagrams.length > 0 && (

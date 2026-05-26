@@ -62,8 +62,28 @@ export default async function OptionPage({
   return (
     <>
       {/* ── Hero ── */}
-      <section className="bg-stone-950 py-24 sm:py-32">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <section className="relative min-h-[52vh] overflow-hidden bg-stone-950 lg:min-h-[60vh]">
+        {option.images[0] && (
+          <>
+            <Image
+              src={option.images[0]}
+              alt={option.title}
+              fill
+              priority
+              sizes="100vw"
+              className="object-cover opacity-45"
+            />
+            <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-stone-950/90 via-stone-950/40 to-stone-950/15" />
+          </>
+        )}
+        <div className="relative mx-auto max-w-7xl px-4 pb-20 pt-28 sm:px-6 sm:pb-24 sm:pt-36 lg:px-8">
+          <nav className="mb-5 flex items-center gap-2 text-xs text-stone-500">
+            <Link href="/options" className="transition-colors hover:text-stone-300">
+              Опции
+            </Link>
+            <span aria-hidden>·</span>
+            <span className="text-stone-400">{categoryLabel}</span>
+          </nav>
           <p className="mb-4 text-xs font-medium uppercase tracking-[0.2em] text-stone-500">
             {categoryLabel}
           </p>
@@ -100,40 +120,6 @@ export default async function OptionPage({
           </p>
         </div>
       </section>
-
-      {/* ── Image gallery ── */}
-      {option.images.length > 0 && (
-        <section className="py-8">
-          <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-            {option.images.length === 1 ? (
-              <div className="relative aspect-[16/7] overflow-hidden rounded-3xl bg-stone-100">
-                <Image
-                  src={option.images[0]}
-                  alt={option.title}
-                  fill
-                  priority
-                  sizes="(min-width: 1280px) 1280px, 100vw"
-                  className="object-cover"
-                />
-              </div>
-            ) : (
-              <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-                {option.images.map((src, i) => (
-                  <div key={src} className="relative aspect-[4/3] overflow-hidden rounded-3xl bg-stone-100">
-                    <Image
-                      src={src}
-                      alt={`${option.title} — фото ${i + 1}`}
-                      fill
-                      sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
-                      className="object-cover"
-                    />
-                  </div>
-                ))}
-              </div>
-            )}
-          </div>
-        </section>
-      )}
 
       {/* ── Description ── */}
       <section className="py-16 sm:py-20">
