@@ -95,6 +95,9 @@ export default async function OptionPage({
               Смотреть опции
             </Link>
           </div>
+          <p className="mt-5 max-w-xl text-sm leading-6 text-stone-500">
+            Совместимость опции зависит от серии и конфигурации. Перед заказом проверяем применимость по проекту.
+          </p>
         </div>
       </section>
 

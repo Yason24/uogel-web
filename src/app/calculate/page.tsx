@@ -20,6 +20,12 @@ export default function CalculatePage() {
           <p className="mt-5 text-base leading-8 text-stone-500 sm:text-lg">
             Расскажите о вашем проекте. Мы уточним параметры и подберём подходящую систему из доступных конфигураций.
           </p>
+          <div className="mt-7 rounded-xl border border-stone-200 bg-stone-50 px-6 py-5">
+            <p className="text-sm leading-7 text-stone-600">
+              <span className="font-medium text-stone-950">Это не онлайн-калькулятор цены.</span>{" "}
+              Форма нужна, чтобы понять объект, размеры, серию и опции — после этого мы подготовим техническую рекомендацию.
+            </p>
+          </div>
         </div>
         <div className="mt-12">
           <Quiz />

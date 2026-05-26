@@ -156,6 +156,31 @@ export default function OptionsPage() {
         </div>
       </section>
 
+      {/* ── Trust ── */}
+      <section className="py-14 sm:py-20">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div className="rounded-2xl border border-stone-200 bg-stone-50 px-8 py-8 sm:px-10">
+            <p className="text-xs font-medium uppercase tracking-[0.2em] text-stone-400">
+              Совместимость и подбор
+            </p>
+            <h2 className="mt-3 text-xl font-light text-stone-950 sm:text-2xl">
+              Опции рассчитываются под конкретную серию и конфигурацию
+            </h2>
+            <div className="mt-6 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+              {[
+                "Совместимость опции зависит от выбранной серии, размера и конфигурации. Уточняем применимость перед заказом.",
+                "Цены на опции рассчитываются по запросу — итоговая стоимость зависит от комплектации системы.",
+                "Резервируем заявку в локальной базе данных. Ваши данные сохраняются даже при сбоях связи.",
+              ].map((text, i) => (
+                <p key={i} className="text-sm leading-7 text-stone-600">
+                  {text}
+                </p>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* ── Compatibility matrix ── */}
       <section className="bg-stone-50 py-20 sm:py-28">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">

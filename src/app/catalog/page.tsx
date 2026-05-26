@@ -126,6 +126,39 @@ export default function CatalogPage() {
         </div>
       </Section>
 
+      {/* Trust */}
+      <section className="bg-white py-14 sm:py-20">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <p className="text-xs font-medium uppercase tracking-[0.2em] text-stone-400">
+            Как работает подбор
+          </p>
+          <h2 className="mt-3 text-2xl font-light text-stone-950 sm:text-3xl">
+            Поставка под проект, не со склада
+          </h2>
+          <div className="mt-10 grid gap-px bg-stone-100 sm:grid-cols-3">
+            {[
+              {
+                title: "Технический подбор серии",
+                text: "Консультируем по каталогу и помогаем выбрать серию, исходя из объекта, бюджета и условий эксплуатации.",
+              },
+              {
+                title: "Спецификация до заказа",
+                text: "Фиксируем размеры, цвет профиля и опции заранее. Никаких изменений после запуска производства.",
+              },
+              {
+                title: "Прозрачные этапы поставки",
+                text: "Заказ на заводе UOGEL → производство → логистика в Россию → монтажная документация и консультация.",
+              },
+            ].map((item) => (
+              <div key={item.title} className="bg-stone-50 px-7 py-8">
+                <h3 className="text-sm font-medium text-stone-950">{item.title}</h3>
+                <p className="mt-2 text-sm leading-7 text-stone-500">{item.text}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* Coming Soon */}
       <Section
         eyebrow="Скоро"

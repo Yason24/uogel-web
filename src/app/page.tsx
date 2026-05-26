@@ -459,8 +459,32 @@ export default function Home() {
         </div>
       </section>
 
+      {/* ── Trust ── */}
+      <section className="bg-stone-50 py-16 sm:py-20">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <p className="text-xs font-medium uppercase tracking-[0.2em] text-stone-400">
+            Модель поставки
+          </p>
+          <h2 className="mt-3 text-2xl font-light text-stone-950 sm:text-3xl">
+            Почему схема под заказ подходит для проектных систем
+          </h2>
+          <div className="mt-10 grid gap-px bg-stone-200 sm:grid-cols-2 lg:grid-cols-4">
+            {[
+              "Не ограничиваем клиента складскими остатками — система поставляется под конкретный проект.",
+              "Подбираем серию под параметры объекта: размеры, назначение и тип эксплуатации.",
+              "Согласуем размеры, опции и цвет профиля до размещения заказа.",
+              "Поставка организуется из производственной программы UOGEL под конкретную конфигурацию.",
+            ].map((text, i) => (
+              <div key={i} className="bg-white px-6 py-7">
+                <p className="text-sm leading-7 text-stone-600">{text}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* ── Final CTA ── */}
-      <section className="bg-stone-50 py-24 sm:py-28">
+      <section className="bg-white py-24 sm:py-28">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="mx-auto max-w-2xl text-center">
             <p className="text-xs font-medium uppercase tracking-[0.2em] text-stone-400">

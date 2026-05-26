@@ -246,6 +246,43 @@ export default function PergolasPage() {
         </div>
       </section>
 
+      {/* ── Trust ── */}
+      <section className="py-16 sm:py-20">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <p className="text-xs font-medium uppercase tracking-[0.2em] text-stone-400">
+            Процесс подбора
+          </p>
+          <h2 className="mt-3 text-2xl font-light text-stone-950 sm:text-3xl">
+            Серия подбирается под объект, не наоборот
+          </h2>
+          <div className="mt-10 grid gap-px bg-stone-100 sm:grid-cols-2 lg:grid-cols-4">
+            {[
+              {
+                title: "Анализ объекта",
+                text: "Изучаем тип объекта, размеры зоны, климат и нагрузки. Только после этого выбираем серию.",
+              },
+              {
+                title: "Подбор серии",
+                text: "Определяем подходящую конфигурацию из производственной программы UOGEL 2026.",
+              },
+              {
+                title: "Согласование опций",
+                text: "Уточняем цвет профиля, боковые системы и автоматику до размещения заказа.",
+              },
+              {
+                title: "Консультация по монтажу",
+                text: "После поставки предоставляем монтажную документацию и техническую поддержку.",
+              },
+            ].map((item) => (
+              <div key={item.title} className="bg-stone-50 px-6 py-7">
+                <h3 className="text-sm font-medium text-stone-950">{item.title}</h3>
+                <p className="mt-2 text-sm leading-7 text-stone-500">{item.text}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* ── Bottom CTA ── */}
       <section className="bg-stone-900 py-20 sm:py-28">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">

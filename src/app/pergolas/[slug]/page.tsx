@@ -110,6 +110,9 @@ export default async function PergolaPage({
             >
               Подобрать систему
             </Link>
+            <p className="mt-4 text-sm leading-6 text-stone-400">
+              Перед заказом уточняем размеры, опции, цвет профиля и условия поставки.
+            </p>
           </div>
         </div>
       </section>
