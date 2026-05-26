@@ -1,6 +1,6 @@
 # UOGEL Russia — Media Coverage & Asset Library
 
-Последнее обновление: 2026-05-26 (Phase 2 Step 14)
+Последнее обновление: 2026-05-27 (Phase 2 Step 14 — rev.2)
 
 ---
 
@@ -9,21 +9,72 @@
 Путь: `public/images/_library/`
 
 Назначение: staging-area для новых premium-assets перед размещением на сайт.
-Изображения из библиотеки НЕ подключаются к сайту автоматически.
+Изображения из библиотеки НЕ подключаются к сайту автоматически — только через явное добавление в data layer.
 
-### Текущее содержимое
+### Текущее содержимое (17 файлов)
 
-| Файл | Категория | Описание | Качество | Статус |
-|---|---|---|---|---|
-| `lifestyle/lakeside-terrace-louver-view.jpg` | lifestyle | Вид снизу через белые открытые ламели на озеро/реку. Антрацит профиль. Обеденная зона. Весна. | ⭐⭐⭐ | Готов к использованию |
-| `evening/enclosed-spa-patio-evening.jpg` | evening | Закрытая стеклянная пергола, spa-зона, гирлянды, закат. Интерьер-вид. | ⭐⭐⭐ | Готов к использованию |
+#### evening/ — вечер, LED, атмосфера
 
-### Предлагаемое использование из библиотеки
+| Файл | Описание | Размер | Статус |
+|---|---|---|---|
+| `white-pergola-led-fan-interior.webp` | Белая пергола, интерьер: LED полосы на потолке, потолочный вентилятор, обеденная зона | 205 KB | ⭐⭐⭐⭐ Deploy-ready |
+| `led-zip-firepit-lake-view.webp` | Вечер, синий LED, ZIP-экраны опущены, fire pit, вид на озеро | 239 KB | ⭐⭐⭐⭐ Deploy-ready |
+| `white-pergola-brick-dusk.webp` | Белая пергола, кирпичный дом AU, сумерки, тёплый свет изнутри | 248 KB | ⭐⭐⭐ Deploy-ready |
+| `glass-pergola-exterior-dusk.webp` | Стеклянная пергола снаружи в сумерках, тёплое свечение | 73 KB | ⭐⭐⭐ Staging |
+| `enclosed-spa-patio-evening.jpg` | Закрытая стеклянная пергола, spa-зона, гирлянды, закат | 149 KB | ⭐⭐⭐ Staging |
 
-| Изображение | Страница | Позиция |
-|---|---|---|
-| `lifestyle/lakeside-terrace-louver-view.jpg` | `/pergolas/a13` или `/pergolas/c10` | images[2] (engineering close-up slot) |
-| `evening/enclosed-spa-patio-evening.jpg` | `/options/frameless-glass` | images[1] — evening use case |
+#### lifestyle/ — жизненные сцены, жилые объекты
+
+| Файл | Описание | Размер | Статус |
+|---|---|---|---|
+| `white-pergola-outdoor-kitchen.webp` | Белая пергола на courtyard/rooftop, outdoor kitchen, обеденная зона | 262 KB | ⭐⭐⭐ Deploy-ready |
+| `anthracite-rural-deck-meadow.webp` | Антрацит пергола, деревянная терраса, сельская местность, горы | 293 KB | ⭐⭐⭐ Deploy-ready |
+| `anthracite-deck-hanging-chair.webp` | Тёмная пергола, wood deck, подвесное кресло, NZ дом | 294 KB | ⭐⭐⭐ Deploy-ready |
+| `white-terrace-outdoor-kitchen-au.webp` | Австралийская белая терраса, outdoor kitchen, вентилятор, сад | 92 KB | ⭐⭐⭐ Staging |
+| `lakeside-terrace-louver-view.jpg` | Вид снизу через открытые белые ламели, озеро/река, весна | 190 KB | ⭐⭐⭐ Deploy-ready |
+
+#### hospitality/ — рестораны, отели, коммерческое
+
+| Файл | Описание | Размер | Статус |
+|---|---|---|---|
+| `white-glass-pergola-coastal.webp` | Белая пергола с стеклом, Средиземноморье, вид на море, wood deck | 231 KB | ⭐⭐⭐⭐ Deploy-ready |
+
+#### rooftop/ — кровельные терассы
+
+| Файл | Описание | Размер | Статус |
+|---|---|---|---|
+| `anthracite-coastal-hilltop-bbq.webp` | Тёмная пергола, прибрежный холм, barbecue, панорамный вид | 240 KB | ⭐⭐⭐ Deploy-ready |
+
+#### poolside/ — зоны у бассейна, spa
+
+| Файл | Описание | Размер | Статус |
+|---|---|---|---|
+| `enclosed-glass-spa-projection.webp` | Стеклянная пергола, spa-яма, проекционный экран, гирлянды | 263 KB | ⭐⭐⭐ Deploy-ready |
+| `glass-pergola-spa-evening.webp` | Стеклянная пергола, ступени к spa, гирлянды, золотой час | 219 KB | ⭐⭐⭐ Deploy-ready |
+
+#### options/ — опции, аксессуары
+
+| Файл | Описание | Размер | Статус |
+|---|---|---|---|
+| `zip-screens-closed-residential.webp` | ZIP-экраны полностью закрыты, компактная жилая система | 248 KB | ⭐⭐⭐ Deploy-ready |
+| `zip-screens-house-full-close.webp` | ZIP-экраны закрыты, NZ загородный дом | 176 KB | ⭐⭐⭐ Deploy-ready |
+| `zip-screens-nz-residential.webp` | ZIP-экраны, антрацит, NZ жилой объект | 91 KB | ⭐⭐ Staging |
+
+### Предлагаемый mapping — библиотека → страницы
+
+| Изображение | Рекомендуемая страница | Позиция | Приоритет |
+|---|---|---|---|
+| `evening/white-pergola-led-fan-interior.webp` | `/options/ceiling-fan` | images[1] | 🔴 Высокий |
+| `evening/led-zip-firepit-lake-view.webp` | `/pergolas/a13` | images[3] | 🔴 Высокий |
+| `hospitality/white-glass-pergola-coastal.webp` | `/projects/restaurant-summer-terrace` | images[0] (заменить) | 🔴 Высокий |
+| `lifestyle/white-pergola-outdoor-kitchen.webp` | `/projects/pool-zone` или новый проект | images[0] | 🟡 Средний |
+| `lifestyle/anthracite-rural-deck-meadow.webp` | `/pergolas/m3` | images[1] (заменить текущее) | 🟡 Средний |
+| `lifestyle/anthracite-deck-hanging-chair.webp` | `/pergolas/c10` или `/projects` | images[2] | 🟡 Средний |
+| `rooftop/anthracite-coastal-hilltop-bbq.webp` | `/projects/rooftop-terrace` | images[0] (заменить) | 🟡 Средний |
+| `poolside/enclosed-glass-spa-projection.webp` | `/projects/pool-zone` | images[0] (заменить) | 🟡 Средний |
+| `options/zip-screens-closed-residential.webp` | `/options/zip-screen` | images[1] | 🟡 Средний |
+| `lifestyle/lakeside-terrace-louver-view.jpg` | `/pergolas/a13` или `/pergolas/c10` | images[2] | 🟢 Низкий |
+| `evening/enclosed-spa-patio-evening.jpg` | `/options/frameless-glass` | images[1] | 🟢 Низкий |
 
 ---
 
