@@ -53,7 +53,6 @@ export default async function OptionPage({
     ? products
     : products.filter((p) => option.compatibility.productIds.includes(p.id));
 
-  // Collect unique use-cases from compatible products
   const useCaseSet = new Set(compatibleProducts.flatMap((p) => p.useCases));
   const useCases = Array.from(useCaseSet).slice(0, 6);
 
@@ -64,16 +63,16 @@ export default async function OptionPage({
       {/* ── Hero ── */}
       <section className="bg-stone-950 py-24 sm:py-32">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <p className="mb-4 text-sm font-semibold uppercase tracking-[0.18em] text-stone-400">
+          <p className="mb-4 text-xs font-medium uppercase tracking-[0.2em] text-stone-500">
             {categoryLabel}
           </p>
-          <h1 className="max-w-3xl text-4xl font-semibold text-white sm:text-5xl">
+          <h1 className="max-w-3xl text-4xl font-light text-white sm:text-5xl">
             {option.title}
           </h1>
-          <p className="mt-4 text-xl text-stone-300">{option.subtitle}</p>
-          <div className="mt-6 inline-flex items-center rounded-full border border-stone-700 px-4 py-1.5 text-sm text-stone-400">
+          <p className="mt-4 text-lg text-stone-400">{option.subtitle}</p>
+          <div className="mt-6 inline-flex items-center rounded-full border border-stone-800 px-4 py-1.5 text-sm text-stone-400">
             Стоимость:{" "}
-            <span className="ml-1.5 font-semibold text-white">
+            <span className="ml-1.5 font-medium text-stone-200">
               {option.priceType === "included"
                 ? "в базовой системе"
                 : option.priceType === "extra"
@@ -84,13 +83,13 @@ export default async function OptionPage({
           <div className="mt-8 flex flex-wrap gap-4">
             <Link
               href="/calculate"
-              className="rounded-full bg-white px-6 py-3 text-sm font-semibold text-stone-950 transition hover:bg-stone-100"
+              className="rounded-full bg-white px-6 py-3 text-sm font-medium text-stone-950 transition-colors duration-200 hover:bg-stone-100"
             >
               Получить консультацию
             </Link>
             <Link
               href="/options"
-              className="rounded-full border border-stone-600 px-6 py-3 text-sm font-semibold text-white transition hover:border-stone-400"
+              className="rounded-full border border-stone-700 px-6 py-3 text-sm font-medium text-stone-300 transition-colors duration-200 hover:border-stone-500 hover:text-white"
             >
               Смотреть опции
             </Link>
@@ -136,13 +135,11 @@ export default async function OptionPage({
       <section className="py-16 sm:py-20">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="max-w-3xl">
-            <p className="mb-3 text-sm font-semibold uppercase tracking-[0.18em] text-stone-500">
+            <p className="mb-4 text-xs font-medium uppercase tracking-[0.2em] text-stone-400">
               Описание
             </p>
-            <h2 className="text-2xl font-semibold text-stone-950 sm:text-3xl">
-              О системе
-            </h2>
-            <p className="mt-5 text-lg leading-8 text-stone-600">{option.description}</p>
+            <h2 className="text-2xl font-medium text-stone-950 sm:text-3xl">О системе</h2>
+            <p className="mt-5 text-base leading-8 text-stone-500 sm:text-lg">{option.description}</p>
           </div>
         </div>
       </section>
@@ -151,12 +148,11 @@ export default async function OptionPage({
       <section className="bg-stone-50 py-16 sm:py-20">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="grid gap-6 lg:grid-cols-2">
-            {/* Features */}
-            <div className="rounded-3xl border border-stone-200 bg-white p-8">
-              <h2 className="text-xl font-semibold text-stone-950">Возможности</h2>
+            <div className="rounded-2xl border border-stone-200 bg-white p-8">
+              <h2 className="text-xl font-medium text-stone-950">Возможности</h2>
               <ul className="mt-5 space-y-3">
                 {option.features.map((f) => (
-                  <li key={f} className="flex items-start gap-3 text-stone-600">
+                  <li key={f} className="flex items-start gap-3 text-stone-500">
                     <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-stone-950" aria-hidden />
                     {f}
                   </li>
@@ -164,9 +160,8 @@ export default async function OptionPage({
               </ul>
             </div>
 
-            {/* Variants or Where used */}
-            <div className="rounded-3xl border border-stone-200 bg-white p-8">
-              <h2 className="text-xl font-semibold text-stone-950">
+            <div className="rounded-2xl border border-stone-200 bg-white p-8">
+              <h2 className="text-xl font-medium text-stone-950">
                 {option.variants ? "Варианты исполнения" : "Где используется"}
               </h2>
               {option.variants ? (
@@ -183,14 +178,14 @@ export default async function OptionPage({
               ) : useCases.length > 0 ? (
                 <ul className="mt-5 space-y-3">
                   {useCases.map((uc) => (
-                    <li key={uc} className="flex items-start gap-3 text-stone-600">
-                      <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-stone-400" aria-hidden />
+                    <li key={uc} className="flex items-start gap-3 text-stone-500">
+                      <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-stone-300" aria-hidden />
                       {uc}
                     </li>
                   ))}
                 </ul>
               ) : (
-                <p className="mt-5 text-stone-600">
+                <p className="mt-5 text-stone-500">
                   {option.compatibility.all
                     ? "Совместима со всеми сериями UOGEL."
                     : `Совместима с ${compatibleProducts.length} сериями UOGEL.`}
@@ -205,15 +200,13 @@ export default async function OptionPage({
       <section className="py-16 sm:py-20">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="max-w-3xl">
-            <p className="mb-3 text-sm font-semibold uppercase tracking-[0.18em] text-stone-500">
+            <p className="mb-4 text-xs font-medium uppercase tracking-[0.2em] text-stone-400">
               Совместимость
             </p>
-            <h2 className="text-2xl font-semibold text-stone-950 sm:text-3xl">
-              {option.compatibility.all
-                ? "Совместима со всеми сериями"
-                : "Совместимые серии"}
+            <h2 className="text-2xl font-medium text-stone-950 sm:text-3xl">
+              {option.compatibility.all ? "Совместима со всеми сериями" : "Совместимые серии"}
             </h2>
-            <p className="mt-3 text-stone-600">
+            <p className="mt-3 text-sm leading-7 text-stone-500">
               Совместимость уточняется при расчёте конкретной конфигурации.
             </p>
           </div>
@@ -222,12 +215,12 @@ export default async function OptionPage({
               <Link
                 key={product.id}
                 href={`/pergolas/${product.slug}`}
-                className="group rounded-2xl border border-stone-200 bg-white p-5 transition hover:border-stone-400 hover:shadow-sm"
+                className="group rounded-2xl border border-stone-200 bg-white p-5 transition-all duration-200 hover:border-stone-300 hover:shadow-md hover:shadow-stone-100/80"
               >
-                <p className="text-xs font-semibold uppercase tracking-widest text-stone-400">
+                <p className="text-xs font-medium uppercase tracking-[0.15em] text-stone-400">
                   {product.seriesName}
                 </p>
-                <h3 className="mt-2 text-base font-semibold text-stone-950 group-hover:text-stone-700">
+                <h3 className="mt-2 text-base font-medium text-stone-950 transition-colors duration-200 group-hover:text-arch">
                   {product.title}
                 </h3>
                 <p className="mt-1 text-sm text-stone-500">{product.subtitle}</p>
@@ -243,20 +236,20 @@ export default async function OptionPage({
       </section>
 
       {/* ── CTA ── */}
-      <section className="bg-stone-950 py-20 sm:py-24">
+      <section className="bg-stone-900 py-20 sm:py-28">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="max-w-2xl">
-            <h2 className="text-3xl font-semibold text-white sm:text-4xl">
+            <h2 className="text-3xl font-light text-white sm:text-4xl">
               Рассчитать с этой опцией
             </h2>
-            <p className="mt-5 text-lg leading-8 text-stone-300">
+            <p className="mt-5 text-base leading-8 text-stone-400">
               Укажите серию, размеры и конфигурацию — подготовим расчёт с учётом
               выбранных опций.
             </p>
             <div className="mt-8">
               <Link
                 href="/calculate"
-                className="inline-block rounded-full bg-white px-6 py-3 text-sm font-semibold text-stone-950 transition hover:bg-stone-100"
+                className="inline-block rounded-full bg-white px-6 py-3 text-sm font-medium text-stone-950 transition-colors duration-200 hover:bg-stone-100"
               >
                 Получить консультацию
               </Link>

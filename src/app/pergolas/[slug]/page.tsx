@@ -81,31 +81,31 @@ export default async function PergolaPage({
           </div>
           <div className="flex flex-col justify-center">
             <div className="flex flex-wrap items-center gap-2">
-              <span className="rounded-full bg-stone-100 px-3 py-1 text-xs font-semibold uppercase tracking-[0.14em] text-stone-600">
+              <span className="rounded-full bg-stone-100 px-3 py-1 text-xs font-medium uppercase tracking-[0.15em] text-stone-600">
                 {product.seriesName}
               </span>
               {product.drive === "both" && (
-                <span className="rounded-full border border-stone-200 px-3 py-1 text-xs font-semibold text-stone-500">
+                <span className="rounded-full border border-stone-200 px-3 py-1 text-xs font-medium text-stone-500">
                   Мотор / ручное управление
                 </span>
               )}
             </div>
-            <h1 className="mt-4 text-4xl font-semibold text-stone-950 sm:text-5xl">
+            <h1 className="mt-4 text-4xl font-light text-stone-950 sm:text-5xl">
               {product.title}
             </h1>
-            <p className="mt-2 text-xl text-stone-500">{product.subtitle}</p>
+            <p className="mt-2 text-lg text-stone-500">{product.subtitle}</p>
             <div className="mt-4 flex flex-wrap items-center gap-2">
-              <span className="rounded-full bg-stone-100 px-3 py-1.5 text-xs font-semibold text-stone-700">
+              <span className="rounded-full bg-stone-100 px-3 py-1.5 text-xs font-medium text-stone-600">
                 {formatSystemType(product.systemType)}
               </span>
-              <span className="rounded-full bg-stone-100 px-3 py-1.5 text-xs font-semibold text-stone-700">
+              <span className="rounded-full bg-stone-100 px-3 py-1.5 text-xs font-medium text-stone-600">
                 {product.category === "bioclimatic" ? "Биоклиматическая" : "Ламельная"}
               </span>
             </div>
-            <p className="mt-6 text-lg leading-8 text-stone-600">{product.description}</p>
+            <p className="mt-6 text-base leading-8 text-stone-500 sm:text-lg">{product.description}</p>
             <Link
               href="/calculate"
-              className="mt-8 inline-flex w-fit rounded-full bg-stone-950 px-6 py-3 text-sm font-semibold text-white transition hover:bg-stone-800"
+              className="mt-8 inline-flex w-fit rounded-full bg-stone-950 px-6 py-3 text-sm font-medium text-white transition-colors duration-200 hover:bg-arch"
             >
               Подобрать систему
             </Link>
@@ -232,7 +232,7 @@ export default async function PergolaPage({
       {/* ── Доставка и CTA ── */}
       <section className="bg-stone-50 py-14">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <h2 className="text-2xl font-semibold text-stone-950">Доставка и сроки</h2>
+          <h2 className="text-2xl font-medium text-stone-950">Доставка и сроки</h2>
           <p className="mt-4 max-w-3xl text-lg leading-8 text-stone-600">
             Поставка организуется из Китая в Россию. Сроки производства, отгрузки и
             доставки уточняются после выбора серии, размера и комплектации.
@@ -258,9 +258,9 @@ export default async function PergolaPage({
 function ProfileDimCard({ label, value }: { label: string; value: string | null }) {
   return (
     <div className="rounded-2xl border border-stone-200 bg-white p-5">
-      <p className="text-xs font-semibold uppercase tracking-widest text-stone-400">{label}</p>
+      <p className="text-xs font-medium uppercase tracking-[0.15em] text-stone-400">{label}</p>
       {value ? (
-        <p className="mt-2 text-xl font-semibold text-stone-950">{value}</p>
+        <p className="mt-2 text-xl font-medium text-stone-950">{value}</p>
       ) : (
         <p className="mt-2 text-sm text-stone-400">Данные уточняются</p>
       )}
@@ -272,20 +272,20 @@ function DriveVariants({ hasAutomation }: { hasAutomation: boolean }) {
   return (
     <div className="grid gap-4 sm:grid-cols-2">
       <div className="rounded-2xl border border-stone-200 bg-white p-6">
-        <p className="text-xs font-semibold uppercase tracking-widest text-stone-400">
+        <p className="text-xs font-medium uppercase tracking-[0.15em] text-stone-400">
           Серия C4 / C4-S
         </p>
-        <p className="mt-3 text-lg font-semibold text-stone-950">Моторизованная</p>
+        <p className="mt-3 text-lg font-medium text-stone-950">Моторизованная</p>
         <p className="mt-2 text-sm text-stone-600">
           Электропривод с пультом управления.
           {hasAutomation && " Совместима с датчиками дождя и ветра."}
         </p>
       </div>
       <div className="rounded-2xl border border-stone-200 bg-white p-6">
-        <p className="text-xs font-semibold uppercase tracking-widest text-stone-400">
+        <p className="text-xs font-medium uppercase tracking-[0.15em] text-stone-400">
           Серия M4 / M4-S
         </p>
-        <p className="mt-3 text-lg font-semibold text-stone-950">Ручное управление</p>
+        <p className="mt-3 text-lg font-medium text-stone-950">Ручное управление</p>
         <p className="mt-2 text-sm text-stone-600">
           Управление ламелями вручную. Надёжное решение без автоматики.
         </p>
@@ -304,8 +304,8 @@ function SingleDrive({
   const isMotorized = drive === "motorized";
   return (
     <div className="max-w-xl rounded-2xl border border-stone-200 bg-white p-6">
-      <p className="text-xs font-semibold uppercase tracking-widest text-stone-400">Привод</p>
-      <p className="mt-3 text-lg font-semibold text-stone-950">
+      <p className="text-xs font-medium uppercase tracking-[0.15em] text-stone-400">Привод</p>
+      <p className="mt-3 text-lg font-medium text-stone-950">
         {isMotorized ? "Моторизованная" : "Ручное управление"}
       </p>
       <p className="mt-2 text-sm text-stone-600">

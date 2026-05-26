@@ -21,13 +21,13 @@ export function TechnicalSection({
     <section id={id} className={`py-14 ${background === "stone" ? "bg-stone-50" : "bg-white"}`}>
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         {eyebrow && (
-          <p className="mb-2 text-sm font-semibold uppercase tracking-[0.18em] text-stone-400">
+          <p className="mb-2 text-xs font-medium uppercase tracking-[0.2em] text-stone-400">
             {eyebrow}
           </p>
         )}
-        <h2 className="text-2xl font-semibold text-stone-950">{title}</h2>
+        <h2 className="text-2xl font-medium text-stone-950">{title}</h2>
         {description && (
-          <p className="mt-2 max-w-2xl text-stone-600">{description}</p>
+          <p className="mt-2 max-w-2xl text-sm leading-7 text-stone-500">{description}</p>
         )}
         <div className="mt-8">{children}</div>
       </div>

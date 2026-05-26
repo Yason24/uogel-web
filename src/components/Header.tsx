@@ -30,7 +30,10 @@ function DesktopDropdown({ item }: { item: NavItem }) {
 
   if (!item.children) {
     return (
-      <Link href={item.href!} className="transition hover:text-stone-950">
+      <Link
+        href={item.href!}
+        className="transition-colors duration-200 hover:text-arch"
+      >
         {item.label}
       </Link>
     );
@@ -43,7 +46,7 @@ function DesktopDropdown({ item }: { item: NavItem }) {
       onMouseLeave={() => setOpen(false)}
     >
       <button
-        className="flex items-center gap-1 transition hover:text-stone-950"
+        className="flex items-center gap-1 transition-colors duration-200 hover:text-arch"
         aria-expanded={open}
       >
         {item.label}
@@ -52,18 +55,15 @@ function DesktopDropdown({ item }: { item: NavItem }) {
         />
       </button>
 
-      {/* Прозрачная обёртка начинается с top-full (нет зазора с кнопкой).
-          pt-2 создаёт визуальный отступ внутри DOM-потомка, поэтому
-          mouseleave на враппере не срабатывает при движении в этой зоне. */}
       {open && (
         <div className="absolute left-0 top-full z-50 min-w-52 pt-2">
-          <div className="rounded-xl border border-stone-100 bg-white py-1.5 shadow-lg">
+          <div className="rounded-xl border border-stone-100 bg-white py-1.5 shadow-lg shadow-stone-200/60">
             {item.children.map((child) => (
               <Link
                 key={child.href}
                 href={child.href!}
                 onClick={() => setOpen(false)}
-                className="block px-4 py-2.5 text-sm text-stone-700 transition hover:bg-stone-50 hover:text-stone-950"
+                className="block px-4 py-2.5 text-sm text-stone-600 transition-colors duration-150 hover:bg-stone-50 hover:text-arch"
               >
                 {child.label}
               </Link>
@@ -89,7 +89,7 @@ function MobileAccordion({
       <Link
         href={item.href!}
         onClick={onClose}
-        className="rounded-xl px-3 py-3 text-sm text-stone-700 transition hover:bg-stone-50 hover:text-stone-950"
+        className="rounded-xl px-3 py-3 text-sm text-stone-700 transition-colors duration-150 hover:bg-stone-50 hover:text-arch"
       >
         {item.label}
       </Link>
@@ -100,7 +100,7 @@ function MobileAccordion({
     <div>
       <button
         onClick={() => setOpen((v) => !v)}
-        className="flex w-full items-center justify-between rounded-xl px-3 py-3 text-sm text-stone-700 transition hover:bg-stone-50 hover:text-stone-950"
+        className="flex w-full items-center justify-between rounded-xl px-3 py-3 text-sm text-stone-700 transition-colors duration-150 hover:bg-stone-50 hover:text-arch"
         aria-expanded={open}
       >
         {item.label}
@@ -115,7 +115,7 @@ function MobileAccordion({
               key={child.href}
               href={child.href!}
               onClick={onClose}
-              className="rounded-lg px-3 py-2.5 text-sm text-stone-600 transition hover:bg-stone-50 hover:text-stone-950"
+              className="rounded-lg px-3 py-2.5 text-sm text-stone-600 transition-colors duration-150 hover:bg-stone-50 hover:text-arch"
             >
               {child.label}
             </Link>
@@ -132,11 +132,14 @@ export function Header() {
   return (
     <header className="sticky top-0 z-50 border-b border-stone-200 bg-white/90 backdrop-blur">
       <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-4 sm:px-6 lg:px-8">
-        <Link href="/" className="text-lg font-semibold tracking-wide text-stone-950">
+        <Link
+          href="/"
+          className="text-base font-medium tracking-[0.08em] text-stone-950 transition-colors duration-200 hover:text-arch"
+        >
           UOGEL Russia
         </Link>
 
-        <nav className="hidden items-center gap-7 text-sm text-stone-700 lg:flex">
+        <nav className="hidden items-center gap-7 text-sm text-stone-600 lg:flex">
           {navItems.map((item) => (
             <DesktopDropdown key={item.label} item={item} />
           ))}
@@ -145,7 +148,7 @@ export function Header() {
         <div className="flex items-center gap-3">
           <Link
             href="/calculate"
-            className="rounded-full bg-stone-950 px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-stone-800"
+            className="rounded-full bg-stone-950 px-5 py-2.5 text-sm font-medium text-white transition-colors duration-200 hover:bg-arch"
           >
             Рассчитать
           </Link>
@@ -153,7 +156,7 @@ export function Header() {
             aria-label={mobileOpen ? "Закрыть меню" : "Открыть меню"}
             aria-expanded={mobileOpen}
             onClick={() => setMobileOpen((v) => !v)}
-            className="flex h-10 w-10 items-center justify-center rounded-xl text-stone-700 transition hover:bg-stone-100 lg:hidden"
+            className="flex h-10 w-10 items-center justify-center rounded-xl text-stone-600 transition-colors duration-150 hover:bg-stone-100 hover:text-stone-950 lg:hidden"
           >
             {mobileOpen ? (
               <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden>

@@ -1,7 +1,15 @@
 import type { Metadata } from "next";
+import { Inter } from "next/font/google";
 import { Footer } from "@/components/Footer";
 import { Header } from "@/components/Header";
 import "./globals.css";
+
+const inter = Inter({
+  subsets: ["latin", "cyrillic"],
+  variable: "--font-inter",
+  display: "swap",
+  weight: ["300", "400", "500", "600"],
+});
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://uogel-russia.ru";
 
@@ -11,7 +19,7 @@ export const metadata: Metadata = {
     template: "%s | UOGEL Russia",
   },
   description:
-    "Подбор и расчет биоклиматических пергол UOGEL доступных размеров с поставкой в Россию. Модели 3×3, 3×4, 4×4, 4×6 м с ламельной крышей, LED и ZIP-шторами.",
+    "Подбор и расчёт биоклиматических пергол UOGEL с поставкой в Россию. Алюминиевые системы с поворотными ламелями, LED, ZIP-экранами и автоматикой.",
   metadataBase: new URL(siteUrl),
   robots: {
     index: true,
@@ -24,7 +32,7 @@ export const metadata: Metadata = {
     url: siteUrl,
     title: "UOGEL Russia — биоклиматические перголы",
     description:
-      "Подбор и расчет биоклиматических пергол UOGEL. Доступные размеры, ламельные крыши, поставка в Россию.",
+      "Подбор и расчёт биоклиматических пергол UOGEL. Доступные серии, поставка в Россию.",
     images: [
       {
         url: "/images/og/uogel-og.jpg",
@@ -38,7 +46,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "UOGEL Russia — биоклиматические перголы",
     description:
-      "Подбор и расчет биоклиматических пергол UOGEL с поставкой в Россию.",
+      "Подбор и расчёт биоклиматических пергол UOGEL с поставкой в Россию.",
     images: ["/images/og/uogel-og.jpg"],
   },
 };
@@ -49,7 +57,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="ru" className="h-full antialiased">
+    <html lang="ru" className={`h-full antialiased ${inter.variable}`}>
       <body className="flex min-h-full flex-col">
         <Header />
         <main className="flex-1">{children}</main>
