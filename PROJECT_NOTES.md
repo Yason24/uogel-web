@@ -1,164 +1,219 @@
-# UOGEL Russia Website — Project Notes
+# UOGEL Russia — Project Notes
 
-Fixed on: 2026-05-22
+Обновлено: 2026-05-26
 
-This is a human technical note for Artem and new project participants. It explains the current VS Code / Ubuntu Dev / Codex / Claude / Copilot workflow and the NAS Docker preview setup.
+Технические заметки для Артёма и агентов. Описывает текущее состояние проекта после Phase 1 и Phase 2.
 
-## Current development scheme
+---
 
-- Project: UOGEL Russia Website
-- GitHub: `git@github.com:Yason24/uogel-web.git`
-- Main development path: `/projects/web/uogel`
-- NAS project path: `/volume1/Web/uogel`
-- Active workflow: edit in Ubuntu Dev, validate locally, commit, push, rebuild NAS Docker preview only when needed.
+## 1. Текущее состояние проекта
 
-Always start work with:
+**Phase 1** — синхронизация каталога с UOGEL 2026: 6 серий, опции, технические таблицы, detail-страницы для каждой серии и опции.
+
+**Phase 2** — редизайн главной страницы + design system: premium architectural platform, Inter, accent color, hover system, обновлённая типографика.
+
+Сайт позиционируется как **architectural outdoor-systems platform**, не как лендинг или витрина с фиксированными ценами. Логика: проектный подбор системы из каталога UOGEL 2026, расчёт комплектации, поставка в Россию.
+
+---
+
+## 2. Сервер и инфраструктура
+
+```
+Сервер:    sanda-root-local  (192.168.50.86)
+Проект:    /projects/web/uogel
+Docker:    uogel-web  →  host 3001 : container 3000
+Proxy:     NPM (Nginx Proxy Manager)  →  rtc.rdk-invest.ru (SSL)
+Preview:   https://rtc.rdk-invest.ru
+GitHub:    github-uogel:Yason24/uogel-web.git
+Ветка:     main
+```
+
+Начинай каждую сессию с:
 
 ```bash
+ssh sanda-root-local
 cd /projects/web/uogel
-pwd
 git status
 git rev-parse HEAD
 ```
 
-Do not use `/workspace`, `/volume1/Web/uogel-next-tmp`, temporary Next.js folders, or other project copies for UOGEL work.
+---
 
-## NAS preview
+## 3. Продуктовый каталог (6 серий)
 
-The site runs on the NAS through Docker.
+| Серия | ID / Slug | Профиль стойки | Привод | Размеры |
+|---|---|---|---|---|
+| A13 | `a13` | 150×150 мм | Моторизованный | Конфигурация под проект |
+| C10 | `c10` | 150×150 мм | Моторизованный | Конфигурация под проект |
+| C7 | `c7` | 150×150 мм | Моторизованный | Конфигурация под проект |
+| C4 / M4 | `c4` | 120×120 мм | Мотор / ручное | Стандартные конфигурации |
+| M3 / M3-S | `m3` | 120×120 мм | Ручное | Стандартные конфигурации |
+| M2-S | `m2-s` | 100×100 мм | Ручное | Стандартные конфигурации |
 
-- Container: `uogel-web`
-- Preview URL: `http://192.168.50.181:3000/`
-- Docker compose file: `/volume1/Web/uogel/docker-compose.yml`
+**Важные детали:**
+- C4 и M4 — одна группа в каталоге, slug `c4`; не путать M4 с M2-S
+- M2-S — отдельная серия с профилем 100×100 мм (у M3/M3-S профиль 120×120 мм)
+- Изображения серий: `/public/images/products/[slug].jpg`
 
-The Ubuntu Dev and NAS paths are connected by Docker volumes:
+### Опции (7 позиций)
 
-```bash
-/volume1/Web:/projects/web
-/volume1/Web/uogel:/volume1/Web/uogel
+`zip-screen` · `frameless-glass` · `narrow-frame-glass` · `aluminium-shutters` · `ceiling-fan` · `electrical-heater` · `rain-wind-sensors`
+
+---
+
+## 4. Data architecture
+
+Все данные о продуктах — только в data layer. Нельзя хардкодить в JSX.
+
+```
+src/types/index.ts       — типы: Product, Option, Lead, NavItem, SizeRange, …
+src/data/pergolas.ts     — products[], availablePergolas, getPergolaBySlug()
+src/data/options.ts      — options[]
+src/data/navigation.ts   — navItems[]
+src/lib/catalog.ts       — форматеры: formatSizeRange, formatDrive, formatSystemType, …
 ```
 
-Rebuild preview on the NAS only when changes must be visible there:
+**Правило:** при добавлении/изменении серии или опции — сначала `src/data/`, потом страницы.
+
+---
+
+## 5. Design system (Phase 2)
+
+```
+Шрифт:         Inter (next/font/google), subsets: latin + cyrillic
+Веса:          300 / 400 / 500 / 600
+CSS var:       --font-inter
+
+H1 / H2:       font-light  (крупные заголовки, hero, section titles)
+H3 / карточки: font-medium
+Eyebrow:       text-xs font-medium uppercase tracking-[0.2em] text-stone-400
+
+Accent:        #c9783b  →  Tailwind: arch / arch-dark / arch-light / arch-muted
+Hover links:   hover:text-arch / transition-colors duration-200
+Hover buttons: hover:bg-arch
+Cards hover:   group-hover:text-arch + hover:shadow-md
+
+Dark sections:
+  Hero:        bg-stone-950
+  CTA blocks:  bg-stone-900
+
+Запрещено:
+  — яркие градиенты
+  — ecommerce tone
+  — orange как основной акцент
+  — aggressive animations
+```
+
+---
+
+## 6. Routes
+
+```
+/                   главная (Phase 2 redesign)
+/catalog            обзор каталога
+/pergolas           список серий
+/pergolas/a13       серия A13
+/pergolas/c10       серия C10
+/pergolas/c7        серия C7
+/pergolas/c4        серия C4 / M4
+/pergolas/m3        серия M3 / M3-S
+/pergolas/m2-s      серия M2-S
+/options            список опций
+/options/[slug]     карточка опции
+/calculate          форма подбора (8 шагов, Quiz компонент)
+/contacts
+/delivery
+/how-to-order
+/gallery
+/api/lead           POST — приём заявок (не трогать)
+```
+
+---
+
+## 7. Leads / Telegram
+
+```
+Маршрут:     POST /api/lead  (src/app/api/lead/route.ts)
+Telegram:    через NAS proxy 192.168.50.190:7890
+Backup:      data/leads.jsonl  (Docker volume ./data:/app/data)
+Rate limit:  3 заявки / IP / 10 минут (in-memory)
+```
+
+**Не трогать** `src/app/api/lead/route.ts`, `.env`, `.env.local`, `data/leads.jsonl` без отдельной задачи.
+
+---
+
+## 8. Docker workflow (обязательная последовательность)
+
+`output: "standalone"` — `.next/standalone` создаётся только `npm run build`. Docker копирует этот каталог. **Без предварительного build контейнер не соберётся.**
 
 ```bash
-ssh root-asustor
-cd /volume1/Web/uogel
+cd /projects/web/uogel
+git status
+npm run lint
+npm run build
 docker compose down
 docker compose build --no-cache
 docker compose up -d
 ```
 
-Check after rebuild:
+Проверка:
 
 ```bash
 docker ps --filter name=uogel-web
-docker logs --tail=100 uogel-web
-curl -I http://127.0.0.1:3000
-curl -s http://127.0.0.1:3000 | grep -Ei "UOGEL|пергол|Рассчитать|стоимость|биоклимат" | head -30
-curl -s http://127.0.0.1:3000 | grep -Ei "To get started|Deploy Now|Next.js logo" | head -30 || true
+docker logs --tail=50 uogel-web
+curl -I http://127.0.0.1:3001
+curl -s http://127.0.0.1:3001 | grep -Ei "UOGEL|пергол|биоклимат" | head -5
+curl -I https://rtc.rdk-invest.ru
 ```
 
-Success criteria:
+Критерии успеха:
+- HTML содержит `UOGEL`, `пергол`, `биоклимат`
+- HTML **не** содержит `To get started`, `Deploy Now`, `Next.js logo`
+- `https://rtc.rdk-invest.ru` возвращает 200
 
-- HTML contains `UOGEL`, `пергол`, `Рассчитать`, `стоимость`, or `биоклимат`.
-- HTML does not contain `To get started`, `Deploy Now`, or `Next.js logo`.
-- The browser opens `http://192.168.50.181:3000/`.
+---
 
-## VPS preview
+## 9. Известные решённые проблемы
 
-The VPS preview is available at `http://81.85.49.193/`.
+**Port 3000 conflict (2026-05-25):** NPM занимал порт 3000 на `0.0.0.0`. Исправлено маппингом `3001:3000` в `docker-compose.yml`. Backend в NPM для `rtc.rdk-invest.ru` — порт 3001.
 
-- VPS host: `uzbek-vps`
-- Site path: `/opt/uogel`
-- Container: `uogel-web`
-- Port 80 is published by Docker through `docker-proxy` to container port 3000.
-- Port 443 is reserved by `sing-box` / VLESS. Do not use it for the site preview.
-- WireGuard has been removed; `wg0` is absent and port 51820 is no longer used.
-- Package `wireguard-tools` was removed.
-- WireGuard and nftables backup: `/root/backup-wireguard-uogel-20260522_142145`.
-- `nftables` is enabled and has `forward` policy `drop`, so Docker bridge traffic for the preview requires explicit allow rules in `/etc/nftables.conf`.
-- WireGuard rules were removed from `/etc/nftables.conf`: `udp dport 51820 accept`, forward rules with `wg0`, NAT masquerade for `10.66.66.0/24`, and the empty `table ip nat`.
-- Current UOGEL Docker bridge: `br-9c2900334a5f`; current container IP: `172.18.0.2`.
-- UOGEL Docker forward rules that must remain:
-  - `iifname "enp0s5" oifname "br-9c2900334a5f" ip daddr 172.18.0.2 tcp dport 3000 accept`
-  - `iifname "br-9c2900334a5f" oifname "enp0s5" ip saddr 172.18.0.2 tcp sport 3000 ct state established,related accept`
-- If the Docker network is recreated or the container IP changes, update the UOGEL allow rules in `/etc/nftables.conf`, run `nft -c -f /etc/nftables.conf`, and then run `systemctl reload nftables`.
+**NAS (legacy):** ранее превью работало на NAS (`/volume1/Web/uogel`, `192.168.50.181:3000`). Сейчас не используется. Весь деплой — только на новом сервере `sanda-root-local`.
 
-## Proxy
+---
 
-Ubuntu Dev uses the local Docker proxy:
+## 10. VPS (только для справки)
 
-```bash
-http://sing-box-dev-proxy:7890
+VPS `uzbek-vps` (81.85.49.193) — резервный preview. **Не трогать** без явной задачи. Docker bridge, nftables, sing-box настроены. Port 443 занят VLESS. Детали — git history.
+
+---
+
+## 11. Запреты
+
+```
+НЕ трогать:
+  .env*  ·  data/*.jsonl  ·  .claude/
+  NAS (192.168.50.181)  ·  роутер (80/443)
+  NPM (кроме rtc.rdk-invest.ru backend)
+  Matrix / MSChat  ·  Nextcloud  ·  Plex  ·  Talk HPB
+  Docker других проектов на сервере
+  VPS  ·  nftables  ·  sing-box  ·  VLESS  ·  WireGuard
+
+НЕ делать:
+  git push --force
+  git reset --hard  (без явного разрешения)
+  docker compose down для других проектов
+  удалять папки без backup и явного разрешения
 ```
 
-Before commands that need internet access:
+---
 
-```bash
-source ~/.config/proxy-env.sh
-```
+## 12. Документация
 
-Checks:
-
-```bash
-curl https://ifconfig.me/ip
-curl -I https://github.com
-curl -I https://api.github.com
-curl -I https://download.jetbrains.com
-```
-
-Do not use Raspberry proxy or Windows proxy. Do not change `sing-box-dev-proxy` without separate permission.
-
-## Resolved default Next.js page issue
-
-Problem: the NAS preview showed the default Next.js starter page, even though the repository already contained the UOGEL site.
-
-Cause: the running Docker container was built from an old image.
-
-Fix: rebuild the NAS container without cache:
-
-```bash
-ssh root-asustor
-cd /volume1/Web/uogel
-docker compose down
-docker compose build --no-cache
-docker compose up -d
-```
-
-Result: the preview served the UOGEL page and no longer showed `To get started`, `Deploy Now`, or `Next.js logo`.
-
-## Short workflow after changes
-
-In Ubuntu Dev:
-
-```bash
-source ~/.config/proxy-env.sh
-cd /projects/web/uogel
-npm run lint
-npm run build
-git status
-git add .
-git commit -m "Clear description of the change"
-git push
-```
-
-If the change must appear on NAS preview, rebuild Docker on the NAS after push.
-
-## Safety notes
-
-- Do not touch the VPS.
-- Do not touch NAS Web Server, Apache, or Nginx Proxy Manager.
-- Do not touch other folders in `/volume1/Web`.
-- Do not run Docker commands for other projects.
-- Do not delete folders without backup and explicit approval.
-- Do not force push.
-- Do not update the native Node.js on NAS.
-- Do not change NAS system services.
-- Do not touch VLESS, sing-box, WireGuard, or VPN.
-
-## Documentation entry points
-
-- `AGENTS.md`: main guide for agents.
-- `README.md`: project overview and short workflow.
-- `docs/chat-prompts.md`: chat roles and prompt source notes.
-- `docs/UOGEL_Russia_Agent_Guide.md`: consolidated markdown guide for sharing.
+| Файл | Назначение |
+|---|---|
+| `AGENTS.md` | главный гайд для агентов |
+| `README.md` | краткий обзор проекта |
+| `PROJECT_NOTES.md` | технические заметки (этот файл) |
+| `docs/chat-prompts.md` | промпты для чатов |
+| `docs/uogel-catalog/` | PDF каталог UOGEL 2026 |

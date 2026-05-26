@@ -1,86 +1,135 @@
 # UOGEL Russia — Agent Guide
 
-This is the main operating guide for Codex, Claude, Copilot, and other agents working on the UOGEL Russia Website.
+Главный операционный гайд для Codex, Claude, Copilot и других агентов, работающих над UOGEL Russia Website.
 
-## 1. Project summary
-
-- Project: UOGEL Russia Website
-- Repository: `git@github.com:Yason24/uogel-web.git`
-- Active branch: `main`
-- New server project path: `/projects/web/uogel` (primary — use this)
-- Preview URL: `https://rtc.rdk-invest.ru/`
-- Docker container: `uogel-web` (host: sanda-root-local, 192.168.50.86)
-- Docker port: host `3001` → container `3000`
-
-The project is a Next.js, TypeScript, and Tailwind CSS website for selecting and calculating UOGEL bioclimatic pergolas for Russia.
-
-## 2. Business rules
-
-The website sells only pergolas in available sizes.
-
-Do not write:
-
-- any sizes for your project
-- custom manufacturing to your size
-- we will manufacture any configuration
-
-Allowed wording:
-
-- we will select a suitable pergola from available sizes
-- we will calculate the cost for the chosen model and configuration
-- we will help choose a size for your property
-
-Do not claim official representative, official dealer, or exclusive distributor status unless there is a confirmed dealer agreement. The site should look reliable and professional without false claims.
-
-## 3. Current infrastructure
+## 1. Обзор проекта
 
 ```
-Internet → router 80/443 → new server 192.168.50.86
-→ NPM (Nginx Proxy Manager, port 81 admin)
-→ rtc.rdk-invest.ru → uogel-web container (127.0.0.1:3001)
+Проект:      UOGEL Russia Website
+GitHub:      github-uogel:Yason24/uogel-web.git
+Ветка:       main
+Путь:        /projects/web/uogel  (единственный рабочий путь)
+Preview:     https://rtc.rdk-invest.ru/
+Docker:      uogel-web  (sanda-root-local, 192.168.50.86)
+Порт:        host 3001 → container 3000
 ```
 
-New server (sanda-root-local, 192.168.50.86):
-- Ubuntu 22.04 / 24.04
-- Docker 29.4.0
-- Node.js 20.20.2, npm 10.8.2
-- code-server 4.121.0 (port 8888, LAN only)
-- Claude Code 2.1.150
-- Codex CLI 0.133.0
-- NPM (Nginx Proxy Manager) — handles rtc.rdk-invest.ru with Let's Encrypt SSL
+**Позиционирование:** архитектурная outdoor-systems platform. Не MVP, не лендинг, не ecommerce. Проектный подбор системы из каталога UOGEL 2026, расчёт комплектации, поставка в Россию.
 
-Project path: `/projects/web/uogel`
+Stack: Next.js 15 (App Router, `output: "standalone"`), TypeScript, Tailwind CSS v3, Google Fonts Inter.
 
-Docker compose file: `/projects/web/uogel/docker-compose.yml`
+## 2. Бизнес-логика
 
-## 4. Correct working directories
+Сайт помогает **подобрать систему из каталога UOGEL 2026** под конкретный объект.
 
-Every agent working on UOGEL must start with:
+**Разрешённые формулировки:**
+- подобрать серию из каталога под проект
+- рассчитать комплектацию по выбранной серии
+- выбрать конфигурацию из доступных вариантов
+- custom sizing для флагманских серий (A13, C10, C7, C7)
+- стандартные конфигурации для C4/M4, M3/M3-S, M2-S
 
-```bash
-cd /projects/web/uogel
-pwd
-git status
-git rev-parse HEAD
+**Не писать:**
+- любой размер под заказ
+- изготовим любую конфигурацию
+- официальный дилер / официальный представитель / эксклюзивный дистрибьютор (если нет подтверждённого договора)
+
+## 3. Продуктовый каталог
+
+### Серии пергол (6 штук)
+
+| Серия | Slug | Профиль | Привод | Тип размеров |
+|---|---|---|---|---|
+| A13 | `a13` | 150×150 мм | Моторизованный | Конфигурация под проект |
+| C10 | `c10` | 150×150 мм | Моторизованный | Конфигурация под проект |
+| C7 | `c7` | 150×150 мм | Моторизованный | Конфигурация под проект |
+| C4 / M4 | `c4` | 120×120 мм | Мотор / ручное | Стандартные конфигурации |
+| M3 / M3-S | `m3` | 120×120 мм | Ручное | Стандартные конфигурации |
+| M2-S | `m2-s` | 100×100 мм | Ручное | Стандартные конфигурации |
+
+**Критично:**
+- C4 и M4 — одна группа, единый slug `c4`
+- M2-S — отдельная серия (профиль 100×100 мм, не путать с M3)
+- Изображения: `/public/images/products/[slug].jpg`
+
+### Опции (7 позиций)
+
+`zip-screen` · `frameless-glass` · `narrow-frame-glass` · `aluminium-shutters` · `ceiling-fan` · `electrical-heater` · `rain-wind-sensors`
+
+## 4. Data architecture
+
+**Правило: не хардкодить product data в JSX. Сначала обновлять data layer, потом UI.**
+
+```
+src/types/index.ts       — типы: Product, Option, Lead, NavItem, …
+src/data/pergolas.ts     — products[], availablePergolas, getPergolaBySlug()
+src/data/options.ts      — options[]
+src/data/navigation.ts   — navItems[]
+src/lib/catalog.ts       — форматеры: formatSizeRange, formatDrive, formatSystemType, …
 ```
 
-Work only in:
+## 5. Routes
+
+```
+/                   главная
+/catalog            обзор каталога
+/pergolas           список серий
+/pergolas/[slug]    карточка серии  (a13, c10, c7, c4, m3, m2-s)
+/options            список опций
+/options/[slug]     карточка опции
+/calculate          форма подбора (8 шагов)
+/contacts
+/delivery
+/how-to-order
+/gallery
+/api/lead           POST — не трогать без задачи
+```
+
+## 6. Design system (Phase 2)
+
+```
+Шрифт:         Inter (next/font/google), latin + cyrillic
+Веса:          300 / 400 / 500 / 600
+
+H1 / H2:       font-light
+H3 / карточки: font-medium
+Eyebrow:       text-xs font-medium uppercase tracking-[0.2em] text-stone-400
+Body:          text-stone-500/600, leading-7/8
+
+Accent:        #c9783b  →  Tailwind класс: arch
+Hover links:   hover:text-arch + transition-colors duration-200
+Hover buttons: hover:bg-arch
+Cards hover:   group-hover:text-arch
+Transitions:   transition-colors duration-200/300
+
+Dark sections:
+  Hero:        bg-stone-950
+  CTA blocks:  bg-stone-900
+
+НЕ использовать:
+  — яркие градиенты
+  — ecommerce tone
+  — aggressive animations
+  — neon / glow effects
+```
+
+## 7. Рабочие директории
+
+Работать **только** в:
 
 ```bash
 /projects/web/uogel
 ```
 
-Do not work on UOGEL in:
-
+Не работать в:
 - `/workspace`
-- `/volume1/Web/uogel` (old NAS path — do not use)
+- `/volume1/Web/uogel` (NAS — устарело)
 - `/volume1/Web/uogel-next-tmp`
-- any temporary Next.js folder
-- any other copy of the project
+- временных папках Next.js
 
-## 5. Git workflow
+## 8. Git workflow
 
-Before changes:
+Перед изменениями:
 
 ```bash
 cd /projects/web/uogel
@@ -88,53 +137,51 @@ git status
 git rev-parse HEAD
 ```
 
-After changes:
+После изменений:
 
 ```bash
 git status
-git add .
-git commit -m "Clear description of the change"
+git add src/ tailwind.config.ts  # (конкретные файлы)
+git commit -m "Понятное описание изменений"
 git push
 ```
 
-Never use `git reset --hard` or force push without explicit approval.
+Никогда: `git reset --hard` и force push без явного разрешения.
 
-## 6. Development workflow
+## 9. Development workflow
 
-Before writing code, read the relevant Next.js guide in `node_modules/next/dist/docs/` if it exists in this install. This project may use a Next.js version with breaking API, convention, or file structure changes; do not rely on memory alone for framework-specific work.
-
-Install and run locally:
+Перед написанием кода прочитай Next.js docs в `node_modules/next/dist/docs/` если они есть.
 
 ```bash
 npm install
 npm run dev
 ```
 
-Required checks before commit:
+Обязательно перед commit:
 
 ```bash
 npm run lint
 npm run build
 ```
 
-## 7. New server Docker deploy workflow
+## 10. Docker deploy (новый сервер)
 
-This project uses `output: "standalone"` in `next.config.ts`. Build MUST run outside Docker first, then Docker copies from `.next/standalone`.
+> **Критично:** `output: "standalone"` — без `npm run build` Docker build упадёт с ошибкой `"/.next/standalone": not found`.
 
-Full rebuild sequence:
+Полная последовательность:
 
 ```bash
-ssh sanda-root-local
 cd /projects/web/uogel
 git pull
 npm install
+npm run lint
 npm run build
 docker compose down
 docker compose build --no-cache
 docker compose up -d
 ```
 
-Check after rebuild:
+Проверка:
 
 ```bash
 docker ps --filter name=uogel-web
@@ -143,43 +190,29 @@ curl -I http://127.0.0.1:3001
 curl -s http://127.0.0.1:3001 | grep -Ei "UOGEL|пергол|Рассчитать|стоимость|биоклимат" | head -10
 ```
 
-Success criteria:
+Критерии успеха:
+- HTML содержит `UOGEL`, `пергол`, `Рассчитать`, `стоимость` или `биоклимат`
+- HTML **не** содержит `To get started`, `Deploy Now`, `Next.js logo`
+- `https://rtc.rdk-invest.ru` открывается в браузере
 
-- HTML contains `UOGEL`, `пергол`, `Рассчитать`, `стоимость`, or `биоклимат`.
-- HTML does not contain `To get started`, `Deploy Now`, or `Next.js logo`.
-- Browser opens `https://rtc.rdk-invest.ru/`.
+## 11. VPS HTTP preview
 
-## 8. VPS HTTP preview notes
+VPS preview: `http://81.85.49.193/`
 
-The VPS preview is available at:
+- Хост: `uzbek-vps`
+- Путь: `/opt/uogel`
+- Контейнер: `uogel-web`
+- Port 443 занят `sing-box` / VLESS — не использовать для сайта
+- `nftables` включён, политика forward: drop — Docker bridge требует явных allow-правил
+- UOGEL Docker forward rules в `/etc/nftables.conf` не трогать
 
-```bash
-http://81.85.49.193/
-```
+**Не трогать** VPS runtime, Docker, nftables, sing-box, VLESS, WireGuard, домен, HTTPS без явной задачи.
 
-- VPS host: `uzbek-vps`
-- Site path on VPS: `/opt/uogel`
-- Container: `uogel-web`
-- Port 80 is published by Docker through `docker-proxy` to container port 3000.
-- Port 443 is reserved by `sing-box` / VLESS. Do not use it for the site preview.
-- WireGuard has been removed; `wg0` is absent and port 51820 is no longer used.
-- Package `wireguard-tools` was removed.
-- WireGuard and nftables backup: `/root/backup-wireguard-uogel-20260522_142145`.
-- `nftables` is enabled and has `forward` policy `drop`, so Docker bridge traffic for the preview requires explicit allow rules in `/etc/nftables.conf`.
-- WireGuard rules were removed from `/etc/nftables.conf`: `udp dport 51820 accept`, forward rules with `wg0`, NAT masquerade for `10.66.66.0/24`, and the empty `table ip nat`.
-- Current UOGEL Docker bridge: `br-9c2900334a5f`; current container IP: `172.18.0.2`.
-- UOGEL Docker forward rules that must remain:
-  - `iifname "enp0s5" oifname "br-9c2900334a5f" ip daddr 172.18.0.2 tcp dport 3000 accept`
-  - `iifname "br-9c2900334a5f" oifname "enp0s5" ip saddr 172.18.0.2 tcp sport 3000 ct state established,related accept`
-- If the Docker network is recreated or the container IP changes, update the UOGEL allow rules in `/etc/nftables.conf`, run `nft -c -f /etc/nftables.conf`, and then run `systemctl reload nftables`.
+## 12. Proxy / сеть
 
-Do not touch VPS runtime, Docker, `nftables`, `sing-box`, VLESS, WireGuard, domain, or HTTPS unless the task explicitly requires it.
+Новый сервер имеет прямой доступ к интернету — проксирование не требуется.
 
-## 9. Proxy / network setup
-
-New server has direct internet access — no outbound proxy required.
-
-Connectivity checks:
+Проверка:
 
 ```bash
 curl https://ifconfig.me/ip
@@ -187,92 +220,83 @@ curl -I https://github.com
 curl -I https://api.github.com
 ```
 
-## 10. Safety rules
+## 13. Leads / Telegram
 
-- Do not touch the VPS unless explicitly required.
-- Do not touch NAS (192.168.50.181) Web Server, Apache, or NAS Nginx Proxy Manager.
-- Do not change router 80/443 port forwarding.
-- Do not touch `/volume1/Web/sanda_fleet`, `/volume1/Web/mtrade`, `/volume1/Web/landing` (NAS sites).
-- Do not touch Matrix/MSChat, Nextcloud, Plex, OnlyOffice, or Nextcloud Talk HPB.
-- Do not run `docker compose down` for other projects on the new server.
-- Do not run `git reset --hard` without approval.
-- Do not force push.
-- Do not delete folders without backup and explicit approval.
-- Do not change NAS system services.
-- Do not touch VLESS, sing-box, WireGuard, or VPN.
-- code-server (port 8888) must remain LAN-only. Do not expose it publicly without authentication.
+```
+Маршрут:     POST /api/lead  (src/app/api/lead/route.ts)
+Telegram:    через NAS proxy 192.168.50.190:7890
+Backup:      data/leads.jsonl  (Docker volume ./data:/app/data)
+Rate limit:  3 заявки / IP / 10 минут (in-memory)
+```
 
-## 11. Validation checklist
+- Telegram не работает напрямую из контейнера в России
+- Локальный backup обязателен
+- Не коммитить `.env`, `.env.local`, `data/leads.jsonl`
 
-Before final handoff:
+## 14. Запреты
 
-- `pwd` is `/projects/web/uogel`.
-- `git status` has no unexpected project changes.
-- `npm run lint` passes.
-- `npm run build` passes.
-- Documentation-only tasks do not change site code, Docker, or proxy config.
-- If container was rebuilt, success criteria in section 7 are satisfied.
-- `curl -I https://rtc.rdk-invest.ru` returns 200 OK (after NPM proxy + SSL cert are active).
+```
+НЕ трогать:
+  .env*  ·  data/*.jsonl  ·  .claude/
+  NAS (192.168.50.181, /volume1/Web/)
+  Роутер (80/443 port forwarding)
+  NPM (кроме настройки rtc.rdk-invest.ru)
+  Matrix / MSChat  ·  Nextcloud  ·  Plex  ·  Talk HPB
+  Docker других проектов на sanda-root-local
+  VPS  ·  nftables  ·  sing-box  ·  VLESS  ·  WireGuard
+  code-server (порт 8888 — только LAN, не публиковать)
 
-## 12. Known resolved issues
+НЕ делать:
+  git push --force
+  git reset --hard  (без явного разрешения)
+  force push в main
+  docker compose down для других проектов
+  удалять папки без backup и явного разрешения
+```
 
-**Port 3000 conflict (2026-05-25):** NPM backend process occupied port 3000 on all interfaces (0.0.0.0:3000). Fixed by mapping host port 3001 → container port 3000 in `docker-compose.yml`. NPM proxy host for rtc.rdk-invest.ru must use port 3001 as backend.
+## 15. Валидационный чеклист перед сдачей
 
-**NAS preview (legacy):** The NAS previously served the default Next.js page although the project code was correct. The container had been built from an old image. Resolution was `docker compose build --no-cache`. This is NAS-specific history; new server uses standard build flow.
+```
+□  pwd = /projects/web/uogel
+□  git status — нет лишних изменений
+□  npm run lint — чисто
+□  npm run build — успешно
+□  Документация-only задачи не меняют код, Docker, proxy
+□  Если контейнер пересобирался — критерии п.10 выполнены
+□  curl -I https://rtc.rdk-invest.ru → 200 OK
+```
 
-## 13. Chat roles and project prompts
+## 16. Известные решённые проблемы
 
-Project chat roles and full startup prompts are documented in `docs/chat-prompts.md`.
+**Port 3000 conflict (2026-05-25):** NPM занимал порт 3000. Исправлено: `docker-compose.yml` маппинг `3001:3000`, backend NPM = порт 3001.
 
-Known chats:
+**NAS preview (legacy):** NAS ранее показывал default Next.js страницу — решено пересборкой контейнера. NAS preview не используется.
 
-- `00 HUB / Главный чат`
-- `01 Сайт / Архитектура`
-- `02 Сайт / Разработка`
-- `03 Сайт / Дизайн`
-- `04 Сайт / Контент`
-- `05 Сайт / Ошибки и ревью`
-- `10 Бизнес / План`
-- `11 Китай / UOGEL / Поставщики`
-- `20 Instagram`
-- `21 Telegram`
-- `22 Реклама`
-- `30 Brainstorm / Идеи`
-- `40 Документы`
-- `41 База знаний`
+## 17. Чаты проекта
 
-The local `_index.md` source was not present in the project folder during the 2026-05-22 documentation update. The prompts were restored from the Google Drive document `UOGEL RUSSIA — Промпты для чатов (.md)` and formatted in `docs/chat-prompts.md`.
+Документация чатов: `docs/chat-prompts.md`
 
-## 14. Leads / Telegram
+```
+00 HUB / Главный чат
+01 Сайт / Архитектура
+02 Сайт / Разработка
+03 Сайт / Дизайн
+04 Сайт / Контент
+05 Сайт / Ошибки и ревью
+10 Бизнес / План
+11 Китай / UOGEL / Поставщики
+20 Instagram
+21 Telegram
+22 Реклама
+30 Brainstorm / Идеи
+40 Документы
+41 База знаний
+```
 
-Lead forms send POST requests to:
+## 18. Что читать перед стартом
 
-`/api/lead`
-
-Current flow:
-
-1. Validate request on the server.
-2. Apply in-memory rate limit: 3 requests per IP per 10 minutes.
-3. Try to send Telegram message through NAS proxy.
-4. Always save accepted lead to `data/leads.jsonl`.
-5. Store Telegram delivery result as `telegramStatus: "sent" | "failed"`.
-
-Important:
-
-- Telegram does not work directly from the container in Russia.
-- Telegram API is reached through NAS proxy:
-  `192.168.50.190:7890`
-- Do not remove local backup.
-- Do not commit `.env`, `.env.local`, or `data/leads.jsonl`.
-- `data/leads.jsonl` is mounted via Docker volume:
-  `./data:/app/data`
-
-## 15. What to read before starting
-
-Read in this order:
-
-1. `AGENTS.md`
+1. `AGENTS.md` (этот файл)
 2. `PROJECT_NOTES.md`
 3. `README.md`
 4. `docs/chat-prompts.md`
-5. Relevant Next.js docs in `node_modules/next/dist/docs/`, if present, before framework-specific code changes
+5. `node_modules/next/dist/docs/` — перед framework-specific изменениями

@@ -1,62 +1,75 @@
-# UOGEL Russia Website MVP
+# UOGEL Russia — Architectural Outdoor Systems
 
-MVP сайта-витрины для подбора и расчета биоклиматических пергол производства UOGEL с поставкой в Россию.
+Сайт для подбора и расчёта биоклиматических пергол UOGEL с поставкой в Россию.
 
-## Цель MVP
-
-Показать ограниченный каталог релевантных моделей, собрать заявки на расчет и подготовить основу для дальнейшего каталога, CRM и интеграций.
-
-## Важное бизнес-ограничение
-
-Сайт продает только перголы доступных размеров. В текстах используется логика подбора из каталога: подбор подходящей перголы из доступных размеров, расчет по выбранной модели и комплектации, помощь с выбором размера под объект.
+**Позиционирование:** архитектурная outdoor-platform. Не лендинг, не ecommerce. Проектный подбор системы из каталога UOGEL 2026.
 
 ## Stack
 
-- Next.js
+- Next.js 15 (App Router, `output: "standalone"`)
 - TypeScript
-- Tailwind CSS
-- App Router
+- Tailwind CSS v3
+- Google Fonts: Inter (300/400/500/600)
 
-## Structure
+## Серии каталога
 
-- src/app — страницы сайта
-- src/components — общие компоненты интерфейса
-- src/data — стартовые данные каталога и опций
-- src/types — типы Pergola, PergolaOption, Lead
-- public/images — будущие локальные изображения
+| Серия | Slug | Привод | Размеры |
+|---|---|---|---|
+| A13 | `a13` | Моторизованный | Конфигурация под проект |
+| C10 | `c10` | Моторизованный | Конфигурация под проект |
+| C7 | `c7` | Моторизованный | Конфигурация под проект |
+| C4 / M4 | `c4` | Мотор / ручное | Стандартные конфигурации |
+| M3 / M3-S | `m3` | Ручное | Стандартные конфигурации |
+| M2-S | `m2-s` | Ручное | Стандартные конфигурации |
+
+## Routes
+
+```
+/                   # главная
+/catalog            # обзор каталога
+/pergolas           # список серий
+/pergolas/[slug]    # карточка серии (a13, c10, c7, c4, m3, m2-s)
+/options            # список опций
+/options/[slug]     # карточка опции
+/calculate          # форма подбора системы (8 шагов)
+/contacts
+/delivery
+/how-to-order
+/gallery
+```
+
+## Data architecture
+
+Все данные — в data layer, не хардкодить в JSX.
+
+```
+src/types/index.ts       # типы: Product, Option, Lead, NavItem, …
+src/data/pergolas.ts     # 6 серий + availablePergolas + getPergolaBySlug
+src/data/options.ts      # 7 опций
+src/data/navigation.ts   # навигация
+src/lib/catalog.ts       # форматеры: formatSizeRange, formatDrive, …
+```
+
+**Правило:** сначала обновляй `src/data/`, потом UI.
+
+## Design system (Phase 2)
+
+- Шрифт: Inter, `var(--font-inter)`
+- Заголовки h1/h2: `font-light`
+- Заголовки h3/карточки: `font-medium`
+- Eyebrow: `text-xs font-medium uppercase tracking-[0.2em] text-stone-400`
+- Accent: `#c9783b` — класс `arch` в Tailwind
+- Hover: `hover:text-arch`, `hover:bg-arch`, `group-hover:text-arch`
+- Transitions: `transition-colors duration-200`
+- Dark sections: `bg-stone-950` (hero) / `bg-stone-900` (CTA)
+- Без ярких градиентов, без ecommerce tone
 
 ## Development
 
 ```bash
+cd /projects/web/uogel
 npm install
 npm run dev
-```
-
-## Production build
-
-```bash
-npm run build
-npm run start
-```
-
-## Docker
-
-```bash
-docker compose up --build -d
-```
-
-Приложение будет доступно на `http://localhost:3000`.
-
-## Development and NAS preview workflow
-
-Основная разработка ведется только в `/projects/web/uogel`. Перед началом работы:
-
-```bash
-source ~/.config/proxy-env.sh
-cd /projects/web/uogel
-pwd
-git status
-git rev-parse HEAD
 ```
 
 Проверки перед commit:
@@ -66,49 +79,52 @@ npm run lint
 npm run build
 ```
 
-NAS preview запускается через Docker из `/volume1/Web/uogel`; контейнер `uogel-web`, проверочный URL `http://192.168.50.181:3000/`.
+## Docker deploy (новый сервер)
 
-VPS preview: `http://81.85.49.193/`.
-
-Пересборка preview на NAS после push, если изменения должны быть видны в браузере:
+> **Важно:** `output: "standalone"` — сборка вне Docker обязательна.
 
 ```bash
-ssh root-asustor
-cd /volume1/Web/uogel
+cd /projects/web/uogel
+git pull
+npm install
+npm run lint
+npm run build
 docker compose down
 docker compose build --no-cache
 docker compose up -d
 ```
 
-Полная схема путей, ограничения и команды проверки зафиксированы в `PROJECT_NOTES.md`. Перед работой с проектом Codex должен читать `AGENTS.md`, `PROJECT_NOTES.md` и этот `README.md`.
+Проверка:
 
-## Test domain
-
-Тестовый домен: 
-tc.rdk-invest.ru
-
-## Nginx example
-
-```nginx
-server {
-    listen 80;
-    server_name tc.rdk-invest.ru;
-
-    location / {
-        proxy_pass http://127.0.0.1:3000;
-        proxy_http_version 1.1;
-
-        proxy_set_header Host $host;
-        proxy_set_header X-Real-IP $remote_addr;
-        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-        proxy_set_header X-Forwarded-Proto $scheme;
-
-        proxy_set_header Upgrade $http_upgrade;
-        proxy_set_header Connection "upgrade";
-    }
-}
+```bash
+docker ps --filter name=uogel-web
+curl -I http://127.0.0.1:3001
+curl -I https://rtc.rdk-invest.ru
+curl -s http://127.0.0.1:3001 | grep -Ei "UOGEL|пергол|биоклимат"
 ```
 
-## Data notes
+## Инфраструктура
 
-Initial MVP data is derived from the structured UOGEL catalog files: master-catalog.json, products-db.json, and keyword-mentions.json. The first release intentionally includes only relevant bioclimatic pergola models and associated options.
+| Параметр | Значение |
+|---|---|
+| Сервер | `sanda-root-local` (192.168.50.86) |
+| Проект | `/projects/web/uogel` |
+| Docker | `uogel-web`, host `3001` → container `3000` |
+| Proxy | NPM → `rtc.rdk-invest.ru` |
+| Preview | `https://rtc.rdk-invest.ru` |
+| GitHub | `github-uogel:Yason24/uogel-web.git` |
+| Ветка | `main` |
+
+## Leads / Telegram
+
+- Форма → `POST /api/lead`
+- Telegram через NAS proxy `192.168.50.190:7890`
+- Backup: `data/leads.jsonl` (Docker volume `./data:/app/data`)
+- Rate limit: 3 заявки / IP / 10 минут
+- `.env`, `.env.local`, `data/leads.jsonl` — **не коммитить**
+
+## Не трогать
+
+`.env*` · `data/*.jsonl` · `.claude/` · NAS · роутер · NPM (кроме rtc.rdk-invest.ru) · Matrix · Nextcloud · Plex · Talk HPB · Docker других проектов · VPS · nftables · sing-box · VLESS · WireGuard
+
+Полная инструкция для агентов: `AGENTS.md`.
