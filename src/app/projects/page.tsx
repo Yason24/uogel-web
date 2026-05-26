@@ -39,7 +39,7 @@ export default function ProjectsPage() {
       {/* ── Hero ── */}
       <section className="relative min-h-[52vh] overflow-hidden bg-stone-950 lg:min-h-[62vh]">
         <Image
-          src="/images/gallery/gallery-4x6-restaurant.webp"
+          src="/images/products/c4.jpg"
           alt="Проекты UOGEL — применения outdoor-систем"
           fill
           priority

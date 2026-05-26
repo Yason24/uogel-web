@@ -277,6 +277,7 @@ export const products: Product[] = [
     useCases: ["Частный дом", "Терраса у коттеджа", "Патио", "Небольшое кафе"],
     images: [
       "/images/products/c4.jpg",
+      "/images/gallery/install-eu-led.jpg",
     ],
     diagrams: c4Diagrams,
     seo: {
@@ -329,6 +330,7 @@ export const products: Product[] = [
     useCases: ["Небольшая терраса", "Дача", "Зона у бассейна", "Балкон"],
     images: [
       "/images/products/m3.jpg",
+      "/images/gallery/install-eu-garden.jpg",
     ],
     diagrams: m3Diagrams,
     seo: {
@@ -381,6 +383,7 @@ export const products: Product[] = [
     useCases: ["Небольшая терраса", "Дача", "Балкон", "Зона отдыха"],
     images: [
       "/images/products/m2-s.jpg",
+      "/images/gallery/a13-install-evening.jpg",
     ],
     diagrams: m3Diagrams,
     seo: {

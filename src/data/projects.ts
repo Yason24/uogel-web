@@ -50,7 +50,6 @@ export const projects: Project[] = [
     specs: "6×4 м · моторизованная · отдельностоящая",
     images: [
       "/images/gallery/a13-install-coast.jpg",
-      "/images/gallery/gallery-3x3-terrace.jpg",
     ],
     isConceptReference: true,
   },
@@ -67,7 +66,6 @@ export const projects: Project[] = [
     specs: "5×4 м · моторизованная · отдельностоящая",
     images: [
       "/images/gallery/a13-install-evening.jpg",
-      "/images/gallery/gallery-3x4-patio.jpg",
     ],
     isConceptReference: true,
   },
@@ -96,7 +94,7 @@ export const projects: Project[] = [
     description:
       "Конфигурация серии C10 для крытой летней террасы ресторана. ZIP-экраны и обогреватели продлевают сезон, датчики погоды обеспечивают автоматическую защиту системы.",
     specs: "8×4 м · моторизованная · отдельностоящая",
-    images: ["/images/gallery/gallery-4x6-restaurant.webp"],
+    images: ["/images/gallery/a13-install-coast.jpg"],
     isConceptReference: true,
   },
   {
@@ -110,7 +108,7 @@ export const projects: Project[] = [
     description:
       "Конфигурация серии C7 для пристенной зоны кафе. ZIP-экраны защищают от ветра, потолочный вентилятор создаёт комфорт в жаркий сезон.",
     specs: "4×4 м · моторизованная · пристенная",
-    images: ["/images/gallery/gallery-4x4-cafe.jpg"],
+    images: ["/images/gallery/c7-install-zip.jpg"],
     isConceptReference: true,
   },
   {
