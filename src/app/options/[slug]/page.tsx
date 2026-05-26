@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
@@ -96,6 +97,40 @@ export default async function OptionPage({
           </div>
         </div>
       </section>
+
+      {/* ── Image gallery ── */}
+      {option.images.length > 0 && (
+        <section className="py-8">
+          <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+            {option.images.length === 1 ? (
+              <div className="relative aspect-[16/7] overflow-hidden rounded-3xl bg-stone-100">
+                <Image
+                  src={option.images[0]}
+                  alt={option.title}
+                  fill
+                  priority
+                  sizes="(min-width: 1280px) 1280px, 100vw"
+                  className="object-cover"
+                />
+              </div>
+            ) : (
+              <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+                {option.images.map((src, i) => (
+                  <div key={src} className="relative aspect-[4/3] overflow-hidden rounded-3xl bg-stone-100">
+                    <Image
+                      src={src}
+                      alt={`${option.title} — фото ${i + 1}`}
+                      fill
+                      sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
+                      className="object-cover"
+                    />
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
+        </section>
+      )}
 
       {/* ── Description ── */}
       <section className="py-16 sm:py-20">

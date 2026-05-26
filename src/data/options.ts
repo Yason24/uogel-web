@@ -45,7 +45,7 @@ export const options: Option[] = [
     seo: {
       title: "Безрамные стеклянные двери для пергол UOGEL",
       description:
-        "Frameless Glass Doors для пергол UOGEL A13, C10, C7, C4, M4. Высота до 2500 мм. Расчёт по модели и конфигурации.",
+        "Frameless Glass Doors для пергол UOGEL A13, C10, C7, C4/M4. Высота до 2500 мм. Расчёт по модели и конфигурации.",
     },
   },
   {
@@ -109,7 +109,7 @@ export const options: Option[] = [
       "Летний и зимний режим вращения",
       "Совместим с моторизованными сериями",
     ],
-    images: [],
+    images: ["/images/options/ceiling-fan.jpg"],
     compatibility: { all: false, productIds: ["a13", "c10", "c7"] },
     priceType: "on-request",
     seo: {
@@ -132,7 +132,7 @@ export const options: Option[] = [
       "Регулировка мощности",
       "Продление сезона до ранней весны / поздней осени",
     ],
-    images: [],
+    images: ["/images/options/electrical-heater.jpg"],
     compatibility: { all: false, productIds: ["a13", "c10", "c7"] },
     priceType: "on-request",
     seo: {
