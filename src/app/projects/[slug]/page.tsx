@@ -3,6 +3,7 @@ import Link from "next/link";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { projects, getProjectBySlug, CATEGORY_LABELS } from "@/data/projects";
+import { MediaPlaceholder } from "@/components/ui/MediaPlaceholder";
 
 export function generateStaticParams() {
   return projects.map((p) => ({ slug: p.slug }));
@@ -165,9 +166,9 @@ export default async function ProjectPage({
       </section>
 
       {/* ── Extra images ── */}
-      {extraImages.length > 0 && (
-        <section className="bg-stone-50 py-14 sm:py-16">
-          <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <section className="bg-stone-50 py-14 sm:py-16">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          {extraImages.length > 0 ? (
             <div className="grid gap-4 sm:grid-cols-2">
               {extraImages.map((src, i) => (
                 <div
@@ -184,9 +185,11 @@ export default async function ProjectPage({
                 </div>
               ))}
             </div>
-          </div>
-        </section>
-      )}
+          ) : (
+            <MediaPlaceholder label="Дополнительные фото конфигурации будут добавлены" />
+          )}
+        </div>
+      </section>
 
       {/* ── Related projects ── */}
       {relatedProjects.length > 0 && (

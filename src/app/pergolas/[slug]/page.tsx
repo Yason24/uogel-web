@@ -13,6 +13,7 @@ import { ColorSwatches } from "@/components/product/specs/ColorSwatches";
 import { SizeConfigurations } from "@/components/product/specs/SizeConfigurations";
 import { CompatibilityList } from "@/components/product/specs/CompatibilityList";
 import { TechnicalDiagramCard } from "@/components/product/TechnicalDiagramCard";
+import { MediaPlaceholder } from "@/components/ui/MediaPlaceholder";
 
 export function generateStaticParams() {
   return pergolas.map((p) => ({ slug: p.slug }));
@@ -217,7 +218,7 @@ export default async function PergolaPage({
       )}
 
       {/* ── Lifestyle + Engineering ── */}
-      {product.images.length > 1 && (
+      {product.images.length > 1 ? (
         <section className="overflow-hidden">
           <div className="grid lg:grid-cols-2">
             <div className="relative min-h-[340px] sm:min-h-[460px] lg:min-h-[540px]">
@@ -261,6 +262,15 @@ export default async function PergolaPage({
               ))}
             </div>
           )}
+        </section>
+      ) : (
+        <section className="bg-white py-12 sm:py-14">
+          <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+            <MediaPlaceholder
+              label="Дополнительные фото серии будут добавлены"
+              className="min-h-[120px]"
+            />
+          </div>
         </section>
       )}
 
