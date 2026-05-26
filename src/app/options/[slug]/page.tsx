@@ -5,6 +5,7 @@ import { notFound } from "next/navigation";
 import { options } from "@/data/options";
 import { products } from "@/data/pergolas";
 import { formatSystemType, formatDrive } from "@/lib/catalog";
+import { TechnicalDiagramCard } from "@/components/product/TechnicalDiagramCard";
 
 const CATEGORY_LABELS: Record<string, string> = {
   screens: "Защита от солнца и ветра",
@@ -195,6 +196,34 @@ export default async function OptionPage({
           </div>
         </div>
       </section>
+
+      {/* ── Техническая схема ── */}
+      {option.diagrams && option.diagrams.length > 0 && (
+        <section className="bg-stone-50 py-16 sm:py-20">
+          <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+            <div className="max-w-3xl">
+              <p className="mb-4 text-xs font-medium uppercase tracking-[0.2em] text-stone-400">
+                Документация
+              </p>
+              <h2 className="text-2xl font-medium text-stone-950 sm:text-3xl">
+                Техническая схема
+              </h2>
+              <p className="mt-3 text-sm leading-7 text-stone-500">
+                Конфигурации и параметры из официального каталога UOGEL 2026.
+              </p>
+            </div>
+            <div className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+              {option.diagrams.map((diagram) => (
+                <TechnicalDiagramCard
+                  key={diagram.src}
+                  src={diagram.src}
+                  caption={diagram.caption}
+                />
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
 
       {/* ── Compatible series ── */}
       <section className="py-16 sm:py-20">

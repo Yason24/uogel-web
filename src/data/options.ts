@@ -1,4 +1,20 @@
-import type { Option } from "@/types";
+import type { Option, DiagramItem } from "@/types";
+
+const zipDiagrams: DiagramItem[] = [
+  { src: "/images/diagrams/zip-screen-catalog-page.jpg", caption: "ZIP Screen 100/120 — конфигурации и цвета ткани" },
+];
+const framelessGlassDiagrams: DiagramItem[] = [
+  { src: "/images/diagrams/frameless-glass-catalog-page.jpg", caption: "Безрамные раздвижные двери — конфигурации до 2500 мм" },
+];
+const narrowFrameGlassDiagrams: DiagramItem[] = [
+  { src: "/images/diagrams/narrow-frame-glass-catalog-page.jpg", caption: "Узкорамные раздвижные двери — конфигурации до 2700 мм" },
+];
+const shuttersDiagrams: DiagramItem[] = [
+  { src: "/images/diagrams/aluminium-shutters-catalog-page.jpg", caption: "Алюминиевые ставни — Fixed, Sliding, Bi-Folding, Swing" },
+];
+const climateDiagrams: DiagramItem[] = [
+  { src: "/images/diagrams/catalog-overview.jpg", caption: "Климатические компоненты UOGEL — схема расположения" },
+];
 
 export const options: Option[] = [
   {
@@ -17,6 +33,7 @@ export const options: Option[] = [
     ],
     variants: ["ZIP Screen 100", "ZIP Screen 120"],
     images: ["/images/options/zip-screen.jpg"],
+    diagrams: zipDiagrams,
     compatibility: { all: true, productIds: [] },
     priceType: "on-request",
     seo: {
@@ -40,6 +57,7 @@ export const options: Option[] = [
       "Закалённое стекло",
     ],
     images: ["/images/options/frameless-glass.jpg"],
+    diagrams: framelessGlassDiagrams,
     compatibility: { all: false, productIds: ["a13", "c10", "c7", "c4"] },
     priceType: "on-request",
     seo: {
@@ -63,6 +81,7 @@ export const options: Option[] = [
       "Повышенная жёсткость",
     ],
     images: ["/images/options/narrow-frame-glass.jpg"],
+    diagrams: narrowFrameGlassDiagrams,
     compatibility: { all: false, productIds: ["a13", "c10", "c7", "c4"] },
     priceType: "on-request",
     seo: {
@@ -87,6 +106,7 @@ export const options: Option[] = [
     ],
     variants: ["Fixed", "Sliding", "Bi-Folding", "Swing"],
     images: ["/images/options/aluminium-shutters.webp"],
+    diagrams: shuttersDiagrams,
     compatibility: { all: false, productIds: ["a13", "c10", "c7", "c4"] },
     priceType: "on-request",
     seo: {
@@ -110,6 +130,7 @@ export const options: Option[] = [
       "Совместим с моторизованными сериями",
     ],
     images: ["/images/options/ceiling-fan.jpg"],
+    diagrams: climateDiagrams,
     compatibility: { all: false, productIds: ["a13", "c10", "c7"] },
     priceType: "on-request",
     seo: {
@@ -133,6 +154,7 @@ export const options: Option[] = [
       "Продление сезона до ранней весны / поздней осени",
     ],
     images: ["/images/options/electrical-heater.jpg"],
+    diagrams: climateDiagrams,
     compatibility: { all: false, productIds: ["a13", "c10", "c7"] },
     priceType: "on-request",
     seo: {

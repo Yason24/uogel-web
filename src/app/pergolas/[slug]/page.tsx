@@ -12,6 +12,7 @@ import { TechnicalTable } from "@/components/product/specs/TechnicalTable";
 import { ColorSwatches } from "@/components/product/specs/ColorSwatches";
 import { SizeConfigurations } from "@/components/product/specs/SizeConfigurations";
 import { CompatibilityList } from "@/components/product/specs/CompatibilityList";
+import { TechnicalDiagramCard } from "@/components/product/TechnicalDiagramCard";
 
 export function generateStaticParams() {
   return pergolas.map((p) => ({ slug: p.slug }));
@@ -214,6 +215,25 @@ export default async function PergolaPage({
           </div>
         )}
       </TechnicalSection>
+
+      {/* ── Чертежи и схемы ── */}
+      {product.diagrams && product.diagrams.length > 0 && (
+        <TechnicalSection
+          eyebrow="Документация"
+          title="Чертежи и схемы"
+          description="Технические данные из официального каталога UOGEL 2026."
+        >
+          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            {product.diagrams.map((diagram) => (
+              <TechnicalDiagramCard
+                key={diagram.src}
+                src={diagram.src}
+                caption={diagram.caption}
+              />
+            ))}
+          </div>
+        </TechnicalSection>
+      )}
 
       {/* ── Где подходит ── */}
       <TechnicalSection eyebrow="Применение" title="Где подходит">

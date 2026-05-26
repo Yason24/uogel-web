@@ -26,6 +26,11 @@ export type SizeRange = {
   standardSizes?: StandardSize[];
 };
 
+export type DiagramItem = {
+  src: string;
+  caption: string;
+};
+
 export type ProductSpecs = {
   post: string;
   blade: string;
@@ -55,6 +60,7 @@ export type Product = {
   profileColors: ProfileColor[];
   useCases: string[];
   images: string[];
+  diagrams?: DiagramItem[];
   seo: {
     title: string;
     description: string;
@@ -72,6 +78,7 @@ export type Option = {
   features: string[];
   variants?: string[];
   images: string[];
+  diagrams?: DiagramItem[];
   compatibility: {
     all: boolean;
     productIds: string[];

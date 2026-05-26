@@ -1,4 +1,4 @@
-import type { Product, ProfileColor } from "@/types";
+import type { Product, ProfileColor, DiagramItem } from "@/types";
 
 // Premium series: A13, C10, C7 — RAL9016 / RAL7016 / RAL9005 / RAL8040
 const premiumColors: ProfileColor[] = [
@@ -6,6 +6,23 @@ const premiumColors: ProfileColor[] = [
   { id: "grey",  ral: "RAL 7016", name: "Антрацит матовый", swatch: "/images/colors/ral-7016.png" },
   { id: "black", ral: "RAL 9005", name: "Матовый чёрный",   swatch: "/images/colors/ral-9005.png" },
   { id: "brown", ral: "RAL 8040", name: "Тёмно-коричневый", swatch: "/images/colors/ral-8040.png" },
+];
+
+const a13Diagrams: DiagramItem[] = [
+  { src: "/images/diagrams/a13-catalog-page.jpg", caption: "Технические характеристики серии A13 — каталог UOGEL 2026" },
+  { src: "/images/diagrams/catalog-overview.jpg",  caption: "Компоненты системы: ламели, балка, стойки, опции" },
+];
+const c10Diagrams: DiagramItem[] = [
+  { src: "/images/diagrams/c10-catalog-page.jpg", caption: "Технические характеристики серии C10 — каталог UOGEL 2026" },
+];
+const c7Diagrams: DiagramItem[] = [
+  { src: "/images/diagrams/c7-catalog-page.jpg", caption: "Технические характеристики серии C7 — каталог UOGEL 2026" },
+];
+const c4Diagrams: DiagramItem[] = [
+  { src: "/images/diagrams/c4-catalog-page.jpg", caption: "Технические характеристики C4/C4-S/M4/M4-S — каталог UOGEL 2026" },
+];
+const m3Diagrams: DiagramItem[] = [
+  { src: "/images/diagrams/m3-m2s-catalog-page.jpg", caption: "Технические характеристики серий M3/M3-S и M2-S — каталог UOGEL 2026" },
 ];
 
 // Standard series: C4, M4, M3, M2-S — RAL9016 / RAL7016 / RAL9005 / Custom Colors
@@ -70,7 +87,10 @@ export const products: Product[] = [
     ],
     images: [
       "/images/products/a13.jpg",
+      "/images/gallery/a13-install-coast.jpg",
+      "/images/gallery/a13-install-evening.jpg",
     ],
+    diagrams: a13Diagrams,
     seo: {
       title: "Пергола UOGEL A13 — биоклиматическая система в Россию",
       description:
@@ -131,7 +151,10 @@ export const products: Product[] = [
     ],
     images: [
       "/images/products/c10.jpg",
+      "/images/gallery/install-au-louvers.jpg",
+      "/images/gallery/install-eu-garden.jpg",
     ],
+    diagrams: c10Diagrams,
     seo: {
       title: "Пергола UOGEL C10 — ламельная моторизованная система",
       description:
@@ -192,7 +215,10 @@ export const products: Product[] = [
     ],
     images: [
       "/images/products/c7.jpg",
+      "/images/gallery/c7-install-zip.jpg",
+      "/images/gallery/install-eu-led.jpg",
     ],
+    diagrams: c7Diagrams,
     seo: {
       title: "Пергола UOGEL C7 — пристенная и отдельностоящая система",
       description:
@@ -252,6 +278,7 @@ export const products: Product[] = [
     images: [
       "/images/products/c4.jpg",
     ],
+    diagrams: c4Diagrams,
     seo: {
       title: "Пергола UOGEL C4 / M4 — ламельные системы среднего класса",
       description:
@@ -303,6 +330,7 @@ export const products: Product[] = [
     images: [
       "/images/products/m3.jpg",
     ],
+    diagrams: m3Diagrams,
     seo: {
       title: "Пергола UOGEL M3/M3-S — компактная система 3×3, 3×4, 3×6 м",
       description:
@@ -354,6 +382,7 @@ export const products: Product[] = [
     images: [
       "/images/products/m2-s.jpg",
     ],
+    diagrams: m3Diagrams,
     seo: {
       title: "Пергола UOGEL M2-S — компактная начальная серия",
       description:
