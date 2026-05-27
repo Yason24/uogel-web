@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import type { Metadata } from "next";
 import { availablePergolas } from "@/data/pergolas";
+import { FadeUp } from "@/components/motion/FadeUp";
 
 export const metadata: Metadata = {
   title: { absolute: "UOGEL Russia — биоклиматические перголы с поставкой в Россию" },
@@ -185,15 +186,18 @@ export default function Home() {
       {/* ── System Pillars ── */}
       <section className="bg-white py-28 sm:py-36">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <p className="text-xs font-medium uppercase tracking-[0.2em] text-stone-400">
-            Архитектурные системы
-          </p>
-          <h2 className="mt-3 text-3xl font-light text-stone-950 sm:text-4xl">Три направления</h2>
+          <FadeUp>
+            <p className="text-xs font-medium uppercase tracking-[0.2em] text-stone-400">
+              Архитектурные системы
+            </p>
+            <h2 className="mt-3 text-3xl font-light text-stone-950 sm:text-4xl">Три направления</h2>
+          </FadeUp>
 
           <div className="mt-14 grid lg:grid-cols-3 lg:gap-px lg:bg-stone-100">
-            {systemPillars.map((pillar) => (
-              <div
+            {systemPillars.map((pillar, i) => (
+              <FadeUp
                 key={pillar.num}
+                delay={i * 80}
                 className="group border-t border-stone-100 bg-white py-10 lg:border-none lg:px-10 lg:py-14"
               >
                 <span className="block text-7xl font-light leading-none text-stone-100 xl:text-8xl">
@@ -216,7 +220,7 @@ export default function Home() {
                     →
                   </span>
                 </Link>
-              </div>
+              </FadeUp>
             ))}
           </div>
         </div>
@@ -225,127 +229,138 @@ export default function Home() {
       {/* ── Product Series ── */}
       <section className="bg-stone-50 py-28 sm:py-36">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
-            <div>
-              <p className="text-xs font-medium uppercase tracking-[0.2em] text-stone-400">
-                Производственная программа
-              </p>
-              <h2 className="mt-3 text-3xl font-light text-stone-950 sm:text-4xl">
-                Серии UOGEL 2026
-              </h2>
+          <FadeUp>
+            <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
+              <div>
+                <p className="text-xs font-medium uppercase tracking-[0.2em] text-stone-400">
+                  Производственная программа
+                </p>
+                <h2 className="mt-3 text-3xl font-light text-stone-950 sm:text-4xl">
+                  Серии UOGEL 2026
+                </h2>
+              </div>
+              <Link
+                href="/pergolas"
+                className="shrink-0 self-start text-sm font-medium text-stone-500 transition-colors duration-200 hover:text-stone-950 sm:self-auto"
+              >
+                Все серии →
+              </Link>
             </div>
-            <Link
-              href="/pergolas"
-              className="shrink-0 self-start text-sm font-medium text-stone-500 transition-colors duration-200 hover:text-stone-950 sm:self-auto"
-            >
-              Все серии →
-            </Link>
-          </div>
+          </FadeUp>
 
           {/* Флагманские */}
           <div className="mt-14">
-            <p className="text-xs font-medium uppercase tracking-[0.2em] text-stone-400">
-              Флагманские — A13 · C10
-            </p>
+            <FadeUp>
+              <p className="text-xs font-medium uppercase tracking-[0.2em] text-stone-400">
+                Флагманские — A13 · C10
+              </p>
+            </FadeUp>
             <div className="mt-6 grid gap-5 sm:grid-cols-2">
-              {flagshipPergolas.map((product) => (
-                <Link
-                  key={product.id}
-                  href={`/pergolas/${product.slug}`}
-                  className="group overflow-hidden rounded-2xl bg-white ring-1 ring-stone-200 transition-shadow duration-300 hover:shadow-xl hover:shadow-stone-200/70 hover:ring-stone-300"
-                >
-                  <div className="relative aspect-[16/10] overflow-hidden bg-stone-100">
-                    <Image
-                      src={product.images[0]}
-                      alt={product.title}
-                      fill
-                      sizes="(min-width: 640px) 50vw, 100vw"
-                      className="object-cover transition duration-500 group-hover:scale-105"
-                    />
-                  </div>
-                  <div className="p-7">
-                    <p className="text-xs font-medium uppercase tracking-[0.2em] text-stone-400">
-                      {product.seriesName}
-                    </p>
-                    <h3 className="mt-2 text-xl font-light text-stone-950">{product.title}</h3>
-                    <p className="mt-1 text-sm text-stone-500">{product.subtitle}</p>
-                    <p className="mt-5 text-xs font-medium text-stone-400 transition-colors duration-200 group-hover:text-arch">
-                      Подробнее →
-                    </p>
-                  </div>
-                </Link>
+              {flagshipPergolas.map((product, i) => (
+                <FadeUp key={product.id} delay={i * 90}>
+                  <Link
+                    href={`/pergolas/${product.slug}`}
+                    className="group block overflow-hidden rounded-2xl bg-white ring-1 ring-stone-200 transition-shadow duration-300 hover:shadow-xl hover:shadow-stone-200/70 hover:ring-stone-300"
+                  >
+                    <div className="relative aspect-[16/10] overflow-hidden bg-stone-100">
+                      <Image
+                        src={product.images[0]}
+                        alt={product.title}
+                        fill
+                        sizes="(min-width: 640px) 50vw, 100vw"
+                        className="object-cover transition duration-700 group-hover:scale-[1.03]"
+                      />
+                    </div>
+                    <div className="p-7">
+                      <p className="text-xs font-medium uppercase tracking-[0.2em] text-stone-400">
+                        {product.seriesName}
+                      </p>
+                      <h3 className="mt-2 text-xl font-light text-stone-950">{product.title}</h3>
+                      <p className="mt-1 text-sm text-stone-500">{product.subtitle}</p>
+                      <p className="mt-5 text-xs font-medium text-stone-400 transition-colors duration-200 group-hover:text-arch">
+                        Подробнее →
+                      </p>
+                    </div>
+                  </Link>
+                </FadeUp>
               ))}
             </div>
           </div>
 
           {/* Универсальные */}
           <div className="mt-10">
-            <p className="text-xs font-medium uppercase tracking-[0.2em] text-stone-400">
-              Универсальные — C7 · C4/M4
-            </p>
+            <FadeUp>
+              <p className="text-xs font-medium uppercase tracking-[0.2em] text-stone-400">
+                Универсальные — C7 · C4/M4
+              </p>
+            </FadeUp>
             <div className="mt-6 grid gap-5 sm:grid-cols-2">
-              {universalPergolas.map((product) => (
-                <Link
-                  key={product.id}
-                  href={`/pergolas/${product.slug}`}
-                  className="group overflow-hidden rounded-xl bg-white ring-1 ring-stone-200 transition-shadow duration-300 hover:shadow-lg hover:shadow-stone-200/60 hover:ring-stone-300"
-                >
-                  <div className="relative aspect-[3/2] overflow-hidden bg-stone-100">
-                    <Image
-                      src={product.images[0]}
-                      alt={product.title}
-                      fill
-                      sizes="(min-width: 640px) 50vw, 100vw"
-                      className="object-cover transition duration-500 group-hover:scale-105"
-                    />
-                  </div>
-                  <div className="p-6">
-                    <p className="text-xs font-medium uppercase tracking-[0.15em] text-stone-400">
-                      {product.seriesName}
-                    </p>
-                    <h3 className="mt-1.5 text-lg font-medium text-stone-950">{product.title}</h3>
-                    <p className="mt-1 text-sm text-stone-500">{product.subtitle}</p>
-                    <p className="mt-4 text-xs font-medium text-stone-400 transition-colors duration-200 group-hover:text-arch">
-                      Подробнее →
-                    </p>
-                  </div>
-                </Link>
+              {universalPergolas.map((product, i) => (
+                <FadeUp key={product.id} delay={i * 80}>
+                  <Link
+                    href={`/pergolas/${product.slug}`}
+                    className="group block overflow-hidden rounded-xl bg-white ring-1 ring-stone-200 transition-shadow duration-300 hover:shadow-lg hover:shadow-stone-200/60 hover:ring-stone-300"
+                  >
+                    <div className="relative aspect-[3/2] overflow-hidden bg-stone-100">
+                      <Image
+                        src={product.images[0]}
+                        alt={product.title}
+                        fill
+                        sizes="(min-width: 640px) 50vw, 100vw"
+                        className="object-cover transition duration-700 group-hover:scale-[1.03]"
+                      />
+                    </div>
+                    <div className="p-6">
+                      <p className="text-xs font-medium uppercase tracking-[0.15em] text-stone-400">
+                        {product.seriesName}
+                      </p>
+                      <h3 className="mt-1.5 text-lg font-medium text-stone-950">{product.title}</h3>
+                      <p className="mt-1 text-sm text-stone-500">{product.subtitle}</p>
+                      <p className="mt-4 text-xs font-medium text-stone-400 transition-colors duration-200 group-hover:text-arch">
+                        Подробнее →
+                      </p>
+                    </div>
+                  </Link>
+                </FadeUp>
               ))}
             </div>
           </div>
 
           {/* Компактные */}
           <div className="mt-10">
-            <p className="text-xs font-medium uppercase tracking-[0.2em] text-stone-400">
-              Компактные — M3/M3-S · M2-S
-            </p>
+            <FadeUp>
+              <p className="text-xs font-medium uppercase tracking-[0.2em] text-stone-400">
+                Компактные — M3/M3-S · M2-S
+              </p>
+            </FadeUp>
             <div className="mt-6 grid gap-4 sm:grid-cols-2">
-              {compactPergolas.map((product) => (
-                <Link
-                  key={product.id}
-                  href={`/pergolas/${product.slug}`}
-                  className="group flex gap-5 overflow-hidden rounded-xl bg-white p-5 ring-1 ring-stone-200 transition-shadow duration-300 hover:shadow-md hover:ring-stone-300"
-                >
-                  <div className="relative h-20 w-24 shrink-0 overflow-hidden rounded-lg bg-stone-100">
-                    <Image
-                      src={product.images[0]}
-                      alt={product.title}
-                      fill
-                      sizes="96px"
-                      className="object-cover transition duration-500 group-hover:scale-105"
-                    />
-                  </div>
-                  <div>
-                    <p className="text-xs font-medium uppercase tracking-[0.15em] text-stone-400">
-                      {product.seriesName}
-                    </p>
-                    <h3 className="mt-1 text-base font-medium text-stone-950">{product.title}</h3>
-                    <p className="mt-1 text-xs text-stone-500">{product.subtitle}</p>
-                    <p className="mt-3 text-xs font-medium text-stone-400 transition-colors duration-200 group-hover:text-arch">
-                      Подробнее →
-                    </p>
-                  </div>
-                </Link>
+              {compactPergolas.map((product, i) => (
+                <FadeUp key={product.id} delay={i * 70}>
+                  <Link
+                    href={`/pergolas/${product.slug}`}
+                    className="group flex gap-5 overflow-hidden rounded-xl bg-white p-5 ring-1 ring-stone-200 transition-shadow duration-300 hover:shadow-md hover:ring-stone-300"
+                  >
+                    <div className="relative h-20 w-24 shrink-0 overflow-hidden rounded-lg bg-stone-100">
+                      <Image
+                        src={product.images[0]}
+                        alt={product.title}
+                        fill
+                        sizes="96px"
+                        className="object-cover transition duration-500 group-hover:scale-105"
+                      />
+                    </div>
+                    <div>
+                      <p className="text-xs font-medium uppercase tracking-[0.15em] text-stone-400">
+                        {product.seriesName}
+                      </p>
+                      <h3 className="mt-1 text-base font-medium text-stone-950">{product.title}</h3>
+                      <p className="mt-1 text-xs text-stone-500">{product.subtitle}</p>
+                      <p className="mt-3 text-xs font-medium text-stone-400 transition-colors duration-200 group-hover:text-arch">
+                        Подробнее →
+                      </p>
+                    </div>
+                  </Link>
+                </FadeUp>
               ))}
             </div>
           </div>
@@ -355,24 +370,26 @@ export default function Home() {
       {/* ── Lifestyle Applications ── */}
       <section className="overflow-hidden bg-white py-28 sm:py-36">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <p className="text-xs font-medium uppercase tracking-[0.2em] text-stone-400">
-            Outdoor living
-          </p>
-          <h2 className="mt-3 text-3xl font-light text-stone-950 sm:text-4xl">
-            Для любого пространства
-          </h2>
+          <FadeUp>
+            <p className="text-xs font-medium uppercase tracking-[0.2em] text-stone-400">
+              Outdoor living
+            </p>
+            <h2 className="mt-3 text-3xl font-light text-stone-950 sm:text-4xl">
+              Для любого пространства
+            </h2>
+          </FadeUp>
         </div>
 
-        <div className="mt-12 grid gap-px bg-stone-200 lg:grid-cols-12">
+        <FadeUp className="mt-12 grid gap-px bg-stone-200 lg:grid-cols-12">
           <div className="group relative min-h-[340px] overflow-hidden lg:col-span-7 lg:min-h-[480px]">
             <Image
               src={lifestyleTiles[0].image}
               alt={lifestyleTiles[0].title}
               fill
               sizes="(min-width: 1024px) 58vw, 100vw"
-              className="object-cover transition duration-700 group-hover:scale-105"
+              className="object-cover transition duration-700 group-hover:scale-[1.04]"
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-stone-950/80 via-stone-950/20 to-transparent" />
+            <div className="absolute inset-0 bg-gradient-to-t from-stone-950/80 via-stone-950/20 to-transparent transition-opacity duration-500 group-hover:from-stone-950/70" />
             <div className="absolute bottom-0 left-0 p-8 lg:p-10">
               <h3 className="text-xl font-light text-white">{lifestyleTiles[0].title}</h3>
               <p className="mt-1.5 text-sm text-stone-400">{lifestyleTiles[0].caption}</p>
@@ -385,9 +402,9 @@ export default function Home() {
               alt={lifestyleTiles[1].title}
               fill
               sizes="(min-width: 1024px) 42vw, 100vw"
-              className="object-cover transition duration-700 group-hover:scale-105"
+              className="object-cover transition duration-700 group-hover:scale-[1.04]"
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-stone-950/80 via-stone-950/20 to-transparent" />
+            <div className="absolute inset-0 bg-gradient-to-t from-stone-950/80 via-stone-950/20 to-transparent transition-opacity duration-500 group-hover:from-stone-950/70" />
             <div className="absolute bottom-0 left-0 p-8">
               <h3 className="text-xl font-light text-white">{lifestyleTiles[1].title}</h3>
               <p className="mt-1.5 text-sm text-stone-400">{lifestyleTiles[1].caption}</p>
@@ -404,35 +421,37 @@ export default function Home() {
                 alt={tile.title}
                 fill
                 sizes="(min-width: 1024px) 33vw, 100vw"
-                className="object-cover transition duration-700 group-hover:scale-105"
+                className="object-cover transition duration-700 group-hover:scale-[1.04]"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-stone-950/70 via-stone-950/10 to-transparent" />
+              <div className="absolute inset-0 bg-gradient-to-t from-stone-950/70 via-stone-950/10 to-transparent transition-opacity duration-500 group-hover:from-stone-950/60" />
               <div className="absolute bottom-0 left-0 p-7">
                 <h3 className="text-lg font-light text-white">{tile.title}</h3>
                 <p className="mt-1 text-sm text-stone-400">{tile.caption}</p>
               </div>
             </div>
           ))}
-        </div>
+        </FadeUp>
       </section>
 
       {/* ── Engineering (dark) ── */}
       <section className="bg-stone-950 py-28 sm:py-36">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <p className="text-xs font-medium uppercase tracking-[0.2em] text-stone-600">
-            Инженерная составляющая
-          </p>
-          <h2 className="mt-4 max-w-2xl text-3xl font-light text-white sm:text-4xl">
-            Инженерная outdoor-система
-            <br className="hidden sm:block" />
-            для современной архитектуры
-          </h2>
+          <FadeUp>
+            <p className="text-xs font-medium uppercase tracking-[0.2em] text-stone-600">
+              Инженерная составляющая
+            </p>
+            <h2 className="mt-4 max-w-2xl text-3xl font-light text-white sm:text-4xl">
+              Инженерная outdoor-система
+              <br className="hidden sm:block" />
+              для современной архитектуры
+            </h2>
+          </FadeUp>
           <div className="mt-16 grid gap-x-8 gap-y-10 sm:grid-cols-2 lg:grid-cols-3">
             {engineeringItems.map((item, i) => (
-              <div key={i} className="border-t border-stone-800 pt-8">
+              <FadeUp key={i} delay={i * 60} className="border-t border-stone-800 pt-8">
                 <h3 className="text-sm font-medium text-white">{item.title}</h3>
                 <p className="mt-3 text-sm leading-7 text-stone-500">{item.text}</p>
-              </div>
+              </FadeUp>
             ))}
           </div>
         </div>
@@ -441,19 +460,21 @@ export default function Home() {
       {/* ── Delivery Process ── */}
       <section className="bg-white py-28 sm:py-36">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <p className="text-xs font-medium uppercase tracking-[0.2em] text-stone-400">
-            Прозрачный процесс
-          </p>
-          <h2 className="mt-3 text-3xl font-light text-stone-950 sm:text-4xl">
-            Как устроена поставка UOGEL в Россию
-          </h2>
+          <FadeUp>
+            <p className="text-xs font-medium uppercase tracking-[0.2em] text-stone-400">
+              Прозрачный процесс
+            </p>
+            <h2 className="mt-3 text-3xl font-light text-stone-950 sm:text-4xl">
+              Как устроена поставка UOGEL в Россию
+            </h2>
+          </FadeUp>
           <div className="mt-14 grid gap-px bg-stone-100 sm:grid-cols-2 lg:grid-cols-4">
-            {deliverySteps.map((step) => (
-              <div key={step.num} className="bg-white px-8 py-10">
+            {deliverySteps.map((step, i) => (
+              <FadeUp key={step.num} delay={i * 70} className="bg-white px-8 py-10">
                 <span className="text-3xl font-light text-stone-200">{step.num}</span>
                 <h3 className="mt-5 text-base font-medium text-stone-950">{step.title}</h3>
                 <p className="mt-3 text-sm leading-7 text-stone-500">{step.text}</p>
-              </div>
+              </FadeUp>
             ))}
           </div>
         </div>
@@ -462,13 +483,15 @@ export default function Home() {
       {/* ── Trust ── */}
       <section className="bg-stone-50 py-16 sm:py-20">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <p className="text-xs font-medium uppercase tracking-[0.2em] text-stone-400">
-            Модель поставки
-          </p>
-          <h2 className="mt-3 text-2xl font-light text-stone-950 sm:text-3xl">
-            Почему схема под заказ подходит для проектных систем
-          </h2>
-          <div className="mt-10 grid gap-px bg-stone-200 sm:grid-cols-2 lg:grid-cols-4">
+          <FadeUp>
+            <p className="text-xs font-medium uppercase tracking-[0.2em] text-stone-400">
+              Модель поставки
+            </p>
+            <h2 className="mt-3 text-2xl font-light text-stone-950 sm:text-3xl">
+              Почему схема под заказ подходит для проектных систем
+            </h2>
+          </FadeUp>
+          <FadeUp delay={100} className="mt-10 grid gap-px bg-stone-200 sm:grid-cols-2 lg:grid-cols-4">
             {[
               "Не ограничиваем клиента складскими остатками — система поставляется под конкретный проект.",
               "Подбираем серию под параметры объекта: размеры, назначение и тип эксплуатации.",
@@ -479,14 +502,14 @@ export default function Home() {
                 <p className="text-sm leading-7 text-stone-600">{text}</p>
               </div>
             ))}
-          </div>
+          </FadeUp>
         </div>
       </section>
 
       {/* ── Final CTA ── */}
       <section className="bg-white py-24 sm:py-28">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="mx-auto max-w-2xl text-center">
+          <FadeUp className="mx-auto max-w-2xl text-center">
             <p className="text-xs font-medium uppercase tracking-[0.2em] text-stone-400">
               Следующий шаг
             </p>
@@ -510,7 +533,7 @@ export default function Home() {
                 Смотреть каталог
               </Link>
             </div>
-          </div>
+          </FadeUp>
         </div>
       </section>
     </>

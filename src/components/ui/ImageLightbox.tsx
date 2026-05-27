@@ -59,19 +59,22 @@ export function ImageLightbox({
         </span>
       </button>
 
-      {/* Lightbox overlay */}
+      {/* Lightbox overlay — fade-in on open, scale-in on image */}
       {open && (
         <div
           role="dialog"
           aria-modal="true"
           aria-label={caption ?? alt}
-          className="fixed inset-0 z-50 flex flex-col"
+          className="fixed inset-0 z-50 flex animate-fade-in flex-col"
           onClick={close}
         >
           {/* Backdrop */}
-          <div className="absolute inset-0 bg-stone-950/90 backdrop-blur-sm" aria-hidden="true" />
+          <div
+            className="absolute inset-0 bg-stone-950/90 backdrop-blur-sm"
+            aria-hidden="true"
+          />
 
-          {/* Top bar — close button always accessible, never overlaps image */}
+          {/* Top bar — close button always accessible */}
           <div
             className="relative z-10 flex shrink-0 items-center justify-end px-4 py-3"
             onClick={(e) => e.stopPropagation()}
@@ -98,7 +101,7 @@ export function ImageLightbox({
             className="relative z-10 flex min-h-0 flex-1 items-center justify-center overflow-auto px-4 pb-6"
             onClick={(e) => e.stopPropagation()}
           >
-            <div className="flex flex-col items-center">
+            <div className="flex animate-scale-in flex-col items-center">
               {/* Regular <img> for native pinch-zoom on mobile */}
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
@@ -108,7 +111,9 @@ export function ImageLightbox({
                 style={{ touchAction: "pinch-zoom" }}
               />
               {caption && (
-                <p className="mt-3 max-w-[85vw] text-center text-sm text-stone-400">{caption}</p>
+                <p className="mt-3 max-w-[85vw] text-center text-sm text-stone-400">
+                  {caption}
+                </p>
               )}
             </div>
           </div>

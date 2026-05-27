@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import { navItems } from "@/data/navigation";
 import type { NavItem } from "@/types";
@@ -51,13 +51,13 @@ function DesktopDropdown({ item }: { item: NavItem }) {
       >
         {item.label}
         <ChevronDown
-          className={`transition-transform duration-150 ${open ? "rotate-180" : ""}`}
+          className={`transition-transform duration-200 ${open ? "rotate-180" : ""}`}
         />
       </button>
 
       {open && (
         <div className="absolute left-0 top-full z-50 min-w-52 pt-2">
-          <div className="rounded-xl border border-stone-100 bg-white py-1.5 shadow-lg shadow-stone-200/60">
+          <div className="animate-slide-down rounded-xl border border-stone-100 bg-white py-1.5 shadow-lg shadow-stone-200/60">
             {item.children.map((child) => (
               <Link
                 key={child.href}
@@ -105,11 +105,11 @@ function MobileAccordion({
       >
         {item.label}
         <ChevronDown
-          className={`transition-transform duration-150 ${open ? "rotate-180" : ""}`}
+          className={`transition-transform duration-200 ${open ? "rotate-180" : ""}`}
         />
       </button>
       {open && (
-        <div className="ml-4 flex flex-col gap-0.5 pb-1">
+        <div className="ml-4 flex animate-slide-down flex-col gap-0.5 pb-1">
           {item.children.map((child) => (
             <Link
               key={child.href}
@@ -128,9 +128,25 @@ function MobileAccordion({
 
 export function Header() {
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 8);
+    // Set initial state on mount
+    setScrolled(window.scrollY > 8);
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
 
   return (
-    <header className="sticky top-0 z-50 border-b border-stone-200 bg-white/90 backdrop-blur">
+    <header
+      className={[
+        "sticky top-0 z-50 transition-all duration-300",
+        scrolled
+          ? "border-b border-stone-200 bg-white/98 shadow-sm shadow-stone-200/50 backdrop-blur-sm"
+          : "border-b border-stone-100/70 bg-white/82 backdrop-blur-md",
+      ].join(" ")}
+    >
       <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-4 sm:px-6 lg:px-8">
         <Link
           href="/"
@@ -182,7 +198,7 @@ export function Header() {
       </div>
 
       {mobileOpen && (
-        <nav className="border-t border-stone-100 bg-white lg:hidden">
+        <nav className="animate-slide-down border-t border-stone-100 bg-white lg:hidden">
           <div className="mx-auto flex flex-col gap-1 px-4 py-3 sm:px-6">
             {navItems.map((item) => (
               <MobileAccordion
