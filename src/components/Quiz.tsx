@@ -210,6 +210,10 @@ export function Quiz() {
       });
 
       setStatus("success");
+      // Scroll to top so the success message is visible
+      if (typeof window !== "undefined") {
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      }
     } catch {
       trackEvent(EVENTS.LEAD_SUBMIT_ERROR, {
         source_page: "calculate",
