@@ -7,11 +7,12 @@ import { options } from "@/data/options";
 import { formatSystemType, formatDrive, formatOptionCategory } from "@/lib/catalog";
 
 export const metadata: Metadata = {
-  title: "Каталог систем UOGEL",
+  title: "Каталог систем UOGEL — серии пергол и опции 2026",
   description:
     "Каталог алюминиевых outdoor-систем UOGEL: 6 серий пергол, совместимые опции и аксессуары. Конфигурация подбирается под объект — расчёт поставки в Россию.",
+  alternates: { canonical: "/catalog" },
   openGraph: {
-    title: "Каталог систем UOGEL",
+    title: "Каталог систем UOGEL — серии пергол и опции 2026",
     description:
       "6 серий пергол и 7 опциональных систем из каталога UOGEL 2026. Конфигурации для жилых, гостиничных и коммерческих объектов.",
     images: [
@@ -22,6 +23,12 @@ export const metadata: Metadata = {
         alt: "Каталог систем UOGEL",
       },
     ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Каталог систем UOGEL — серии пергол и опции 2026",
+    description: "6 серий пергол и 7 опциональных систем из каталога UOGEL 2026.",
+    images: ["/images/og/uogel-og.jpg"],
   },
 };
 

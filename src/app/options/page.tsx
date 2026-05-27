@@ -5,13 +5,14 @@ import { options } from "@/data/options";
 import { products } from "@/data/pergolas";
 
 export const metadata: Metadata = {
-  title: "Опции и аксессуары UOGEL — ZIP-экраны, стекло, LED и автоматика",
+  title: "Опции и аксессуары UOGEL — ZIP-экраны, остекление, климат и автоматика",
   description:
-    "Дополнительные системы для пергол UOGEL: ZIP-экраны, стеклянные панели, LED-подсветка, датчики, обогрев и автоматизация.",
+    "Дополнительные системы для пергол UOGEL: ZIP-экраны, стеклянные панели, LED-подсветка, датчики, обогрев и автоматизация. Совместимость — по серии.",
+  alternates: { canonical: "/options" },
   openGraph: {
-    title: "Опции и аксессуары UOGEL",
+    title: "Опции и аксессуары UOGEL — ZIP-экраны, остекление, климат и автоматика",
     description:
-      "ZIP-экраны, стеклянные системы, климат и автоматизация для пергол UOGEL.",
+      "ZIP-экраны, стеклянные системы, климатическое оборудование и автоматика для пергол UOGEL.",
     images: [
       {
         url: "/images/og/uogel-og.jpg",
@@ -20,6 +21,12 @@ export const metadata: Metadata = {
         alt: "Опции для пергол UOGEL",
       },
     ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Опции и аксессуары UOGEL",
+    description: "ZIP-экраны, стекло, климат и автоматика для пергол UOGEL.",
+    images: ["/images/og/uogel-og.jpg"],
   },
 };
 

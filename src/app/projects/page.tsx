@@ -9,11 +9,12 @@ import {
 } from "@/data/projects";
 
 export const metadata: Metadata = {
-  title: "Проекты и применения UOGEL — примеры конфигураций",
+  title: "Проекты и применения UOGEL — примеры конфигураций для террас и ресторанов",
   description:
-    "Примеры конфигураций outdoor-систем UOGEL для частных террас, ресторанов, отелей, rooftop-пространств и зон у бассейна.",
+    "Примеры конфигураций outdoor-систем UOGEL для частных террас, ресторанов, отелей, rooftop-пространств и зон у бассейна. Поставка в Россию.",
+  alternates: { canonical: "/projects" },
   openGraph: {
-    title: "Проекты и применения UOGEL",
+    title: "Проекты и применения UOGEL — примеры конфигураций",
     description:
       "Примеры конфигураций систем UOGEL для частной и коммерческой архитектуры.",
     images: [
@@ -24,6 +25,12 @@ export const metadata: Metadata = {
         alt: "Проекты UOGEL",
       },
     ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Проекты и применения UOGEL",
+    description: "Примеры конфигураций систем UOGEL для частной и коммерческой архитектуры.",
+    images: ["/images/og/uogel-og.jpg"],
   },
 };
 

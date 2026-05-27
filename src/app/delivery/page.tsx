@@ -2,8 +2,20 @@ import type { Metadata } from "next";
 import Link from "next/link";
 
 export const metadata: Metadata = {
-  title: "Доставка пергол UOGEL в Россию",
-  description: "Поставка биоклиматических пергол UOGEL из Китая в Россию. Сроки, логистика, упаковка и состав расчёта.",
+  title: "Условия поставки пергол UOGEL в Россию",
+  description: "Поставка биоклиматических пергол UOGEL из Китая в Россию. Маршрут, сроки производства, логистика, упаковка и состав комплектации.",
+  alternates: { canonical: "/delivery" },
+  openGraph: {
+    title: "Условия поставки пергол UOGEL в Россию",
+    description: "Маршрут, сроки, логистика и комплектация при поставке пергол UOGEL из Китая в Россию.",
+    images: [{ url: "/images/og/uogel-og.jpg", width: 1200, height: 630, alt: "Поставка UOGEL в Россию" }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Условия поставки пергол UOGEL в Россию",
+    description: "Маршрут, сроки и логистика поставки пергол UOGEL из Китая.",
+    images: ["/images/og/uogel-og.jpg"],
+  },
 };
 
 const details = [

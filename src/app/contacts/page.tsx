@@ -2,11 +2,12 @@ import type { Metadata } from "next";
 import { LeadForm } from "@/components/LeadForm";
 
 export const metadata: Metadata = {
-  title: "Контакты",
-  description: "Свяжитесь с нами для расчёта поставки перголы UOGEL в Россию. Ответим в течение рабочего дня.",
+  title: "Контакты UOGEL Russia — обсудить проект и поставку",
+  description: "Свяжитесь с командой UOGEL Russia по вопросам подбора серии, расчёта комплектации и поставки пергол. Ответим в течение рабочего дня.",
+  alternates: { canonical: "/contacts" },
   openGraph: {
-    title: "Контакты UOGEL Russia",
-    description: "Форма для расчёта и вопросов по поставке пергол UOGEL в Россию.",
+    title: "Контакты UOGEL Russia — обсудить проект и поставку",
+    description: "Форма для консультации и вопросов по поставке пергол UOGEL в Россию.",
     images: [
       {
         url: "/images/og/uogel-og.jpg",
@@ -15,6 +16,12 @@ export const metadata: Metadata = {
         alt: "Биоклиматическая пергола UOGEL",
       },
     ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Контакты UOGEL Russia",
+    description: "Форма консультации и вопросов по поставке пергол UOGEL в Россию.",
+    images: ["/images/og/uogel-og.jpg"],
   },
 };
 

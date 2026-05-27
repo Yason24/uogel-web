@@ -28,6 +28,7 @@ export async function generateMetadata({
   const product = getPergolaBySlug(slug);
   if (!product) return { title: "Пергола не найдена" };
 
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://uogel-russia.ru";
   return {
     title: product.seo.title,
     description: product.seo.description,
@@ -36,7 +37,26 @@ export async function generateMetadata({
       title: `${product.seo.title} | UOGEL Russia`,
       description: product.seo.description,
       url: `/pergolas/${product.slug}`,
-      images: [{ url: product.images[0], alt: product.title }],
+      images: [
+        {
+          url: product.images[0].startsWith("http")
+            ? product.images[0]
+            : `${siteUrl}${product.images[0]}`,
+          width: 1200,
+          height: 800,
+          alt: product.title,
+        },
+      ],
+    },
+    twitter: {
+      card: "summary_large_image" as const,
+      title: `${product.seo.title} | UOGEL Russia`,
+      description: product.seo.description,
+      images: [
+        product.images[0].startsWith("http")
+          ? product.images[0]
+          : `${siteUrl}${product.images[0]}`,
+      ],
     },
   };
 }
@@ -72,8 +92,41 @@ export default async function PergolaPage({
     ...(product.specs.led ? [["LED подсветка", product.specs.led] as [string, string]] : []),
   ];
 
+  const siteUrlForSchema = process.env.NEXT_PUBLIC_SITE_URL ?? "https://uogel-russia.ru";
+  const productSchema = {
+    "@context": "https://schema.org",
+    "@type": "Product",
+    name: product.title,
+    description: product.seo.description,
+    image: product.images[0].startsWith("http")
+      ? product.images[0]
+      : `${siteUrlForSchema}${product.images[0]}`,
+    brand: { "@type": "Brand", name: "UOGEL" },
+    url: `${siteUrlForSchema}/pergolas/${product.slug}`,
+    offers: {
+      "@type": "Offer",
+      availability: "https://schema.org/PreOrder",
+      priceCurrency: "RUB",
+      seller: { "@type": "Organization", name: "UOGEL Russia" },
+    },
+  };
+
+  const breadcrumbSchema = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: "Главная", item: siteUrlForSchema },
+      { "@type": "ListItem", position: 2, name: "Перголы", item: `${siteUrlForSchema}/pergolas` },
+      { "@type": "ListItem", position: 3, name: product.seriesName, item: `${siteUrlForSchema}/pergolas/${product.slug}` },
+    ],
+  };
+
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify([productSchema, breadcrumbSchema]) }}
+      />
       {/* ── Hero ── */}
       <section className="relative min-h-[56vh] overflow-hidden bg-stone-950 lg:min-h-[68vh]">
         <Image

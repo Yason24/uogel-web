@@ -2,8 +2,20 @@ import type { Metadata } from "next";
 import { Quiz } from "@/components/Quiz";
 
 export const metadata: Metadata = {
-  title: "Подобрать систему UOGEL",
-  description: "Расскажите о вашем проекте — подберём подходящую систему UOGEL и подготовим расчёт по выбранной модели и комплектации.",
+  title: "Получить консультацию — подобрать систему UOGEL",
+  description: "Расскажите о вашем проекте — подберём подходящую серию UOGEL и подготовим техническую рекомендацию по комплектации и поставке.",
+  alternates: { canonical: "/calculate" },
+  openGraph: {
+    title: "Получить консультацию — подобрать систему UOGEL",
+    description: "Подбор серии UOGEL под ваш объект. Укажите параметры — подготовим рекомендацию.",
+    images: [{ url: "/images/og/uogel-og.jpg", width: 1200, height: 630, alt: "Консультация UOGEL Russia" }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Получить консультацию — подобрать систему UOGEL",
+    description: "Подбор серии UOGEL под ваш объект.",
+    images: ["/images/og/uogel-og.jpg"],
+  },
 };
 
 export default function CalculatePage() {

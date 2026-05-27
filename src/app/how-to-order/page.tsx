@@ -2,8 +2,20 @@ import type { Metadata } from "next";
 import Link from "next/link";
 
 export const metadata: Metadata = {
-  title: "Как заказать перголу UOGEL в России",
-  description: "Семь этапов работы: от первой консультации до монтажа. Подбор серии из каталога UOGEL 2026, расчёт комплектации, поставка.",
+  title: "Как заказать перголу UOGEL в России — 7 этапов работы",
+  description: "Семь этапов от первой консультации до монтажа: подбор серии из каталога UOGEL 2026, согласование конфигурации, производство и поставка в Россию.",
+  alternates: { canonical: "/how-to-order" },
+  openGraph: {
+    title: "Как заказать перголу UOGEL в России — 7 этапов работы",
+    description: "От первой консультации до монтажа: подбор серии, производство, поставка.",
+    images: [{ url: "/images/og/uogel-og.jpg", width: 1200, height: 630, alt: "Заказ перголы UOGEL" }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Как заказать перголу UOGEL в России",
+    description: "Семь этапов от консультации до монтажа перголы UOGEL.",
+    images: ["/images/og/uogel-og.jpg"],
+  },
 };
 
 const steps = [
