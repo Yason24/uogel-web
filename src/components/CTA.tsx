@@ -1,11 +1,15 @@
-import Link from "next/link";
+import { TrackableLink } from "@/components/ui/TrackableLink";
+import { GOALS } from "@/lib/analytics";
 
 export function CTA({
   title = "Подобрать систему UOGEL",
   text = "Подберём подходящую серию и конфигурацию из каталога, рассчитаем совместимые опции и стоимость поставки в Россию.",
+  context = "cta_section",
 }: {
   title?: string;
   text?: string;
+  /** Tracking context label passed as event param */
+  context?: string;
 }) {
   return (
     <div className="overflow-hidden rounded-3xl bg-stone-950 px-8 py-14 text-white shadow-2xl shadow-stone-200 sm:px-12 lg:flex lg:items-center lg:justify-between lg:gap-12">
@@ -13,12 +17,14 @@ export function CTA({
         <h2 className="text-3xl font-light">{title}</h2>
         <p className="mt-4 text-base leading-8 text-stone-400">{text}</p>
       </div>
-      <Link
+      <TrackableLink
         href="/calculate"
+        goalName={GOALS.CTA_CONSULTATION}
+        eventParams={{ context, href: "/calculate" }}
         className="mt-10 inline-flex shrink-0 rounded-full bg-white px-8 py-4 text-sm font-medium text-stone-950 transition hover:bg-stone-100 lg:mt-0"
       >
         Получить консультацию
-      </Link>
+      </TrackableLink>
     </div>
   );
 }

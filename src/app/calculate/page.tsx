@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 import { Quiz } from "@/components/Quiz";
+import { PageViewTracker } from "@/components/ui/PageViewTracker";
+import { GOALS } from "@/lib/analytics";
 
 export const metadata: Metadata = {
   title: "Получить консультацию — подобрать систему UOGEL",
@@ -21,6 +23,7 @@ export const metadata: Metadata = {
 export default function CalculatePage() {
   return (
     <section className="py-20 sm:py-28">
+      <PageViewTracker event={GOALS.QUIZ_START} />
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="max-w-3xl">
           <p className="mb-4 text-xs font-medium uppercase tracking-[0.2em] text-stone-400">

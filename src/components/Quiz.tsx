@@ -5,6 +5,7 @@ import { options as allOptions } from "@/data/options";
 import { PhoneInput } from "@/components/ui/PhoneInput";
 import { CityAutocomplete } from "@/components/ui/CityAutocomplete";
 import { MessengerSelect } from "@/components/ui/MessengerSelect";
+import { trackEvent, trackGoal, EVENTS, GOALS } from "@/lib/analytics";
 
 type Status = "idle" | "submitting" | "success" | "error";
 
@@ -135,7 +136,9 @@ export function Quiz() {
 
   function next() {
     if (!validateCurrent()) return;
-    setStep((s) => Math.min(s + 1, TOTAL_STEPS));
+    const nextStep = Math.min(step + 1, TOTAL_STEPS);
+    trackEvent(EVENTS.QUIZ_STEP, { step: nextStep, step_name: STEP_TITLES[nextStep] });
+    setStep(nextStep);
   }
 
   function back() {
@@ -145,6 +148,9 @@ export function Quiz() {
 
   async function submit() {
     if (!validateCurrent()) return;
+
+    // Track submit attempt (no PII)
+    trackEvent(EVENTS.LEAD_SUBMIT_ATTEMPT, { source_page: "calculate" });
 
     setStatus("submitting");
     setErrorMsg("");
@@ -183,6 +189,10 @@ export function Quiz() {
       const data: { ok: boolean; error?: string } = await res.json();
 
       if (!res.ok || !data.ok) {
+        trackEvent(EVENTS.LEAD_SUBMIT_ERROR, {
+          source_page: "calculate",
+          error_type: "api_error",
+        });
         setErrorMsg(
           data.error ?? "Не удалось отправить заявку. Попробуйте ещё раз или свяжитесь с нами напрямую."
         );
@@ -190,8 +200,21 @@ export function Quiz() {
         return;
       }
 
+      // Track conversion goal (no PII — series ID is safe, no name/phone/city)
+      trackGoal(GOALS.LEAD_SUBMIT_SUCCESS, {
+        source_page: "calculate",
+        object_type: form.objectType || undefined,
+        series: form.seriesId !== "unknown" ? form.seriesId || undefined : undefined,
+        options_count: form.selectedOptions.length,
+        has_messenger: form.messenger ? 1 : 0,
+      });
+
       setStatus("success");
     } catch {
+      trackEvent(EVENTS.LEAD_SUBMIT_ERROR, {
+        source_page: "calculate",
+        error_type: "network_error",
+      });
       setErrorMsg("Не удалось отправить заявку. Попробуйте ещё раз или свяжитесь с нами напрямую.");
       setStatus("error");
     }

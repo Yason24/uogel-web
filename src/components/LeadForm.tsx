@@ -3,6 +3,7 @@ import { FormEvent, useState } from "react";
 import { PhoneInput } from "@/components/ui/PhoneInput";
 import { CityAutocomplete } from "@/components/ui/CityAutocomplete";
 import { MessengerSelect } from "@/components/ui/MessengerSelect";
+import { trackEvent, trackGoal, EVENTS, GOALS } from "@/lib/analytics";
 
 type Status = "idle" | "submitting" | "success" | "error";
 type LeadFormProps = { sourcePage: string; selectedPergolaId?: string };
@@ -36,6 +37,9 @@ export function LeadForm({ sourcePage, selectedPergolaId }: LeadFormProps) {
       return;
     }
 
+    // Track attempt (no PII)
+    trackEvent(EVENTS.LEAD_SUBMIT_ATTEMPT, { source_page: sourcePage });
+
     setStatus("submitting");
     setErrorMessage("");
 
@@ -57,10 +61,17 @@ export function LeadForm({ sourcePage, selectedPergolaId }: LeadFormProps) {
       const data: { ok: boolean; error?: string } = await res.json();
 
       if (!res.ok || !data.ok) {
+        trackEvent(EVENTS.LEAD_SUBMIT_ERROR, { source_page: sourcePage, error_type: "api_error" });
         setErrorMessage(data.error ?? "Не удалось отправить заявку. Попробуйте ещё раз.");
         setStatus("error");
         return;
       }
+
+      // Track conversion goal (no PII)
+      trackGoal(GOALS.LEAD_SUBMIT_SUCCESS, {
+        source_page: sourcePage,
+        has_messenger: messenger ? 1 : 0,
+      });
 
       formEl.reset();
       setPhone("");
@@ -68,6 +79,7 @@ export function LeadForm({ sourcePage, selectedPergolaId }: LeadFormProps) {
       setCity("");
       setStatus("success");
     } catch {
+      trackEvent(EVENTS.LEAD_SUBMIT_ERROR, { source_page: sourcePage, error_type: "network_error" });
       setErrorMessage("Ошибка соединения. Проверьте интернет и попробуйте ещё раз.");
       setStatus("error");
     }

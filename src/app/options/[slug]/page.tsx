@@ -6,6 +6,8 @@ import { options } from "@/data/options";
 import { products } from "@/data/pergolas";
 import { formatSystemType, formatDrive } from "@/lib/catalog";
 import { TechnicalDiagramCard } from "@/components/product/TechnicalDiagramCard";
+import { PageViewTracker } from "@/components/ui/PageViewTracker";
+import { EVENTS } from "@/lib/analytics";
 
 const CATEGORY_LABELS: Record<string, string> = {
   screens: "Защита от солнца и ветра",
@@ -61,6 +63,10 @@ export default async function OptionPage({
 
   return (
     <>
+      <PageViewTracker
+        event={EVENTS.OPTION_OPEN}
+        params={{ slug: option.slug, title: option.title, category: option.category }}
+      />
       {/* ── Hero ── */}
       <section className="relative min-h-[52vh] overflow-hidden bg-stone-950 lg:min-h-[60vh]">
         {option.images[0] && (

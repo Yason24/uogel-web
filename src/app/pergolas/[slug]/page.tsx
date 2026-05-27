@@ -14,6 +14,8 @@ import { SizeConfigurations } from "@/components/product/specs/SizeConfiguration
 import { CompatibilityList } from "@/components/product/specs/CompatibilityList";
 import { TechnicalDiagramCard } from "@/components/product/TechnicalDiagramCard";
 import { MediaPlaceholder } from "@/components/ui/MediaPlaceholder";
+import { PageViewTracker } from "@/components/ui/PageViewTracker";
+import { EVENTS } from "@/lib/analytics";
 
 export function generateStaticParams() {
   return pergolas.map((p) => ({ slug: p.slug }));
@@ -123,6 +125,10 @@ export default async function PergolaPage({
 
   return (
     <>
+      <PageViewTracker
+        event={EVENTS.PRODUCT_OPEN}
+        params={{ slug: product.slug, series_name: product.seriesName, category: product.category }}
+      />
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify([productSchema, breadcrumbSchema]) }}

@@ -3,6 +3,8 @@ import Link from "next/link";
 import type { Metadata } from "next";
 import { availablePergolas } from "@/data/pergolas";
 import { FadeUp } from "@/components/motion/FadeUp";
+import { TrackableLink } from "@/components/ui/TrackableLink";
+import { GOALS, EVENTS } from "@/lib/analytics";
 
 export const metadata: Metadata = {
   title: { absolute: "UOGEL Russia — биоклиматические перголы с поставкой в Россию" },
@@ -168,18 +170,23 @@ export default function Home() {
               Алюминиевые перголы UOGEL с поворотными ламелями — для террас, ресторанов и резиденций.
             </p>
             <div className="mt-12 flex flex-wrap gap-4">
-              <Link
+              <TrackableLink
                 href="/calculate"
+                goalName={GOALS.CTA_CONSULTATION}
+                eventParams={{ context: "hero", href: "/calculate" }}
                 className="rounded-full bg-white px-8 py-3.5 text-sm font-medium text-stone-950 transition-colors duration-200 hover:bg-stone-100"
               >
                 Обсудить проект
-              </Link>
-              <Link
+              </TrackableLink>
+              <TrackableLink
                 href="/catalog"
+                goalName={GOALS.CATALOG_OPEN}
+                eventName={EVENTS.CATALOG_OPEN}
+                eventParams={{ context: "hero" }}
                 className="rounded-full border border-stone-700 px-8 py-3.5 text-sm font-medium text-stone-400 transition-colors duration-200 hover:border-stone-500 hover:text-white"
               >
                 Смотреть каталог
-              </Link>
+              </TrackableLink>
             </div>
           </div>
         </div>

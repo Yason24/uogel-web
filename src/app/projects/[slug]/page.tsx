@@ -4,6 +4,8 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { projects, getProjectBySlug, CATEGORY_LABELS } from "@/data/projects";
 import { MediaPlaceholder } from "@/components/ui/MediaPlaceholder";
+import { PageViewTracker } from "@/components/ui/PageViewTracker";
+import { EVENTS } from "@/lib/analytics";
 
 export function generateStaticParams() {
   return projects.map((p) => ({ slug: p.slug }));
@@ -50,6 +52,10 @@ export default async function ProjectPage({
 
   return (
     <>
+      <PageViewTracker
+        event={EVENTS.PROJECT_OPEN}
+        params={{ slug: project.slug, title: project.title, category: project.category }}
+      />
       {/* ── Hero ── */}
       <section className="relative min-h-[52vh] overflow-hidden bg-stone-950 lg:min-h-[62vh]">
         {project.images[0] && (

@@ -3,6 +3,8 @@ import Link from "next/link";
 import type { Product } from "@/types";
 import { options } from "@/data/options";
 import { formatSizeRange, formatSystemType, formatDrive, getCompatibleOptions } from "@/lib/catalog";
+import { TrackableLink } from "@/components/ui/TrackableLink";
+import { EVENTS } from "@/lib/analytics";
 
 export function PergolaCard({ product }: { product: Product }) {
   const detailHref = "/pergolas/" + product.slug;
@@ -52,12 +54,14 @@ export function PergolaCard({ product }: { product: Product }) {
           </div>
         )}
         <div className="mt-5">
-          <Link
+          <TrackableLink
             href={calculateHref}
+            eventName={EVENTS.PRODUCT_CALCULATE}
+            eventParams={{ slug: product.slug, series: product.seriesName }}
             className="inline-flex rounded-full bg-stone-950 px-5 py-2.5 text-sm font-medium text-white transition-colors duration-200 hover:bg-arch"
           >
             Рассчитать
-          </Link>
+          </TrackableLink>
         </div>
       </div>
     </article>
