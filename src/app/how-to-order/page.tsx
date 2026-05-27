@@ -75,17 +75,17 @@ export default function HowToOrderPage() {
             Начать проект
           </p>
           <h2 className="mt-4 text-2xl font-light text-white sm:text-3xl">
-            Рассчитайте подходящую систему
+            Обсудите подходящую систему
           </h2>
           <p className="mt-3 max-w-lg text-sm leading-7 text-stone-400">
-            Ответьте на несколько вопросов об объекте — подберём серию и конфигурацию из каталога UOGEL 2026.
+            Расскажите об объекте — подберём серию и конфигурацию из каталога UOGEL 2026.
           </p>
           <div className="mt-8 flex flex-wrap gap-4">
             <Link
               href="/calculate"
               className="rounded-full bg-white px-6 py-3 text-sm font-medium text-stone-950 transition-colors duration-200 hover:bg-stone-100"
             >
-              Рассчитать комплектацию
+              Получить консультацию
             </Link>
             <Link
               href="/contacts"

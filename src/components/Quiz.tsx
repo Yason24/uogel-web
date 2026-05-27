@@ -147,8 +147,8 @@ export function Quiz() {
       .join(", ");
 
     const dimensionParts = [
-      form.width && `Ш ${form.width} мм`,
-      form.depth && `В ${form.depth} мм`,
+      form.width && `Ширина ${form.width} мм`,
+      form.depth && `Вынос ${form.depth} мм`,
       form.height && `Высота ${form.height} мм`,
     ].filter(Boolean);
 
@@ -359,7 +359,7 @@ export function Quiz() {
                   value={form.city}
                   onChange={(e) => setField("city", e.target.value)}
                   disabled={isSubmitting}
-                  className={`rounded-2xl border px-4 py-3 outline-none focus:border-stone-500 disabled:opacity-50 ${
+                  className={`rounded-2xl border px-4 py-3 outline-none focus:border-stone-500 focus:ring-2 focus:ring-stone-200 disabled:opacity-50 ${
                     fieldErrors.city ? "border-red-400" : "border-stone-200"
                   }`}
                   placeholder="Москва"
@@ -384,7 +384,7 @@ export function Quiz() {
                   value={form.name}
                   onChange={(e) => setField("name", e.target.value)}
                   disabled={isSubmitting}
-                  className={`rounded-2xl border px-4 py-3 outline-none focus:border-stone-500 disabled:opacity-50 ${
+                  className={`rounded-2xl border px-4 py-3 outline-none focus:border-stone-500 focus:ring-2 focus:ring-stone-200 disabled:opacity-50 ${
                     fieldErrors.name ? "border-red-400" : "border-stone-200"
                   }`}
                   placeholder="Артём"
@@ -400,7 +400,7 @@ export function Quiz() {
                   type="tel"
                   onChange={(e) => setField("phone", e.target.value)}
                   disabled={isSubmitting}
-                  className={`rounded-2xl border px-4 py-3 outline-none focus:border-stone-500 disabled:opacity-50 ${
+                  className={`rounded-2xl border px-4 py-3 outline-none focus:border-stone-500 focus:ring-2 focus:ring-stone-200 disabled:opacity-50 ${
                     fieldErrors.phone ? "border-red-400" : "border-stone-200"
                   }`}
                   placeholder="+7"
@@ -417,7 +417,7 @@ export function Quiz() {
                 onChange={(e) => setField("comment", e.target.value)}
                 rows={4}
                 disabled={isSubmitting}
-                className="rounded-2xl border border-stone-200 px-4 py-3 outline-none focus:border-stone-500 disabled:opacity-50"
+                className="rounded-2xl border border-stone-200 px-4 py-3 outline-none focus:border-stone-500 focus:ring-2 focus:ring-stone-200 disabled:opacity-50"
                 placeholder="Дополнительные пожелания или вопросы"
               />
             </label>
@@ -530,7 +530,7 @@ function DimensionInput({
         value={value}
         onChange={(e) => onChange(e.target.value)}
         disabled={disabled}
-        className="rounded-2xl border border-stone-200 px-4 py-3 outline-none focus:border-stone-500 disabled:opacity-50"
+        className="rounded-2xl border border-stone-200 px-4 py-3 outline-none focus:border-stone-500 focus:ring-2 focus:ring-stone-200 disabled:opacity-50"
         placeholder={placeholder}
       />
     </label>

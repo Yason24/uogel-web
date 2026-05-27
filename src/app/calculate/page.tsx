@@ -27,7 +27,7 @@ export default function CalculatePage() {
             </p>
           </div>
         </div>
-        <div className="mt-12">
+        <div className="mt-12 max-w-3xl">
           <Quiz />
         </div>
       </div>

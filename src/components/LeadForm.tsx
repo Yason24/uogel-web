@@ -82,7 +82,7 @@ export function LeadForm({ sourcePage, selectedPergolaId }: LeadFormProps) {
           <input
             name="name"
             disabled={submitting}
-            className="rounded-2xl border border-stone-200 px-4 py-3 outline-none focus:border-stone-500 disabled:opacity-50"
+            className="rounded-2xl border border-stone-200 px-4 py-3 outline-none focus:border-stone-500 focus:ring-2 focus:ring-stone-200 disabled:opacity-50"
             placeholder="Артём"
           />
         </label>
@@ -92,7 +92,7 @@ export function LeadForm({ sourcePage, selectedPergolaId }: LeadFormProps) {
             name="phone"
             type="tel"
             disabled={submitting}
-            className="rounded-2xl border border-stone-200 px-4 py-3 outline-none focus:border-stone-500 disabled:opacity-50"
+            className="rounded-2xl border border-stone-200 px-4 py-3 outline-none focus:border-stone-500 focus:ring-2 focus:ring-stone-200 disabled:opacity-50"
             placeholder="+7"
           />
         </label>
@@ -103,7 +103,7 @@ export function LeadForm({ sourcePage, selectedPergolaId }: LeadFormProps) {
           <input
             name="messenger"
             disabled={submitting}
-            className="rounded-2xl border border-stone-200 px-4 py-3 outline-none focus:border-stone-500 disabled:opacity-50"
+            className="rounded-2xl border border-stone-200 px-4 py-3 outline-none focus:border-stone-500 focus:ring-2 focus:ring-stone-200 disabled:opacity-50"
             placeholder="куда удобнее написать"
           />
         </label>
@@ -112,7 +112,7 @@ export function LeadForm({ sourcePage, selectedPergolaId }: LeadFormProps) {
           <input
             name="city"
             disabled={submitting}
-            className="rounded-2xl border border-stone-200 px-4 py-3 outline-none focus:border-stone-500 disabled:opacity-50"
+            className="rounded-2xl border border-stone-200 px-4 py-3 outline-none focus:border-stone-500 focus:ring-2 focus:ring-stone-200 disabled:opacity-50"
             placeholder="Москва"
           />
         </label>
@@ -123,7 +123,7 @@ export function LeadForm({ sourcePage, selectedPergolaId }: LeadFormProps) {
           name="comment"
           rows={4}
           disabled={submitting}
-          className="rounded-2xl border border-stone-200 px-4 py-3 outline-none focus:border-stone-500 disabled:opacity-50"
+          className="rounded-2xl border border-stone-200 px-4 py-3 outline-none focus:border-stone-500 focus:ring-2 focus:ring-stone-200 disabled:opacity-50"
           placeholder="Размер, объект, нужные опции"
         />
       </label>

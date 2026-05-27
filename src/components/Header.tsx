@@ -166,7 +166,7 @@ export function Header() {
             href="/calculate"
             className="rounded-full bg-stone-950 px-5 py-2.5 text-sm font-medium text-white transition-colors duration-200 hover:bg-arch"
           >
-            Рассчитать
+            Консультация
           </Link>
           <button
             aria-label={mobileOpen ? "Закрыть меню" : "Открыть меню"}
