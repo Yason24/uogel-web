@@ -2,129 +2,6 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import { navItems } from "@/data/navigation";
-import type { NavItem } from "@/types";
-
-function ChevronDown({ className }: { className?: string }) {
-  return (
-    <svg
-      width="12"
-      height="12"
-      viewBox="0 0 12 12"
-      fill="none"
-      aria-hidden
-      className={className}
-    >
-      <path
-        d="M2 4l4 4 4-4"
-        stroke="currentColor"
-        strokeWidth="1.5"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-    </svg>
-  );
-}
-
-function DesktopDropdown({ item }: { item: NavItem }) {
-  const [open, setOpen] = useState(false);
-
-  if (!item.children) {
-    return (
-      <Link
-        href={item.href!}
-        className="transition-colors duration-200 hover:text-arch"
-      >
-        {item.label}
-      </Link>
-    );
-  }
-
-  return (
-    <div
-      className="relative"
-      onMouseEnter={() => setOpen(true)}
-      onMouseLeave={() => setOpen(false)}
-    >
-      <button
-        className="flex items-center gap-1 transition-colors duration-200 hover:text-arch"
-        aria-expanded={open}
-      >
-        {item.label}
-        <ChevronDown
-          className={`transition-transform duration-200 ${open ? "rotate-180" : ""}`}
-        />
-      </button>
-
-      {open && (
-        <div className="absolute left-0 top-full z-50 min-w-52 pt-2">
-          <div className="animate-slide-down rounded-xl border border-stone-100 bg-white py-1.5 shadow-lg shadow-stone-200/60">
-            {item.children.map((child) => (
-              <Link
-                key={child.href}
-                href={child.href!}
-                onClick={() => setOpen(false)}
-                className="block px-4 py-2.5 text-sm text-stone-600 transition-colors duration-150 hover:bg-stone-50 hover:text-arch"
-              >
-                {child.label}
-              </Link>
-            ))}
-          </div>
-        </div>
-      )}
-    </div>
-  );
-}
-
-function MobileAccordion({
-  item,
-  onClose,
-}: {
-  item: NavItem;
-  onClose: () => void;
-}) {
-  const [open, setOpen] = useState(false);
-
-  if (!item.children) {
-    return (
-      <Link
-        href={item.href!}
-        onClick={onClose}
-        className="rounded-xl px-3 py-3 text-sm text-stone-700 transition-colors duration-150 hover:bg-stone-50 hover:text-arch"
-      >
-        {item.label}
-      </Link>
-    );
-  }
-
-  return (
-    <div>
-      <button
-        onClick={() => setOpen((v) => !v)}
-        className="flex w-full items-center justify-between rounded-xl px-3 py-3 text-sm text-stone-700 transition-colors duration-150 hover:bg-stone-50 hover:text-arch"
-        aria-expanded={open}
-      >
-        {item.label}
-        <ChevronDown
-          className={`transition-transform duration-200 ${open ? "rotate-180" : ""}`}
-        />
-      </button>
-      {open && (
-        <div className="ml-4 flex animate-slide-down flex-col gap-0.5 pb-1">
-          {item.children.map((child) => (
-            <Link
-              key={child.href}
-              href={child.href!}
-              onClick={onClose}
-              className="rounded-lg px-3 py-2.5 text-sm text-stone-600 transition-colors duration-150 hover:bg-stone-50 hover:text-arch"
-            >
-              {child.label}
-            </Link>
-          ))}
-        </div>
-      )}
-    </div>
-  );
-}
 
 export function Header() {
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -132,7 +9,6 @@ export function Header() {
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 8);
-    // Set initial state on mount
     setScrolled(window.scrollY > 8);
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
@@ -143,70 +19,83 @@ export function Header() {
       className={[
         "sticky top-0 z-50 transition-all duration-300",
         scrolled
-          ? "border-b border-stone-200 bg-white/98 shadow-sm shadow-stone-200/50 backdrop-blur-sm"
-          : "border-b border-stone-100/70 bg-white/82 backdrop-blur-md",
+          ? "border-b border-stone-200/80 bg-white/97 shadow-sm shadow-stone-100/60 backdrop-blur-sm"
+          : "border-b border-stone-100/60 bg-white/90 backdrop-blur-md",
       ].join(" ")}
     >
       <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-4 sm:px-6 lg:px-8">
+        {/* Logo */}
         <Link
           href="/"
-          className="text-base font-medium tracking-[0.08em] text-stone-950 transition-colors duration-200 hover:text-arch"
+          className="text-sm font-medium tracking-[0.1em] text-stone-950 transition-colors duration-200 hover:text-arch"
         >
           UOGEL Russia
         </Link>
 
-        <nav className="hidden items-center gap-7 text-sm text-stone-600 lg:flex">
+        {/* Desktop nav */}
+        <nav className="hidden items-center gap-8 text-sm text-stone-500 lg:flex" aria-label="Основная навигация">
           {navItems.map((item) => (
-            <DesktopDropdown key={item.label} item={item} />
+            <Link
+              key={item.label}
+              href={item.href!}
+              className="transition-colors duration-200 hover:text-stone-950"
+            >
+              {item.label}
+            </Link>
           ))}
         </nav>
 
+        {/* CTA + hamburger */}
         <div className="flex items-center gap-3">
           <Link
             href="/calculate"
-            className="rounded-full bg-stone-950 px-5 py-2.5 text-sm font-medium text-white transition-colors duration-200 hover:bg-arch"
+            className="rounded-full bg-stone-950 px-5 py-2 text-sm font-medium text-white transition-colors duration-200 hover:bg-arch"
           >
-            Консультация
+            Рассчитать
           </Link>
           <button
             aria-label={mobileOpen ? "Закрыть меню" : "Открыть меню"}
             aria-expanded={mobileOpen}
             onClick={() => setMobileOpen((v) => !v)}
-            className="flex h-10 w-10 items-center justify-center rounded-xl text-stone-600 transition-colors duration-150 hover:bg-stone-100 hover:text-stone-950 lg:hidden"
+            className="flex h-10 w-10 items-center justify-center rounded-xl text-stone-500 transition-colors duration-150 hover:bg-stone-100 hover:text-stone-950 lg:hidden"
           >
             {mobileOpen ? (
               <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden>
-                <path
-                  d="M4 4l12 12M16 4L4 16"
-                  stroke="currentColor"
-                  strokeWidth="1.75"
-                  strokeLinecap="round"
-                />
+                <path d="M4 4l12 12M16 4L4 16" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" />
               </svg>
             ) : (
               <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden>
-                <path
-                  d="M3 6h14M3 10h14M3 14h14"
-                  stroke="currentColor"
-                  strokeWidth="1.75"
-                  strokeLinecap="round"
-                />
+                <path d="M3 6h14M3 10h14M3 14h14" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" />
               </svg>
             )}
           </button>
         </div>
       </div>
 
+      {/* Mobile menu */}
       {mobileOpen && (
-        <nav className="animate-slide-down border-t border-stone-100 bg-white lg:hidden">
-          <div className="mx-auto flex flex-col gap-1 px-4 py-3 sm:px-6">
+        <nav
+          className="animate-slide-down border-t border-stone-100 bg-white lg:hidden"
+          aria-label="Мобильное меню"
+        >
+          <div className="mx-auto flex flex-col gap-0.5 px-4 py-3 sm:px-6">
             {navItems.map((item) => (
-              <MobileAccordion
+              <Link
                 key={item.label}
-                item={item}
-                onClose={() => setMobileOpen(false)}
-              />
+                href={item.href!}
+                onClick={() => setMobileOpen(false)}
+                className="rounded-xl px-3 py-3 text-sm text-stone-700 transition-colors duration-150 hover:bg-stone-50 hover:text-stone-950"
+              >
+                {item.label}
+              </Link>
             ))}
+            <Link
+              href="/calculate"
+              onClick={() => setMobileOpen(false)}
+              className="mt-2 rounded-full bg-stone-950 px-5 py-3 text-center text-sm font-medium text-white transition-colors duration-200 hover:bg-arch"
+            >
+              Рассчитать
+            </Link>
           </div>
         </nav>
       )}

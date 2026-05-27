@@ -28,17 +28,17 @@ export const metadata: Metadata = {
 const systemPillars = [
   {
     num: "01",
-    label: "Серии и конфигурации",
+    label: "Серии пергол",
     title: "Ламельные перголы",
-    text: "Шесть серий — A13, C10, C7, C4/M4, M3/M3-S, M2-S — на алюминиевом профиле с поворотными ламелями и интегрированным водоотводом.",
+    text: "От компактных ручных до флагманских моторизованных систем. Подберём серию под ваш объект, размеры и условия эксплуатации.",
     href: "/pergolas",
     cta: "Смотреть серии",
   },
   {
     num: "02",
-    label: "Боковые системы и опции",
+    label: "Боковые системы",
     title: "Опции и оснащение",
-    text: "ZIP-экраны, безрамное стекло, алюминиевые ставни, LED-подсветка, потолочный вентилятор, обогреватель, датчики ветра и дождя.",
+    text: "Боковые экраны, остекление, климатическое оборудование и автоматика — расширяют систему до всесезонного архитектурного пространства.",
     href: "/options",
     cta: "Смотреть опции",
   },
@@ -46,7 +46,7 @@ const systemPillars = [
     num: "03",
     label: "Каталог UOGEL 2026",
     title: "Полный каталог",
-    text: "Технические характеристики, доступные размеры и совместимые опции для каждой серии. Только реальные конфигурации из производственной программы UOGEL.",
+    text: "Конфигурации, размеры и совместимость опций из производственной программы UOGEL. Только реальные системы — без импровизаций.",
     href: "/catalog",
     cta: "Открыть каталог",
   },
@@ -151,23 +151,28 @@ export default function Home() {
           fill
           priority
           sizes="100vw"
-          className="object-cover opacity-50"
+          className="object-cover opacity-55"
         />
-        <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-stone-950 via-stone-950/50 to-stone-950/10" />
+        <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-stone-950/95 via-stone-950/40 to-stone-950/5" />
 
-        <div className="relative mx-auto w-full max-w-7xl px-4 pb-24 pt-40 sm:px-6 sm:pb-28 lg:px-8 lg:py-44">
+        <div className="relative mx-auto w-full max-w-7xl px-4 pb-28 pt-44 sm:px-6 sm:pb-32 lg:px-8 lg:py-48">
           <div className="max-w-3xl">
             <p className="flex items-center gap-3 text-xs font-medium uppercase tracking-[0.25em] text-stone-500">
               <span className="h-px w-8 bg-stone-700" aria-hidden />
               UOGEL Russia
             </p>
-            <h1 className="mt-10 text-5xl font-light leading-[1.07] tracking-tight text-white sm:text-6xl lg:text-[4rem] xl:text-7xl">
-              Архитектурные системы
+            <h1 className="mt-10 text-5xl font-light leading-[1.05] tracking-tight text-white sm:text-6xl lg:text-[4.25rem] xl:text-7xl">
+              Биоклиматические
               <br />
-              для открытого пространства
+              перголы UOGEL
+              <br className="hidden sm:block" />
+              <span className="text-stone-300"> для архитектурных</span>
+              <br />
+              <span className="text-stone-300">outdoor-пространств</span>
             </h1>
-            <p className="mt-7 max-w-xl text-base font-light leading-8 text-stone-400 sm:text-lg">
-              Алюминиевые перголы UOGEL с поворотными ламелями — для террас, ресторанов и резиденций.
+            <p className="mt-8 max-w-2xl text-base font-light leading-8 text-stone-400 sm:text-lg">
+              Алюминиевые системы для террас, ресторанов и частных outdoor-зон —
+              с управляемым светом, защитой от дождя и интегрированными опциями.
             </p>
             <div className="mt-12 flex flex-wrap gap-4">
               <TrackableLink
@@ -176,14 +181,14 @@ export default function Home() {
                 eventParams={{ context: "hero", href: "/calculate" }}
                 className="rounded-full bg-white px-8 py-3.5 text-sm font-medium text-stone-950 transition-colors duration-200 hover:bg-stone-100"
               >
-                Обсудить проект
+                Получить консультацию
               </TrackableLink>
               <TrackableLink
                 href="/catalog"
                 goalName={GOALS.CATALOG_OPEN}
                 eventName={EVENTS.CATALOG_OPEN}
                 eventParams={{ context: "hero" }}
-                className="rounded-full border border-stone-700 px-8 py-3.5 text-sm font-medium text-stone-400 transition-colors duration-200 hover:border-stone-500 hover:text-white"
+                className="rounded-full border border-stone-600 px-8 py-3.5 text-sm font-medium text-stone-300 transition-colors duration-200 hover:border-stone-400 hover:text-white"
               >
                 Смотреть каталог
               </TrackableLink>
@@ -462,7 +467,7 @@ export default function Home() {
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <FadeUp>
             <p className="text-xs font-medium uppercase tracking-[0.2em] text-stone-600">
-              Инженерная составляющая
+              Архитектурная интеграция
             </p>
           </FadeUp>
 
@@ -470,16 +475,16 @@ export default function Home() {
             {/* ── Left: editorial heading — sticky on desktop ── */}
             <FadeUp delay={80} className="lg:sticky lg:top-32 lg:self-start">
               <h2 className="text-4xl font-light leading-[1.1] text-white sm:text-5xl">
-                Outdoor-система,
+                Архитектура
                 <br />
-                спроектированная
+                комфорта
                 <br />
-                для архитектуры
+                в любую погоду
               </h2>
               <p className="mt-8 max-w-sm text-sm leading-8 text-stone-500">
                 Каждый элемент — от ламели до стойки —
-                решает конкретную инженерную задачу.
-                Форма следует за функцией.
+                решает конкретную задачу. Форма следует
+                за функцией, система живёт в архитектуре.
               </p>
             </FadeUp>
 

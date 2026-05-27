@@ -98,14 +98,11 @@ export default async function OptionPage({
           </h1>
           <p className="mt-4 text-lg text-stone-400">{option.subtitle}</p>
           <div className="mt-6 inline-flex items-center rounded-full border border-stone-800 px-4 py-1.5 text-sm text-stone-400">
-            Стоимость:{" "}
-            <span className="ml-1.5 font-medium text-stone-200">
-              {option.priceType === "included"
-                ? "в базовой системе"
-                : option.priceType === "extra"
-                ? "дополнительно"
-                : "по запросу"}
-            </span>
+            {option.priceType === "included"
+              ? "Входит в базовую систему"
+              : option.priceType === "extra"
+              ? "Рассчитывается дополнительно"
+              : "Рассчитывается отдельно"}
           </div>
           <div className="mt-8 flex flex-wrap gap-4">
             <Link

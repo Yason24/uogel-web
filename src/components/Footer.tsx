@@ -32,8 +32,8 @@ export function Footer() {
               UOGEL Russia
             </Link>
             <p className="mt-3 max-w-xs text-sm leading-7 text-stone-500">
-              Подбор и поставка биоклиматических пергол UOGEL в Россию.
-              Серия из каталога 2026 — для частных и коммерческих объектов.
+              Подбор и расчёт биоклиматических пергол UOGEL с поставкой в Россию.
+              Каталог 2026 — для частных и коммерческих outdoor-пространств.
             </p>
             <a
               href="https://t.me/uogel_russia"

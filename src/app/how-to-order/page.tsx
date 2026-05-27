@@ -2,71 +2,98 @@ import type { Metadata } from "next";
 import Link from "next/link";
 
 export const metadata: Metadata = {
-  title: "Как заказать перголу UOGEL в России — 7 этапов работы",
-  description: "Семь этапов от первой консультации до монтажа: подбор серии из каталога UOGEL 2026, согласование конфигурации, производство и поставка в Россию.",
+  title: "Как заказать перголу UOGEL — от спецификации до поставки",
+  description:
+    "Процесс работы: консультация, подбор серии из каталога UOGEL 2026, согласование конфигурации, производство и поставка в Россию. Без обещаний монтажа — с полной документацией.",
   alternates: { canonical: "/how-to-order" },
   openGraph: {
-    title: "Как заказать перголу UOGEL в России — 7 этапов работы",
-    description: "От первой консультации до монтажа: подбор серии, производство, поставка.",
+    title: "Как заказать перголу UOGEL — от спецификации до поставки",
+    description: "Семь этапов: консультация → серия → конфигурация → спецификация → производство → поставка.",
     images: [{ url: "/images/og/uogel-og.jpg", width: 1200, height: 630, alt: "Заказ перголы UOGEL" }],
   },
   twitter: {
     card: "summary_large_image",
     title: "Как заказать перголу UOGEL в России",
-    description: "Семь этапов от консультации до монтажа перголы UOGEL.",
+    description: "От консультации до поставки: процесс работы с UOGEL Russia.",
     images: ["/images/og/uogel-og.jpg"],
   },
 };
 
 const steps = [
   {
-    title: "Консультация",
-    body: "Уточняем тип объекта, сценарий использования и основные требования к системе: площадь, степень автоматизации, климатические условия.",
+    title: "Первый контакт",
+    body: "Уточняем тип объекта, сценарий использования и основные требования: площадь, степень автоматизации, климат, архитектурный контекст.",
   },
   {
     title: "Подбор серии",
-    body: "Выбираем подходящую серию из каталога UOGEL 2026 по параметрам объекта. Сравниваем профиль стойки, привод и стандартные конфигурации.",
+    body: "Выбираем подходящую серию из каталога UOGEL 2026 по параметрам объекта. Сравниваем профиль стойки, привод и доступные размерные конфигурации.",
   },
   {
-    title: "Техническое согласование",
-    body: "Определяем конкретную конфигурацию: ширину, длину, вылет, опции — боковое остекление, экраны, вентиляция, датчики.",
+    title: "Согласование размеров",
+    body: "Определяем конкретные размеры: ширину, глубину, вылет. Для флагманских серий A13, C10, C7 — конфигурация под проект. Для C4/M4, M3, M2-S — выбор из стандартных.",
   },
   {
-    title: "Заказ и оплата",
-    body: "Согласуем условия, подтверждаем комплектацию и договариваемся о порядке оплаты. Предоплата фиксирует заказ на производстве.",
+    title: "Цвет и опции",
+    body: "Выбираем цвет профиля RAL, согласовываем боковые системы (экраны, стекло, ставни) и оснащение (LED, климат, датчики). Всё фиксируется до размещения заказа.",
   },
   {
-    title: "Производство",
-    body: "Завод UOGEL изготавливает систему. Ориентировочный срок производства — 15–25 рабочих дней; точный срок уточняется при заказе.",
+    title: "Техническая спецификация",
+    body: "Формируем итоговый документ по системе: серия, конфигурация, размеры, цвет, опции. Спецификация согласуется с вами перед отправкой на производство.",
   },
   {
-    title: "Доставка",
-    body: "Логистика из Китая до объекта. Маршрут и финальный срок зависят от города и партии. Сопровождаем партию на всём пути.",
+    title: "Производство и поставка",
+    body: "После подтверждения спецификации и предоплаты — завод UOGEL запускает изготовление. Срок производства ориентировочно 15–25 рабочих дней, затем доставка в Россию.",
   },
   {
-    title: "Монтаж и поддержка",
-    body: "Предоставляем техническую документацию для монтажной бригады. При необходимости — консультируем по нюансам установки.",
+    title: "Монтажная документация",
+    body: "Передаём комплект монтажной документации и технической поддержки для вашей монтажной бригады. Монтажные работы выполняются на стороне клиента.",
+  },
+];
+
+const trustPoints = [
+  {
+    label: "Спецификация до заказа",
+    text: "Ничего не уходит в производство без согласованного документа по конфигурации. Вы знаете точно, что и в каком цвете будет изготовлено.",
+  },
+  {
+    label: "Честные сроки",
+    text: "Срок производства и логистики зависит от серии и маршрута. Не называем сроки без конкретного запроса. Фиксируем письменно после подтверждения заказа.",
+  },
+  {
+    label: "Поставка, не монтаж",
+    text: "Мы обеспечиваем подбор, расчёт, спецификацию и логистику. Монтаж выполняет монтажная бригада на объекте — предоставляем полную документацию.",
+  },
+  {
+    label: "Реальные конфигурации",
+    text: "Работаем только с теми системами, которые входят в производственную программу UOGEL 2026. Без импровизаций и несуществующих конфигураций.",
   },
 ];
 
 export default function HowToOrderPage() {
   return (
     <>
+      {/* ── Intro ── */}
       <section className="py-20 sm:py-28">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <p className="text-xs font-medium uppercase tracking-[0.2em] text-stone-400">Процесс</p>
+          <p className="text-xs font-medium uppercase tracking-[0.2em] text-stone-400">Процесс работы</p>
           <h1 className="mt-4 max-w-2xl text-3xl font-light text-stone-950 sm:text-4xl">
-            Как проходит работа
+            От консультации до поставки
           </h1>
-          <p className="mt-4 max-w-xl text-base leading-7 text-stone-500">
-            Семь этапов — от первого обращения до готовой системы на объекте.
+          <p className="mt-5 max-w-xl text-base leading-8 text-stone-500">
+            Семь этапов — от первого обращения до готовой системы у вас на объекте.
+            Каждый шаг прозрачен, каждое решение согласовывается до производства.
           </p>
+        </div>
+      </section>
 
-          <div className="mt-14 divide-y divide-stone-100">
+      {/* ── Steps ── */}
+      <section className="pb-20 sm:pb-28">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div className="divide-y divide-stone-100">
             {steps.map((step, i) => (
               <div
                 key={step.title}
-                className="grid gap-4 py-8 sm:grid-cols-[80px_1fr] sm:gap-8 sm:py-10"
+                className="grid gap-4 py-8 sm:grid-cols-[80px_1fr] sm:gap-10 sm:py-10"
               >
                 <span className="text-3xl font-light tabular-nums text-stone-200 sm:text-4xl">
                   {String(i + 1).padStart(2, "0")}
@@ -81,16 +108,72 @@ export default function HowToOrderPage() {
         </div>
       </section>
 
-      <section className="bg-stone-900 py-20 sm:py-24">
+      {/* ── Spec flow visual ── */}
+      <section className="bg-stone-50 py-16 sm:py-20">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <p className="text-xs font-medium uppercase tracking-[0.2em] text-stone-400">
+            Логика спецификации
+          </p>
+          <h2 className="mt-4 text-2xl font-light text-stone-950 sm:text-3xl">
+            Размеры → серия → цвет → опции → производство
+          </h2>
+          <p className="mt-4 max-w-2xl text-sm leading-7 text-stone-500">
+            Порядок согласования фиксирует систему до того, как она уходит в производство.
+            Изменения после подтверждения спецификации — невозможны.
+          </p>
+
+          <div className="mt-10 flex flex-wrap items-center gap-2 text-sm">
+            {["Объект и размеры", "Серия из каталога", "Цвет профиля", "Опции и оснащение", "Спецификация", "Производство", "Поставка"].map(
+              (step, i, arr) => (
+                <span key={step} className="flex items-center gap-2">
+                  <span className="rounded-full bg-white px-4 py-2 font-medium text-stone-700 ring-1 ring-stone-200">
+                    {step}
+                  </span>
+                  {i < arr.length - 1 && (
+                    <span className="text-stone-300" aria-hidden>→</span>
+                  )}
+                </span>
+              )
+            )}
+          </div>
+        </div>
+      </section>
+
+      {/* ── Trust block ── */}
+      <section className="py-16 sm:py-20">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <p className="text-xs font-medium uppercase tracking-[0.2em] text-stone-400">
+            Как мы работаем
+          </p>
+          <h2 className="mt-4 text-2xl font-light text-stone-950 sm:text-3xl">
+            Что важно понимать до начала работы
+          </h2>
+          <div className="mt-10 grid gap-6 sm:grid-cols-2">
+            {trustPoints.map((point) => (
+              <div
+                key={point.label}
+                className="rounded-2xl border border-stone-200 bg-white p-7"
+              >
+                <h3 className="text-sm font-semibold text-stone-950">{point.label}</h3>
+                <p className="mt-2 text-sm leading-7 text-stone-500">{point.text}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ── CTA ── */}
+      <section className="bg-stone-900 py-20 sm:py-24">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <p className="text-xs font-medium uppercase tracking-[0.2em] text-stone-500">
             Начать проект
           </p>
           <h2 className="mt-4 text-2xl font-light text-white sm:text-3xl">
-            Обсудите подходящую систему
+            Обсудите вашу систему
           </h2>
           <p className="mt-3 max-w-lg text-sm leading-7 text-stone-400">
-            Расскажите об объекте — подберём серию и конфигурацию из каталога UOGEL 2026.
+            Расскажите об объекте — подберём серию и конфигурацию из каталога UOGEL 2026,
+            подготовим техническую рекомендацию.
           </p>
           <div className="mt-8 flex flex-wrap gap-4">
             <Link
