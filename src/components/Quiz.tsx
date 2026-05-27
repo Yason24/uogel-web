@@ -2,6 +2,9 @@
 import { useState } from "react";
 import { products } from "@/data/pergolas";
 import { options as allOptions } from "@/data/options";
+import { PhoneInput } from "@/components/ui/PhoneInput";
+import { CityAutocomplete } from "@/components/ui/CityAutocomplete";
+import { MessengerSelect } from "@/components/ui/MessengerSelect";
 
 type Status = "idle" | "submitting" | "success" | "error";
 
@@ -17,6 +20,7 @@ type FormState = {
   city: string;
   name: string;
   phone: string;
+  messenger: string;
   comment: string;
 };
 
@@ -34,6 +38,7 @@ const EMPTY_FORM: FormState = {
   city: "",
   name: "",
   phone: "",
+  messenger: "",
   comment: "",
 };
 
@@ -117,7 +122,9 @@ export function Quiz() {
     if (step === 8) {
       const errors: FieldErrors = {};
       if (form.name.trim().length < 2) errors.name = "Укажите имя (не менее 2 символов)";
-      if (form.phone.replace(/\D/g, "").length < 10) errors.phone = "Укажите корректный номер телефона";
+      // Valid phone = +7 (XXX) XXX-XX-XX = 11 digits total
+      if (form.phone.replace(/\D/g, "").length < 11)
+        errors.phone = "Укажите корректный номер телефона";
       if (Object.keys(errors).length > 0) {
         setFieldErrors(errors);
         return false;
@@ -159,6 +166,7 @@ export function Quiz() {
         body: JSON.stringify({
           name: form.name.trim(),
           phone: form.phone.trim(),
+          messenger: form.messenger || undefined,
           city: form.city.trim() || undefined,
           comment: form.comment.trim() || undefined,
           objectType: form.objectType || undefined,
@@ -355,14 +363,11 @@ export function Quiz() {
             <div className="mt-6">
               <label className="grid gap-2 text-sm font-medium text-stone-700">
                 Город <span className="text-red-500">*</span>
-                <input
+                <CityAutocomplete
                   value={form.city}
-                  onChange={(e) => setField("city", e.target.value)}
+                  onChange={(v) => setField("city", v)}
                   disabled={isSubmitting}
-                  className={`rounded-2xl border px-4 py-3 outline-none focus:border-stone-500 focus:ring-2 focus:ring-stone-200 disabled:opacity-50 ${
-                    fieldErrors.city ? "border-red-400" : "border-stone-200"
-                  }`}
-                  placeholder="Москва"
+                  hasError={!!fieldErrors.city}
                 />
                 {fieldErrors.city && (
                   <span className="text-xs text-red-600">{fieldErrors.city}</span>
@@ -378,38 +383,50 @@ export function Quiz() {
               Свяжемся с вами для уточнения параметров проекта.
             </p>
             <div className="mt-6 grid gap-4 sm:grid-cols-2">
+              {/* Имя */}
               <label className="grid gap-2 text-sm font-medium text-stone-700">
                 Имя <span className="text-red-500">*</span>
                 <input
                   value={form.name}
                   onChange={(e) => setField("name", e.target.value)}
                   disabled={isSubmitting}
+                  autoComplete="name"
                   className={`rounded-2xl border px-4 py-3 outline-none focus:border-stone-500 focus:ring-2 focus:ring-stone-200 disabled:opacity-50 ${
                     fieldErrors.name ? "border-red-400" : "border-stone-200"
                   }`}
-                  placeholder="Артём"
+                  placeholder="Ваше имя"
                 />
                 {fieldErrors.name && (
                   <span className="text-xs text-red-600">{fieldErrors.name}</span>
                 )}
               </label>
+
+              {/* Телефон */}
               <label className="grid gap-2 text-sm font-medium text-stone-700">
                 Телефон <span className="text-red-500">*</span>
-                <input
+                <PhoneInput
                   value={form.phone}
-                  type="tel"
-                  onChange={(e) => setField("phone", e.target.value)}
+                  onChange={(v) => setField("phone", v)}
                   disabled={isSubmitting}
-                  className={`rounded-2xl border px-4 py-3 outline-none focus:border-stone-500 focus:ring-2 focus:ring-stone-200 disabled:opacity-50 ${
-                    fieldErrors.phone ? "border-red-400" : "border-stone-200"
-                  }`}
-                  placeholder="+7"
+                  hasError={!!fieldErrors.phone}
                 />
                 {fieldErrors.phone && (
                   <span className="text-xs text-red-600">{fieldErrors.phone}</span>
                 )}
               </label>
             </div>
+
+            {/* Мессенджер */}
+            <label className="mt-4 grid gap-2 text-sm font-medium text-stone-700">
+              Куда удобнее написать
+              <MessengerSelect
+                value={form.messenger}
+                onChange={(v) => setField("messenger", v)}
+                disabled={isSubmitting}
+              />
+            </label>
+
+            {/* Комментарий */}
             <label className="mt-4 grid gap-2 text-sm font-medium text-stone-700">
               Комментарий
               <textarea
@@ -421,6 +438,7 @@ export function Quiz() {
                 placeholder="Дополнительные пожелания или вопросы"
               />
             </label>
+
             {status === "error" && errorMsg && (
               <p className="mt-3 rounded-2xl bg-red-50 px-4 py-3 text-sm text-red-700">
                 {errorMsg}
@@ -467,6 +485,8 @@ export function Quiz() {
     </div>
   );
 }
+
+// ─── Sub-components ───────────────────────────────────────────────────────────
 
 type RadioOption = { id: string; label: string; sub?: string };
 
