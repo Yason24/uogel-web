@@ -139,7 +139,9 @@ export default function Home() {
 
   return (
     <>
-      {/* ── Hero ── */}
+      {/* ───────────────────────────────────────────────────────────
+          Hero
+      ─────────────────────────────────────────────────────────── */}
       <section className="relative flex min-h-screen items-end overflow-hidden bg-stone-950 lg:items-center">
         <Image
           src="/images/hero/hero-main.jpg"
@@ -157,24 +159,24 @@ export default function Home() {
               <span className="h-px w-8 bg-stone-700" aria-hidden />
               UOGEL Russia
             </p>
-            <h1 className="mt-8 text-5xl font-light leading-[1.05] tracking-tight text-white sm:text-6xl lg:text-[4rem] xl:text-7xl">
+            <h1 className="mt-10 text-5xl font-light leading-[1.07] tracking-tight text-white sm:text-6xl lg:text-[4rem] xl:text-7xl">
               Архитектурные системы
               <br />
               для открытого пространства
             </h1>
-            <p className="mt-6 max-w-xl text-base font-light leading-8 text-stone-400 sm:text-lg">
+            <p className="mt-7 max-w-xl text-base font-light leading-8 text-stone-400 sm:text-lg">
               Алюминиевые перголы UOGEL с поворотными ламелями — для террас, ресторанов и резиденций.
             </p>
             <div className="mt-12 flex flex-wrap gap-4">
               <Link
                 href="/calculate"
-                className="rounded-full bg-white px-8 py-3.5 text-sm font-medium text-stone-950 transition hover:bg-stone-100"
+                className="rounded-full bg-white px-8 py-3.5 text-sm font-medium text-stone-950 transition-colors duration-200 hover:bg-stone-100"
               >
-                Получить консультацию
+                Обсудить проект
               </Link>
               <Link
                 href="/catalog"
-                className="rounded-full border border-stone-700 px-8 py-3.5 text-sm font-medium text-stone-400 transition hover:border-stone-500 hover:text-white"
+                className="rounded-full border border-stone-700 px-8 py-3.5 text-sm font-medium text-stone-400 transition-colors duration-200 hover:border-stone-500 hover:text-white"
               >
                 Смотреть каталог
               </Link>
@@ -183,24 +185,28 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ── System Pillars ── */}
+      {/* ───────────────────────────────────────────────────────────
+          Architectural directions — три направления
+      ─────────────────────────────────────────────────────────── */}
       <section className="bg-white py-28 sm:py-36">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <FadeUp>
             <p className="text-xs font-medium uppercase tracking-[0.2em] text-stone-400">
               Архитектурные системы
             </p>
-            <h2 className="mt-3 text-3xl font-light text-stone-950 sm:text-4xl">Три направления</h2>
+            <h2 className="mt-4 text-3xl font-light text-stone-950 sm:text-4xl">
+              Три направления
+            </h2>
           </FadeUp>
 
           <div className="mt-14 grid lg:grid-cols-3 lg:gap-px lg:bg-stone-100">
             {systemPillars.map((pillar, i) => (
               <FadeUp
                 key={pillar.num}
-                delay={i * 80}
+                delay={i * 90}
                 className="group border-t border-stone-100 bg-white py-10 lg:border-none lg:px-10 lg:py-14"
               >
-                <span className="block text-7xl font-light leading-none text-stone-100 xl:text-8xl">
+                <span className="block text-8xl font-light leading-none text-stone-100 xl:text-9xl">
                   {pillar.num}
                 </span>
                 <p className="mt-8 text-xs font-medium uppercase tracking-[0.2em] text-stone-400">
@@ -226,7 +232,9 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ── Product Series ── */}
+      {/* ───────────────────────────────────────────────────────────
+          Product Series — серии UOGEL 2026
+      ─────────────────────────────────────────────────────────── */}
       <section className="bg-stone-50 py-28 sm:py-36">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <FadeUp>
@@ -235,7 +243,7 @@ export default function Home() {
                 <p className="text-xs font-medium uppercase tracking-[0.2em] text-stone-400">
                   Производственная программа
                 </p>
-                <h2 className="mt-3 text-3xl font-light text-stone-950 sm:text-4xl">
+                <h2 className="mt-4 text-3xl font-light text-stone-950 sm:text-4xl">
                   Серии UOGEL 2026
                 </h2>
               </div>
@@ -276,7 +284,7 @@ export default function Home() {
                         {product.seriesName}
                       </p>
                       <h3 className="mt-2 text-xl font-light text-stone-950">{product.title}</h3>
-                      <p className="mt-1 text-sm text-stone-500">{product.subtitle}</p>
+                      <p className="mt-1.5 text-sm leading-6 text-stone-500">{product.subtitle}</p>
                       <p className="mt-5 text-xs font-medium text-stone-400 transition-colors duration-200 group-hover:text-arch">
                         Подробнее →
                       </p>
@@ -288,7 +296,7 @@ export default function Home() {
           </div>
 
           {/* Универсальные */}
-          <div className="mt-10">
+          <div className="mt-12">
             <FadeUp>
               <p className="text-xs font-medium uppercase tracking-[0.2em] text-stone-400">
                 Универсальные — C7 · C4/M4
@@ -314,8 +322,8 @@ export default function Home() {
                       <p className="text-xs font-medium uppercase tracking-[0.15em] text-stone-400">
                         {product.seriesName}
                       </p>
-                      <h3 className="mt-1.5 text-lg font-medium text-stone-950">{product.title}</h3>
-                      <p className="mt-1 text-sm text-stone-500">{product.subtitle}</p>
+                      <h3 className="mt-2 text-lg font-medium text-stone-950">{product.title}</h3>
+                      <p className="mt-1 text-sm leading-6 text-stone-500">{product.subtitle}</p>
                       <p className="mt-4 text-xs font-medium text-stone-400 transition-colors duration-200 group-hover:text-arch">
                         Подробнее →
                       </p>
@@ -327,7 +335,7 @@ export default function Home() {
           </div>
 
           {/* Компактные */}
-          <div className="mt-10">
+          <div className="mt-12">
             <FadeUp>
               <p className="text-xs font-medium uppercase tracking-[0.2em] text-stone-400">
                 Компактные — M3/M3-S · M2-S
@@ -354,7 +362,7 @@ export default function Home() {
                         {product.seriesName}
                       </p>
                       <h3 className="mt-1 text-base font-medium text-stone-950">{product.title}</h3>
-                      <p className="mt-1 text-xs text-stone-500">{product.subtitle}</p>
+                      <p className="mt-1 text-xs leading-6 text-stone-500">{product.subtitle}</p>
                       <p className="mt-3 text-xs font-medium text-stone-400 transition-colors duration-200 group-hover:text-arch">
                         Подробнее →
                       </p>
@@ -367,21 +375,26 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ── Lifestyle Applications ── */}
-      <section className="overflow-hidden bg-white py-28 sm:py-36">
+      {/* ───────────────────────────────────────────────────────────
+          Lifestyle — для любого пространства
+          pb-0: photos bleed to the bottom edge for cinematic
+          transition into the dark engineering section below.
+      ─────────────────────────────────────────────────────────── */}
+      <section className="overflow-hidden bg-white pb-0 pt-20 sm:pt-28">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <FadeUp>
             <p className="text-xs font-medium uppercase tracking-[0.2em] text-stone-400">
               Outdoor living
             </p>
-            <h2 className="mt-3 text-3xl font-light text-stone-950 sm:text-4xl">
+            <h2 className="mt-4 text-3xl font-light text-stone-950 sm:text-4xl">
               Для любого пространства
             </h2>
           </FadeUp>
         </div>
 
-        <FadeUp className="mt-12 grid gap-px bg-stone-200 lg:grid-cols-12">
-          <div className="group relative min-h-[340px] overflow-hidden lg:col-span-7 lg:min-h-[480px]">
+        <FadeUp className="mt-10 grid gap-px bg-stone-200 lg:grid-cols-12">
+          {/* Large primary tile */}
+          <div className="group relative min-h-[340px] overflow-hidden lg:col-span-7 lg:min-h-[500px]">
             <Image
               src={lifestyleTiles[0].image}
               alt={lifestyleTiles[0].title}
@@ -389,14 +402,15 @@ export default function Home() {
               sizes="(min-width: 1024px) 58vw, 100vw"
               className="object-cover transition duration-700 group-hover:scale-[1.04]"
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-stone-950/80 via-stone-950/20 to-transparent transition-opacity duration-500 group-hover:from-stone-950/70" />
+            <div className="absolute inset-0 bg-gradient-to-t from-stone-950/85 via-stone-950/25 to-transparent transition-opacity duration-700 group-hover:opacity-90" />
             <div className="absolute bottom-0 left-0 p-8 lg:p-10">
               <h3 className="text-xl font-light text-white">{lifestyleTiles[0].title}</h3>
-              <p className="mt-1.5 text-sm text-stone-400">{lifestyleTiles[0].caption}</p>
+              <p className="mt-2 text-sm text-stone-400">{lifestyleTiles[0].caption}</p>
             </div>
           </div>
 
-          <div className="group relative min-h-[300px] overflow-hidden lg:col-span-5 lg:min-h-[480px]">
+          {/* Secondary tall tile */}
+          <div className="group relative min-h-[300px] overflow-hidden lg:col-span-5 lg:min-h-[500px]">
             <Image
               src={lifestyleTiles[1].image}
               alt={lifestyleTiles[1].title}
@@ -404,13 +418,14 @@ export default function Home() {
               sizes="(min-width: 1024px) 42vw, 100vw"
               className="object-cover transition duration-700 group-hover:scale-[1.04]"
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-stone-950/80 via-stone-950/20 to-transparent transition-opacity duration-500 group-hover:from-stone-950/70" />
+            <div className="absolute inset-0 bg-gradient-to-t from-stone-950/85 via-stone-950/25 to-transparent transition-opacity duration-700 group-hover:opacity-90" />
             <div className="absolute bottom-0 left-0 p-8">
               <h3 className="text-xl font-light text-white">{lifestyleTiles[1].title}</h3>
-              <p className="mt-1.5 text-sm text-stone-400">{lifestyleTiles[1].caption}</p>
+              <p className="mt-2 text-sm text-stone-400">{lifestyleTiles[1].caption}</p>
             </div>
           </div>
 
+          {/* Three smaller tiles */}
           {lifestyleTiles.slice(2).map((tile) => (
             <div
               key={tile.title}
@@ -423,54 +438,81 @@ export default function Home() {
                 sizes="(min-width: 1024px) 33vw, 100vw"
                 className="object-cover transition duration-700 group-hover:scale-[1.04]"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-stone-950/70 via-stone-950/10 to-transparent transition-opacity duration-500 group-hover:from-stone-950/60" />
+              <div className="absolute inset-0 bg-gradient-to-t from-stone-950/75 via-stone-950/15 to-transparent transition-opacity duration-700 group-hover:opacity-90" />
               <div className="absolute bottom-0 left-0 p-7">
                 <h3 className="text-lg font-light text-white">{tile.title}</h3>
-                <p className="mt-1 text-sm text-stone-400">{tile.caption}</p>
+                <p className="mt-1.5 text-sm text-stone-400">{tile.caption}</p>
               </div>
             </div>
           ))}
         </FadeUp>
       </section>
 
-      {/* ── Engineering (dark) ── */}
-      <section className="bg-stone-950 py-28 sm:py-36">
+      {/* ───────────────────────────────────────────────────────────
+          Engineering — editorial two-column statement
+      ─────────────────────────────────────────────────────────── */}
+      <section className="bg-stone-950 py-32 sm:py-44">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <FadeUp>
             <p className="text-xs font-medium uppercase tracking-[0.2em] text-stone-600">
               Инженерная составляющая
             </p>
-            <h2 className="mt-4 max-w-2xl text-3xl font-light text-white sm:text-4xl">
-              Инженерная outdoor-система
-              <br className="hidden sm:block" />
-              для современной архитектуры
-            </h2>
           </FadeUp>
-          <div className="mt-16 grid gap-x-8 gap-y-10 sm:grid-cols-2 lg:grid-cols-3">
-            {engineeringItems.map((item, i) => (
-              <FadeUp key={i} delay={i * 60} className="border-t border-stone-800 pt-8">
-                <h3 className="text-sm font-medium text-white">{item.title}</h3>
-                <p className="mt-3 text-sm leading-7 text-stone-500">{item.text}</p>
-              </FadeUp>
-            ))}
+
+          <div className="mt-10 grid gap-16 lg:grid-cols-[5fr_7fr] lg:gap-28 xl:gap-36">
+            {/* ── Left: editorial heading — sticky on desktop ── */}
+            <FadeUp delay={80} className="lg:sticky lg:top-32 lg:self-start">
+              <h2 className="text-4xl font-light leading-[1.1] text-white sm:text-5xl">
+                Outdoor-система,
+                <br />
+                спроектированная
+                <br />
+                для архитектуры
+              </h2>
+              <p className="mt-8 max-w-sm text-sm leading-8 text-stone-500">
+                Каждый элемент — от ламели до стойки —
+                решает конкретную инженерную задачу.
+                Форма следует за функцией.
+              </p>
+            </FadeUp>
+
+            {/* ── Right: numbered feature list ── */}
+            <div className="divide-y divide-stone-800/60">
+              {engineeringItems.map((item, i) => (
+                <FadeUp key={i} delay={i * 55} className="py-7 first:pt-0">
+                  <div className="flex gap-7">
+                    <span className="mt-0.5 w-6 shrink-0 text-xs font-medium tabular-nums text-stone-700">
+                      {String(i + 1).padStart(2, "0")}
+                    </span>
+                    <div>
+                      <h3 className="text-sm font-medium text-stone-200">{item.title}</h3>
+                      <p className="mt-2 text-sm leading-7 text-stone-500">{item.text}</p>
+                    </div>
+                  </div>
+                </FadeUp>
+              ))}
+            </div>
           </div>
         </div>
       </section>
 
-      {/* ── Delivery Process ── */}
-      <section className="bg-white py-28 sm:py-36">
+      {/* ───────────────────────────────────────────────────────────
+          Delivery — open grid, no boxes
+      ─────────────────────────────────────────────────────────── */}
+      <section className="bg-white py-24 sm:py-32">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <FadeUp>
             <p className="text-xs font-medium uppercase tracking-[0.2em] text-stone-400">
               Прозрачный процесс
             </p>
-            <h2 className="mt-3 text-3xl font-light text-stone-950 sm:text-4xl">
+            <h2 className="mt-4 text-3xl font-light text-stone-950 sm:text-4xl">
               Как устроена поставка UOGEL в Россию
             </h2>
           </FadeUp>
-          <div className="mt-14 grid gap-px bg-stone-100 sm:grid-cols-2 lg:grid-cols-4">
+
+          <div className="mt-16 grid gap-y-12 sm:grid-cols-2 sm:gap-x-10 lg:grid-cols-4 lg:gap-x-8">
             {deliverySteps.map((step, i) => (
-              <FadeUp key={step.num} delay={i * 70} className="bg-white px-8 py-10">
+              <FadeUp key={step.num} delay={i * 70}>
                 <span className="text-3xl font-light text-stone-200">{step.num}</span>
                 <h3 className="mt-5 text-base font-medium text-stone-950">{step.title}</h3>
                 <p className="mt-3 text-sm leading-7 text-stone-500">{step.text}</p>
@@ -480,7 +522,9 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ── Trust ── */}
+      {/* ───────────────────────────────────────────────────────────
+          Trust — clean dividers, no boxes
+      ─────────────────────────────────────────────────────────── */}
       <section className="bg-stone-50 py-16 sm:py-20">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <FadeUp>
@@ -491,46 +535,55 @@ export default function Home() {
               Почему схема под заказ подходит для проектных систем
             </h2>
           </FadeUp>
-          <FadeUp delay={100} className="mt-10 grid gap-px bg-stone-200 sm:grid-cols-2 lg:grid-cols-4">
-            {[
-              "Не ограничиваем клиента складскими остатками — система поставляется под конкретный проект.",
-              "Подбираем серию под параметры объекта: размеры, назначение и тип эксплуатации.",
-              "Согласуем размеры, опции и цвет профиля до размещения заказа.",
-              "Поставка организуется из производственной программы UOGEL под конкретную конфигурацию.",
-            ].map((text, i) => (
-              <div key={i} className="bg-white px-6 py-7">
-                <p className="text-sm leading-7 text-stone-600">{text}</p>
-              </div>
-            ))}
+
+          <FadeUp delay={100}>
+            <div className="mt-10 grid gap-8 sm:grid-cols-2 lg:grid-cols-4 lg:gap-0 lg:divide-x lg:divide-stone-200">
+              {[
+                "Не ограничиваем клиента складскими остатками — система поставляется под конкретный проект.",
+                "Подбираем серию под параметры объекта: размеры, назначение и тип эксплуатации.",
+                "Согласуем размеры, опции и цвет профиля до размещения заказа.",
+                "Поставка организуется из производственной программы UOGEL под конкретную конфигурацию.",
+              ].map((text, i) => (
+                <p
+                  key={i}
+                  className="text-sm leading-7 text-stone-600 lg:px-8 lg:first:pl-0 lg:last:pr-0"
+                >
+                  {text}
+                </p>
+              ))}
+            </div>
           </FadeUp>
         </div>
       </section>
 
-      {/* ── Final CTA ── */}
-      <section className="bg-white py-24 sm:py-28">
+      {/* ───────────────────────────────────────────────────────────
+          Final CTA — dark bookend (mirrors hero)
+      ─────────────────────────────────────────────────────────── */}
+      <section className="bg-stone-950 py-28 sm:py-36">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <FadeUp className="mx-auto max-w-2xl text-center">
-            <p className="text-xs font-medium uppercase tracking-[0.2em] text-stone-400">
+            <p className="text-xs font-medium uppercase tracking-[0.2em] text-stone-600">
               Следующий шаг
             </p>
-            <h2 className="mt-4 text-3xl font-light text-stone-950 sm:text-4xl">
-              Обсудить проект с консультантом
+            <h2 className="mt-5 text-3xl font-light text-white sm:text-4xl">
+              Обсудить ваш проект
             </h2>
-            <p className="mt-5 text-base leading-8 text-stone-500">
-              Подберём серию и конфигурацию из каталога UOGEL 2026, рассчитаем стоимость поставки в Россию.
+            <p className="mt-6 text-base leading-8 text-stone-400">
+              Подберём серию из каталога, рассчитаем комплектацию и стоимость
+              поставки под параметры вашего объекта.
             </p>
             <div className="mt-10 flex flex-wrap justify-center gap-4">
               <Link
                 href="/calculate"
-                className="rounded-full bg-stone-950 px-8 py-3.5 text-sm font-medium text-white transition hover:bg-stone-800"
+                className="rounded-full bg-white px-8 py-3.5 text-sm font-medium text-stone-950 transition-colors duration-200 hover:bg-stone-100"
               >
-                Получить консультацию
+                Обсудить проект
               </Link>
               <Link
                 href="/catalog"
-                className="rounded-full border border-stone-300 px-8 py-3.5 text-sm font-medium text-stone-600 transition hover:border-stone-400 hover:text-stone-950"
+                className="rounded-full border border-stone-700 px-8 py-3.5 text-sm font-medium text-stone-400 transition-colors duration-200 hover:border-stone-500 hover:text-white"
               >
-                Смотреть каталог
+                Открыть каталог
               </Link>
             </div>
           </FadeUp>
